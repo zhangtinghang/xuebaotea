@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>上课提醒</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_course{
+				padding:0 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				font-size: 0.416666rem;
+				color: #555555;
+				background-color: #FEFEFE;
+				height: 1.063888rem;
+				display: flex;
+				align-items: center;
+			}
+			.content_body{
+				padding-top: 0.388888rem !important;
+				width: 100%;
+				margin: 0;
+				padding: 0 5%;
+				background-color: #fefefe;
+			}
+			.list{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom: 0.388888rem;
+			}
+			.list span{
+				font-size: 0.388888rem;
+				color: #888888;
+			}
+			.list_left{
+				font-size: 0.416666rem !important;
+				color: #333333 !important;
+			}
+			
+			/*上课信息*/
+			.course_remind{
+				margin-top: 0.222222rem;
+			}
+			
+			.mui-btn{
+				width: 80%;
+				margin: 0.777777rem auto;
+				border-radius:42px;
+				background-color: #0dad95;
+				color: #FEFEFE;
+				font-size: 0.5rem;
+				height: 1.166666rem !important;
+				line-height: 0.5;
+				border: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="content_course">课程信息</div>
+			<div class="content_body">
+				<div class="list"><span class="list_left">课程名</span><span>语文</span></div>
+				<div class="list"><span class="list_left">老师</span><span>王老师</span></div>
+				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
+				<div class="list"><span class="list_left">问题类型</span><span>上课走神型</span></div>
+				<div class="list list_last"><span class="list_left">课程进度</span><span>8/10</span></div>
+			</div>
+			
+			<div class="content_course course_remind">上课信息</div>
+			<div class="content_body">
+				<div class="list"><span class="list_left">上课时间</span><span>今天09:00</span></div>
+				<div class="list"><span class="list_left">安排时长</span><span>120min</span></div>
+				<div class="list"><span class="list_left">上课模式</span><span>教师上门</span></div>
+				<div class="list list_last"><span class="list_left">上课地点</span><span>青城阳光1号楼2楼东户</span></div>
+			</div>
+			
+			<button type="button" class="mui-btn mui-btn-block">开始</button>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+			    //监听返回
+			    listenReturn();
+			})
+		</script>
+	</body>
+
+</html>

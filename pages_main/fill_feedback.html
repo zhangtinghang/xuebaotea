@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>上课提醒</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.mui-navigate-right:after{
+				display: none;
+			}
+			.mui-navigate-right{
+				display: flex !important;
+				align-items: center;
+				height: 1.166666rem;
+				padding:0 5% !important;
+			}.title_icon{
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.title_icon img{
+				width:0.263888rem;
+				height: 0.347222rem;
+			}
+			.title_text{
+				font-size: 0.416666rem;
+				margin-left: 0.166666rem;
+			}
+			.textarea_box{
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 2.777777rem;
+				border: none;
+				font-family: MicrosoftYaHei;
+				font-size: 0.388888rem;
+				color: #555555;
+			}
+			.mui-collapse-content{
+				margin: 0 !important;
+				padding: 2% 5% !important;
+				border-top:1px solid rgb(240,240,240);
+			}
+			.classRotate{
+				animation:classRotate 0.3s;
+				-webkit-animation:classRotate 0.3s;  /*Safari 和 Chrome */
+				animation-fill-mode:forwards;
+				-webkit-animation-fill-mode: forwards;
+			}
+			
+			@keyframes classRotate{
+				0%{
+					transform:rotateZ(0deg);
+				}
+				100%{
+					transform:rotateZ(90deg);
+				}
+			}		
+			@-webkit-keyframes classRotate{
+				0%{
+					-webkit-transform: rotateZ(0deg);
+				}
+				100%{
+					-webkit-transform: rotateZ(90deg);
+				}
+			}
+			.mui-table-view-cell{
+				padding:0;
+			}
+			.mui-table-view-cell.mui-active{
+				background-color: #FFFFFF;
+			}
+			.mui-table-view-cell:after{
+				display: none !important;
+			}
+			.line_box{
+				width: 100%;
+				height: 0.222222rem;
+				background-color: rgb(240,240,240);
+			}
+			.mui-table-view-cell>a:not(.mui-btn){
+				margin: 0;
+			}
+			.img_box{
+				padding-top:0.138888rem;
+			}
+			.img_box img{
+				width: 1.944444rem;
+				height: 1.944444rem;
+				margin: 0.138888rem;
+			}
+			
+			.mui-btn{
+				width: 80%;
+				margin: 0.777777rem auto;
+				border-radius:42px;
+				background-color: #0dad95;
+				color: #FEFEFE;
+				font-size: 0.5rem;
+				height: 1.166666rem !important;
+				line-height: 0.5;
+				border: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<ul id="mui-table-view" class="mui-table-view">
+				<li class="mui-table-view-cell mui-collapse mui-active">
+					<a class="mui-navigate-right" data-type = "0" href="#"><div class="title_icon classRotate"><img align="center" src="../images/main/teach_experience.png"/></div><div class="title_text">重点</div></a>
+					<div class="mui-collapse-content">
+						<textarea name="" class="textarea_box"></textarea>
+					</div>
+				</li>
+				
+				<li class="mui-table-view-cell mui-collapse">
+					<div class="line_box"></div>
+					<a class="mui-navigate-right" data-type="1" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">难点</div></a>
+					<div class="mui-collapse-content">
+						<textarea name="" class="textarea_box"></textarea>
+					</div>
+				</li>
+				
+				<li class="mui-table-view-cell mui-collapse">
+					<div class="line_box"></div>
+					<a class="mui-navigate-right" data-type="2" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">优点</div></a>
+					<div class="mui-collapse-content">
+						<textarea name="" class="textarea_box"></textarea>
+					</div>
+				</li>
+				
+				<li class="mui-table-view-cell mui-collapse">
+					<div class="line_box"></div>
+					<a class="mui-navigate-right" data-type="3" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">缺点</div></a>
+					<div class="mui-collapse-content">
+						<textarea name="" class="textarea_box"></textarea>
+					</div>
+				</li>
+				
+				<li class="mui-table-view-cell mui-collapse">
+					<div class="line_box"></div>
+					<a class="mui-navigate-right" data-type="4" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">作业</div></a>
+					<div class="mui-collapse-content">
+						<textarea name="" class="textarea_box"></textarea>
+						<div class="img_box">
+							<span><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /></span><img src="../images/main/js_grzx_fk.png" />
+						</div>
+					</div>
+				</li>
+			</ul>
+			
+			<button type="button" class="mui-btn mui-btn-block">发布</button>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+			    //监听返回
+			    listenReturn();
+			})
+			//遍历li
+			var mui_table_view =document.getElementById("mui-table-view");
+			var title_icon = mui_table_view.getElementsByClassName('title_icon');
+			var mui_collapse = mui('.mui-collapse');
+			mui('.mui-table-view').on('tap','.mui-navigate-right',function(){
+				var type = this.getAttribute('data-type');
+				if(this.parentNode.classList.contains('mui-active')){
+					title_icon[type].classList.remove('classRotate');
+				}else{
+					for(var i=0;i<title_icon.length;i++){
+						title_icon[i].classList.remove('classRotate');
+					}
+					title_icon[type].classList.add('classRotate');
+				}
+			})
+			
+		</script>
+	</body>
+</html>

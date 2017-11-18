@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title></title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			body,html{
+				background: rgba(255,255,255,1);
+			}
+			.content{
+				width: 80%;
+				margin: 0 auto;
+				background: rgba(255,255,255,1);
+			}
+			.avatar{
+				width: 100%;
+				height: 4.388888rem;
+				display: flex;
+				align-items: center;
+			}
+			.avatar_box{
+				height: 2.5rem;
+				width: 2.5rem;
+				background-color:rgb(27,130,209);
+				border-radius: 90px;
+				margin: 0 auto;
+			}
+			.avatar_box img{
+				width: 100%;
+				height: 100%;
+			}
+			.input{
+				display: flex;
+				justify-content:space-around;
+				flex-wrap: wrap;			
+				border-bottom: 1px solid rgba(240,240,240,1) !important;
+				margin-bottom: 0.555555rem;
+			}
+			.login_img{
+				width: 20%;
+				text-align: center;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.login_img >img{
+				width: 0.416666rem;
+				height: 0.416666rem;
+			}
+			.input_choose{
+				width: 80% !important;
+				border: none !important;
+				padding: 0 !important;
+				font-size: 0.444444rem !important;
+				color: rgb(136,136,136) !important;
+				margin-bottom: 0 !important;
+			}
+			
+			.forget{
+				float: right;
+				margin-bottom: 0.388888rem;
+				font-size: 0.333333rem;
+				color: rgba(100,100,100,1);
+			}
+			.clear{
+				clear: both;
+			}
+			.mui-btn{
+				background-color: rgb(27,130,209);
+				border-radius:42px;
+				color: rgb(255,255,255);
+				font-size: 0.5rem;
+			}
+			#register{
+				background-color: rgb(76,168,238);
+			}
+			.mui-btn-block{
+				padding: 12px 0;
+			}
+			#logins{
+				margin-bottom: 0.777777rem;				
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="avatar">
+				<div class="avatar_box"></div>
+			</div>
+			<div class="input phone">
+				<label class="login_img"><img src="../images/login/username.png" /></label>
+				<input type="text" class="input_choose" id="phone" placeholder="请输入手机号" />
+			</div>
+			<div class="input password">
+				<label class="login_img"><img src="../images/login/password.png" /></label>
+				<input type="password" class="input_choose" id="passwords" placeholder="请输入密码" />
+			</div>
+			<div id="forget" class="forget">忘记密码？</div>
+			<div class="clear"></div>
+			
+			<button type="button" id="logins" class="mui-btn mui-btn-block">登录</button>
+			<button type="button" id="register" class="mui-btn mui-btn-block">注册</button>
+
+		</div>
+		<!--引入环信SDK-->
+		<script type="text/javascript" src="../js/IM/webim.config.js" ></script>
+		<script type="text/javascript" src="../js/IM/strophe-1.2.8.min.js" ></script>
+		<script type="text/javascript" src="../js/IM/websdk-1.4.13.js" ></script>
+		<!--end-->
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				//清空缓存
+				app.removeState();
+			    var doc = {
+			    	phone:document.querySelector('#phone'),
+			    	passwords:document.querySelector('#passwords'),
+			    	register:document.querySelector('#register'),
+			    	login:document.querySelector('#logins'),
+			    	forget:document.querySelector('#forget')
+			    }
+			    //存入凭据
+			   var state = app.getState();
+				//登陆
+				doc.login.addEventListener('tap',function(){
+					app.login(doc,function(data){
+						if(data){
+							plus.nativeUI.toast(data);
+						}else{	
+							var ajaxData = {
+							url:'public/users/login',
+							data: {
+								userIdOrnumber:doc.phone.value,
+								password:doc.passwords.value
+							},
+							type:'post'
+							}
+							//环信登录相关
+							var options = {
+							    apiUrl: WebIM.config.apiURL,
+							    user: doc.phone.value,
+							    pwd: doc.passwords.value,
+							    appKey: WebIM.config.appkey,
+							    success: function (token) {
+							        var token = token.access_token;
+							        state.IM_token = token;
+							        state.phone = doc.phone.value;
+							        app.setState(state);
+							        mui.back();
+							    },
+							    error: function(data){
+							    	plus.nativeUI.toast('登录失败，请稍后再试！');
+							    }
+							};
+							
+							ajax(ajaxData, function(data) {
+								console.log(JSON.stringify(data))
+								if(data.code == 200){
+									plus.nativeUI.toast(data.msg);
+									state.data = data.data;
+							        app.setState(state);
+									//登录环信
+								 	conn.open(options);
+								}else{
+									plus.nativeUI.toast('登录失败，请稍后再试！');
+								}
+							});
+						}
+					});
+				},false)
+				
+				//注册
+				doc.register.addEventListener('tap',function(){
+					openView.incView('register.html','register','注册');
+				},false)
+				//忘记密码
+				
+				doc.forget.addEventListener('tap',function(){
+					openView.incView('register.html','register','忘记密码');
+				})
+			})
+			
+				
+		</script>
+	</body>
+
+</html>

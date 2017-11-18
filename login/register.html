@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title></title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			body,html{
+				background: rgba(255,255,255,1);
+			}
+			.content{
+				width: 80%;
+				margin: 0 auto;
+				background: rgba(255,255,255,1);
+				margin-top: 1.416666rem;
+			}
+			.input{
+				display: flex;
+				align-items: center;
+				margin-bottom: 0.555555rem;
+				position: relative;
+				border-bottom: 1px solid rgba(240,240,240,1) !important;
+			}
+			.login_img{
+				padding: 0 !important;
+				width: 24%;
+				color: rgb(51,51,51);
+				font-size: 0.444444rem;
+			}
+			input{
+				margin-bottom:0 !important;
+			}
+			.input_choose{
+				width: 70% !important;
+				border: none !important;
+				padding:0 10px !important;
+				font-size: 0.444444rem !important;
+				color: rgb(136,136,136) !important;
+			}
+			.mui-input-password{
+				padding: 0 !important;
+			}
+			#auth_code{
+				padding-right: 30% !important;
+			}
+			.auth_code{
+				position: absolute;
+				right: 0;
+				top: 0;
+				width: 30%;
+				background-color: rgb(27,130,209);
+				text-align: center;
+				margin-bottom: 20px;
+				font-size: 0.344444rem;
+				color: rgba(255,255,255,1);
+				padding: 6px 0;
+				border-radius:28px;
+			}
+			
+			.mui-btn{
+				background-color: rgb(76,168,238);
+				border-radius:42px;
+				box-shadow:none;
+				color: rgb(255,255,255);
+				font-size: 0.5rem;
+				line-height: 22px;
+				margin-top: 0.777777rem;
+			}
+			.mui-btn-block{
+				padding: 12px 0;
+			}
+			.login{
+				margin-top: 1.416666rem;
+				text-align: center;
+				color: rgb(27,130,209);
+				font-size: 0.333333rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<div class="input phone">
+				<label class="login_img">手机号</label>
+				<input type="text" pattern="/^1[0-9]{10}$/" class="input_choose" id="phone" placeholder="请输入手机号" />
+			</div>
+			<div class="input password">
+				<label class="login_img">验证码</label>
+				<input type="text" class="input_choose" id="auth_code" placeholder="获取验证码" />
+				<div class="auth_code" id="acquire_code">获取验证码</div>
+			</div>
+			<div class="input password mui-input-row mui-password">
+				<label class="login_img">输入密码</label>
+				<input type="password" class="input_choose mui-input-password" id="password" placeholder="请输入密码" />
+			</div>
+			<div class="input password mui-input-row mui-password">
+				<label class="login_img">确认密码</label>
+				<input type="password" class="input_choose mui-input-password" id="confirm_password" placeholder="请再次输入密码" />
+			</div>
+			<div class="input phone">
+				<label class="login_img">邀请码</label>
+				<input type="text" class="input_choose" id="Invitation_code" placeholder="请输入邀请码（可选）" />
+			</div>
+			
+			<button type="button" id="register" class="mui-btn mui-btn-block">注册</button>
+			<div class="login" id="login">已有学保账号？去登陆</div>
+		</div>
+		<!--引入环信SDK-->
+		<script type="text/javascript" src="../js/IM/webim.config.js" ></script>
+		<script type="text/javascript" src="../js/IM/strophe-1.2.8.min.js" ></script>
+		<script type="text/javascript" src="../js/IM/websdk-1.4.13.js" ></script>
+		<!--end-->
+		<script type="text/javascript" src="../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript">
+		mui.plusReady(function () {
+			var dc = {
+				phone:document.querySelector('#phone'),
+				auth_code:document.querySelector('#auth_code'),
+				password:document.querySelector('#password'),
+				confirm_password:document.querySelector('#confirm_password'),
+				Invitation_code:document.querySelector('#Invitation_code'),
+				register:document.querySelector('#register'),
+				login:document.querySelector('#login')
+			}
+			//点击发送验证码
+			var countdown = 60;
+			var acquire_code = document.getElementById("acquire_code");
+			acquire_code.addEventListener('tap',function(){
+				if(countdown != 60){
+					return;
+				}
+				if(!dc.phone.value){
+						plus.nativeUI.toast('请输入手机号！');
+					}else{
+						settime();
+						//APP后台发送短信
+						var ajaxData = {
+							url:'public/users/smsCode',
+							data: {
+								phone:dc.phone.value,
+							},
+							type: 'post'
+						};
+						ajax(ajaxData, function(data) {
+							if(data.code==200){
+								plus.nativeUI.toast(data.msg);
+							}else{
+								plus.nativeUI.toast('获取验证码出错，请稍后再试！');
+							}
+							
+						});
+					}
+			})
+			function settime(val) {
+				if(countdown == 0) {
+					acquire_code.innerHTML = "获取验证码";
+					countdown = 60;
+				} else {
+					acquire_code.innerHTML = "重新发送(" + countdown + ")";
+					countdown--;
+				}
+				setTimeout(function() {
+					settime(val)
+				}, 1000)
+			}
+			
+			//点击注册
+			dc.register.addEventListener('tap',function(){
+				//验证
+				app.reg(dc,function(data){
+					if(data){
+						plus.nativeUI.toast(data);
+					}else{
+						//APP后台注册
+						var ajaxData = {
+							url:'public/users/register',
+							data: {
+								type:'student',
+								phone:dc.phone.value,
+								smsCode:dc.auth_code.value,
+								password:dc.password.value
+							},
+							type: 'post'
+						};
+						//环信注册
+						var options = {
+						    username: dc.phone.value,
+						    password: dc.password.value,
+						    nickname: '学保Stu',
+						    appKey: WebIM.config.appkey,
+						    success: function (data) {
+						    	mui.back();
+						    },
+						    error: function (data) {
+						    	plus.nativeUI.toast('注册失败，请稍后再试！');
+						    },
+						    apiUrl: WebIM.config.apiURL
+						}; 
+
+						ajax(ajaxData, function(data) {
+							console.log(data)
+							if(data.code == 200){
+								plus.nativeUI.toast(data.msg);
+								//注册环信
+								 conn.registerUser(options);
+							}else{
+								//注册失败回调
+								plus.nativeUI.toast('注册失败，请稍后再试！');
+							}
+						});
+					}
+				});
+			})
+			
+			//返回登录
+			dc.login.addEventListener('tap',function(){
+				mui.back();
+			})
+		})
+			
+		</script>
+	</body>
+</html>

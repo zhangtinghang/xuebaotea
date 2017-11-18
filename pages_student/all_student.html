@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>课程订单</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			body,html{
+				height: 100%;
+				width: 100%;
+			}
+			/*班课样式*/
+			.content{
+				height: 100%;
+			}
+			.dot{
+				width: 0.097222rem;
+				height: 0.097222rem;
+				background-color: rgb(27,130,209);
+				border-radius:90px;
+				margin-right: 0.097222rem;
+			}
+			.list_ul{
+				padding-left: 5%;
+				background-color: #FEFEFE;
+				margin-bottom: 0.222222rem !important;
+			}
+			.list_ul li{
+				color: rgb(85,85,85);
+				font-size: 0.388888rem;
+				padding-bottom: 0.388888rem;
+			}
+			.list_ul li:first-child{
+				display: flex;
+				align-items: center;
+				font-size: 0.444444rem;
+				color: rgb(51,51,51);
+				padding:0.388888rem 0;
+			}
+			.list_ul li:last-child{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-size: 0.444444rem;
+			}
+			.list_ul li > span{
+				font-size: 0.388888rem;
+			}
+			.list_left_num{
+				color: rgb(27,130,209);
+				font-size: 0.416666rem;
+			}
+			.more_detail{
+				justify-content: center !important;
+				width: 80%;
+				margin: 0 auto;
+				border-top:2px solid #F0F0F0;
+				padding: 0.388888rem 0 !important;
+				font-size: 0.416666rem !important;
+				color: #333333 !important; 
+			}
+			
+			/*一对一样式*/
+			.one_box{
+				padding: 0.388888rem 0.388888rem;
+				background-color: #FFFFFF;
+				margin-bottom: 0.222222rem;
+			}
+			.box_head{
+				display: flex;
+				justify-content: space-between;
+				color: #555555;
+			}
+			.one_left{
+				width: 100%;
+				display: inline-flex;				
+			}
+			.one_right{
+				width: 30%;
+			}
+			.left_avatar{
+				width: 1.25rem;
+				height: 1.25rem;
+				overflow: hidden;
+				border-radius:90px;
+				background-color: rgb(240,240,240);
+				margin-right: 0.319444rem;
+			}
+			.left_avatar img{
+				width: 100%;
+				height: 100%;
+			}
+			.left_text{
+				width: 7.5rem;
+			}
+			.text_detail{
+				font-size: 0.388888rem;
+				color: #555555;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 0.541666rem !important;
+			}
+			.text_detail:last-child{
+				margin-bottom: 0 !important;
+			}
+			.text_detail_num{
+				font-size: 0.388888rem !important;
+				color: #555555 !important; 
+			}
+			.text_detail_num_money{
+				color: #fc8455;
+			}
+
+
+			/*框架样式调整*/
+			.mui-control-content {
+				background-color: white;
+				min-height: 300px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			#sliderProgressBar{
+				width: 30%;
+				margin-left: 10%;
+				height: 2px;
+				background-color: #0dad95;
+				margin-top: -1px;
+				margin-bottom: 0.097222rem;
+				position: relative;
+			}
+			.mui-active{
+				color: #0dad95 !important;
+			}
+			.mui-slider{
+				height: 100%;
+			}
+			.mui-scroll{
+				padding-bottom:1.794444rem;
+			}
+			.mui-control-content{
+				background-color: rgb(239,239,244);
+			}
+			.mui-slider-indicator.mui-segmented-control{
+				background-color: #FFFFFF;
+			}
+			.mui-slider-group{
+				height: 100% !important;
+			}
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{
+				border: none !important;
+			}
+			
+			/*顶部样式*/
+			.list_item{
+				width: 100%;
+				padding: 0.377777rem;
+				background-color: #FEFEFE;
+				padding-bottom: 0;
+				padding-top: 0.791666rem;
+			}
+			.list_item_ul{
+				display: flex;
+				align-items: center;
+			}
+			.list_item_ul li{
+				width: 33.33%;
+				text-align: center;
+				border-right: 2px solid rgba(220,220,220,0.8) ;
+			}
+			.list_item_ul li:last-child{
+				border: none;
+			}
+			.list_item_num{
+				font-size: 0.444444rem;
+				color: #333333;
+			}
+			.list_item_text{
+				color: #888888;
+				font-size: 0.388888rem;
+			}
+			/*补充样式*/
+			.gender_icon{
+				display: inline-flex;
+				align-items: center;
+				width: 50%;
+				color: #333333;
+			}
+			.gender_icon img{
+				width: 0.388888rem !important;
+				height: 0.388888rem !important;
+				margin-left: 0.138888rem;
+			}
+			.class_state{
+				font-size: 0.416666rem;
+				color: #888888;
+			}
+			.class_time{
+				color: #33c1a1;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<div id="slider" class="mui-slider">
+				<div class="list_item">
+				<ul class="list_item_ul">
+					<li>
+						<div class="list_item_num">10</div>
+						<div class="list_item_text">等级</div>
+					</li>
+					<li>
+						<div class="list_item_num">5468</div>
+						<div class="list_item_text">授课时长/分</div>
+					</li>
+					<li>
+						<div class="list_item_num">686</div>
+						<div class="list_item_text">学生数/人</div>
+					</li>
+				</ul>
+			</div>
+				<div id="sliderSegmentedControl" class=" mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#item1mobile">
+				上课中学生
+			</a>
+					<a class="mui-control-item" href="#item2mobile">
+				所有学生
+			</a>
+				</div>
+				<div id="sliderProgressBar"></div>
+				<div id="mui-slider-group" class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								
+								<div class="one_box">
+									<div class="box_head">
+										<div class="one_left">
+											<div class="left_avatar">
+												<img src="../images/main/teach_stu_head.png"/>
+											</div>
+											<div class="left_text">
+												<div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span></div>
+												<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+			    //监听返回
+			    listenReturn();   
+			})
+			
+			//DIV局部滚动
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			});
+			var html2 = '<div class="one_box"><div class="box_head"><div class="one_left"><div class="left_avatar"><img src="../images/main/teach_stu_head.png"/></div><div class="left_text"><div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span><span class="class_state">上课中</span></div><div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span></div></div></div></div></div>';
+			var item2 = document.getElementById('item2mobile');
+			
+			document.getElementById('slider').addEventListener('slide', function(e) {
+				if(e.detail.slideNumber === 0){
+					sliderProgressBar.style.marginLeft='10%';
+				}else if(e.detail.slideNumber === 1) {
+					sliderProgressBar.style.marginLeft='60%';
+					if (item2.querySelector('.mui-loading')) {
+						setTimeout(function() {
+							item2.querySelector('.mui-scroll').innerHTML = html2;
+						}, 500);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>上课中</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_course{
+				padding:0 5%;
+				display: flex;
+				align-items: center;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				font-size: 0.416666rem;
+				color: #555555;
+				background-color: #FEFEFE;
+				height: 1.194444rem;
+			}
+			.content_body{
+				width: 100%;
+				margin: 0;
+				padding: 0.222222rem 0.388888rem;
+				background-color: #fefefe;
+			}
+			.list{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom:0.388888rem;
+			}
+			.list_last{
+				padding-bottom: 0 !important;
+			}
+			.list span{
+				font-size: 0.388888rem;
+				color: #333333;
+			}
+			.list_left{
+				font-size: 0.416666rem !important;
+				color: #5555555;
+			}
+			.body_btn{
+				margin-top: 1.416666rem;
+			}
+			.mui-btn{
+				width: 80%;
+				margin: 0 auto;
+				margin-top: 0.777777rem;
+				border-radius:42px;
+				background-color: #0DAD95;
+				color: #FEFEFE;
+				font-size: 0.5rem;
+				height: 1.166666rem !important;
+				line-height: 0.5;
+				border: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="content_course">课程信息</div>
+			<div class="content_body">
+				<div class="list"><span class="list_left">年级</span><span>初一</span></div>
+				<div class="list"><span class="list_left">学生</span><span>王小明</span></div>
+				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
+				<div class="list"><span class="list_left">排课时长</span><span>120分钟</span></div>
+				<div class="list list_last"><span class="list_left">开始时间</span><span>09：20</span></div>
+			</div>
+			<div class="body_btn">
+				<button type="button" class="mui-btn mui-btn-block">结束</button>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+			    //监听返回
+			    listenReturn();
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>全局搜索</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.list_ul li{
+				height: 1.416666rem;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0.5rem 5%;
+				background-color: #FEFEFE;
+				border-bottom: 2px solid #F0F0F0;
+				font-size: 0.416666rem;
+				color: #555555;
+			}
+			.list_ul li:first-child{
+				border-bottom: 8px solid #F0F0F0;
+			}
+			.list_ul li:active{
+				background-color: rgb(240,240,240);
+			}
+			.right_btn{
+				display: flex;
+				align-items: center;
+				color: #0dad95;
+				font-size: 0.416666rem;
+			}
+			.right_btn img{
+				width: 0.194444rem;
+				height: 0.333333rem;
+				margin-left: 0.222222rem;
+			}
+			.mui-switch.mui-active{
+				background-color: #0dad95;
+				border-color: #0dad95;
+			}
+			
+			/*picker*/
+			.mui-btn {
+				font-size: 16px;
+				padding: 8px;
+				margin: 3px;
+			}
+			h5.mui-content-padded {
+				margin-left: 3px;
+				margin-top: 20px !important;
+			}
+			h5.mui-content-padded:first-child {
+				margin-top: 12px !important;
+			}
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+			.mui-poppicker{
+				background-color: #FFFFFF;
+			}
+			.mui-poppicker-body{
+				background-color: #FFFFFF;
+				border-top: none;
+			}
+			.mui-picker{
+				background-color: #FFFFFF;
+			}
+			.mui-pciker-rule-ft{
+				width: 70%;
+				margin-left: 15%;
+				border-top: 2px solid #bebebe;
+				border-bottom: 2px solid #bebebe;
+				height: 1.583333rem;
+			}
+			.mui-pciker-list li{
+				color: #88888;
+				font-size: 0.444444rem;
+			}
+			.mui-pciker-list{
+				height: 1.583333rem;
+				line-height:1.583333rem;
+			}
+			.mui-btn{
+				border: none;
+			}
+			.mui-poppicker{
+				box-shadow:none;
+			}
+			.mui-poppicker-header{
+				padding: 0.208888rem 0.138888rem;
+			}
+			.mui-btn-blue{
+				background-color: #FFFFFF;
+				color: #0DAD95;
+				font-size: 0.444444rem;
+			}
+			#showKilPicker{
+				visibility:visible;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="list_ul">
+				<li><span>全局搜索</span><span class="right_btn"><div id="global_btn" class="mui-switch mui-active"><div class="mui-switch-handle"></div></div></span></li>
+				<li id="showUserPicker"><span>上课方式</span><span class="right_btn"><span id="teacher_text">教师上门</span> <img src="../images/myself/chos_way.png" /></span></li>
+				<li id="showKilPicker"><span>上课距离</span><span class="right_btn"><span id="kilometer_text">3km </span><img src="../images/myself/chos_way.png" /></span></li>
+			</ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<!--<script type="text/javascript" src="../js/mui.picker.min.js" ></script>-->
+		<script src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				//开关控制
+			    var global_btn = document.getElementById("global_btn");
+				global_btn.addEventListener("toggle",function(event){
+				  if(event.detail.isActive){
+				    console.log("你启动了开关");
+				  }else{
+				    console.log("你关闭了开关");  
+				  }
+				});
+				//picker					
+			})
+			//顶部修改
+			var picker_title = document.getElementById("picker_title");
+			var userPicker = new mui.PopPicker();
+			userPicker.setData([{
+				value: 'teacher',
+				text: '教师上门'
+			}, {
+				value: 'student',
+				text: '学生上门'
+			}]);
+			//上课方式选择器
+			var showUserPickerButton = document.getElementById('showUserPicker');
+			var teacher_text = document.getElementById("teacher_text");
+					showUserPickerButton.addEventListener('tap', function(event) {
+						mui('#picker_title').innertext='';
+						mui('#picker_title').innertext='上课方式';
+						userPicker.show(function(items) {
+							var type = items[0].value;
+							switch (type){
+								case 'teacher':
+									teacher_text.innerHTML='教师上门';
+									showKilPicker.style.visibility="visible";
+									break;
+								case 'student':
+									teacher_text.innerHTML='学生上门';
+									showKilPicker.style.visibility="hidden";
+									break;
+								default:
+									break;
+							}
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+
+			//上课距离选择器
+			var kilPicker = new mui.PopPicker();
+			kilPicker.setData([{
+				value: '3',
+				text: '3km'
+			}, {
+				value: '5',
+				text: '5km'
+			}, {
+				value: '0',
+				text: '不限距离'
+			}]);
+			var showKilPicker = document.getElementById('showKilPicker');
+			var kilometer_text = document.getElementById("kilometer_text");
+					showKilPicker.addEventListener('tap', function(event) {
+						kilPicker.show(function(items) {
+							var type = items[0].value;
+							switch (type){
+								case '3':
+									kilometer_text.innerHTML='3km';
+									break;
+								case '5':
+									kilometer_text.innerHTML='5km';
+									break;
+								case '0':
+									kilometer_text.innerHTML='不限距离';
+									break;
+								default:
+									break;
+							}
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+		</script>
+	</body>
+
+</html>

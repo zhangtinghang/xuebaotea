@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>余额</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			body,html{
+				background-color: #fefefe;
+			}
+			.content{
+				position: relative;
+			}
+			.content_show{
+				padding-top:1.416666rem;
+				background-color: #FEFEFE;
+			}
+			.remaining_sum{
+				text-align: center;
+				color: #333333;
+				font-size: 0.444444rem;
+			}
+			.money{
+				font-size: 0.666666rem;
+				color: #333333;
+				text-align: center;
+				margin:0.383333rem 0;
+			}
+			
+			.evaluate_btn{
+				color: #1b82d1;
+				border: 1px solid #1b82d1;
+				padding: 0.061666rem 0.469444rem;
+				border-radius: 18px;
+				margin: 0 5%;
+				font-size: 0.388888rem;
+			}
+			.balance_btn{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="content_show">
+				<div class="remaining_sum balance">可用余额</div>
+				<div class="money balance">800.50</div>
+			</div>
+			<div class="balance_btn">
+				<span id="Recharge" class="evaluate_btn">提现</span>
+			</div>
+		</div>	
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				//事件监听
+				listenReturn();
+				listenNext('明细','touchBalance.html','touchBalance','余额明细');	
+			});
+		</script>
+	</body>
+
+</html>

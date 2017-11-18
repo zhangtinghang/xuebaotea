@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>服务消息</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.class_message{
+				width: 100%;
+				background-color: rgba(255,255,255,1);
+				margin-bottom: 0.111111rem;
+			}
+			.class_message:active{
+				background-color: rgb(240,240,240);
+			}
+			.message_title{
+				display: flex;
+				padding: 0.222222rem 5%;
+				align-items: center;
+			}
+			.title_img{
+				width: 0.75rem;
+				height: 0.75rem;
+			}
+			.title_img img{
+				width: 100%;
+				height: 100%;
+			}
+			.title_text{
+				padding-left: 0.388888rem;
+				font-size: 0.416666rem;
+				color: rgb(51,51,51);
+				
+			}
+			.title_time{
+				color: rgba(136,136,136,1);
+				padding-left: 0.222222rem;
+				font-size: 0.277777rem;
+			}
+			.message_body{
+				width: 100%;
+				padding-bottom: 0.388888rem;
+				display: flex;
+				justify-content: space-between;
+				color: rgba(136,136,136,1);
+			}
+			.body_choose{
+				color: rgba(85,85,85,1);
+				font-size: 0.388888rem;
+				margin-left:5%;
+				padding-left: 1.138888rem;
+			}
+			.body_detail{
+				color: rgb(136,136,136);
+				font-size: 0.277777rem;
+				padding-right: 5%;
+				display: inline-flex;
+				align-items: center;	
+			}
+			.body_detail img{
+				width: 0.166666rem;
+				height: 0.152777rem;
+				margin-left: 0.111111rem;
+			}
+			.detail_right{
+				width: 0.111111rem;
+				height: 0.097222rem;
+			}
+			.detail_right img{
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="class_message_box">
+		<div class="class_message" data-type="1">
+			<div class="message_title">
+				<div class="title_img"><img src="../images/main/icon_schooltime.png" /></div>
+				<div class="title_text">上课中</div>
+				<div class="title_time">16:54</div>
+			</div>
+			<div class="message_body">
+				<div class="body_choose">王小明一对一</div>
+				<div class="body_detail">查看详情  <img src="../images/main/look_detail_icon.png"/></div>
+			</div>
+		</div>
+		<div class="class_message" data-type="2">
+			<div class="message_title">
+				<div class="title_img"><img src="../images/main/icon_ktfk.png" /></div>
+				<div class="title_text">课堂反馈</div>
+				<div class="title_time">昨天 9:40</div>
+			</div>
+			<div class="message_body">
+				<div class="body_choose">填写王小明课堂反馈</div>
+				<div class="body_detail">查看详情  <img src="../images/main/look_detail_icon.png"/></div>
+			</div>
+		</div>
+		<div class="class_message" data-type="3">
+			<div class="message_title">
+				<div class="title_img"><img src="../images/main/icon_txcg.png" /></div>
+				<div class="title_text">提现成功</div>
+				<div class="title_time">2017-09-10 9:40</div>
+			</div>
+			<div class="message_body">
+				<div class="body_choose">提现成功</div>
+				<div class="body_detail">查看详情  <img src="../images/main/look_detail_icon.png"/></div>
+			</div>
+		</div>
+		<div class="class_message" data-type="4">
+			<div class="message_title">
+				<div class="title_img"><img src="../images/main/icon_sktx.png" /></div>
+				<div class="title_text">上课提醒</div>
+				<div class="title_time">2017-09-10 9:40</div>
+			</div>
+			<div class="message_body">
+				<div class="body_choose">王小明一对一9点开始</div>
+				<div class="body_detail">查看详情  <img src="../images/main/look_detail_icon.png"/></div>
+			</div>
+		</div>
+		
+		<div class="class_message" data-type="2">
+			<div class="message_title">
+				<div class="title_img"><img src="../images/main/icon_ktfk.png" /></div>
+				<div class="title_text">课堂反馈</div>
+				<div class="title_time">昨天 9:40</div>
+			</div>
+			<div class="message_body">
+				<div class="body_choose">收到反馈评价</div>
+				<div class="body_detail">查看详情  <img src="../images/main/look_detail_icon.png"/></div>
+			</div>
+		</div>
+	</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				//监听返回
+			    listenReturn();
+			    //服务消息
+				mui('#class_message_box').on('tap','.class_message',function(){
+					var type = this.getAttribute('data-type');
+					switch(type)
+						{
+						case '1':
+							openView.nativeView('in_class.html', 'in_class', '上课中');
+							break;
+						case '2':
+							openView.nativeView('pay_success.html', 'pay_success', '充值成功');
+							break;
+						case '3':
+							openView.nativeView('classroom_detail.html', 'classroom_detail', '课堂反馈详情');
+							break;
+						case '4':
+							openView.nativeView('Withdrawal_success.html', 'Withdrawal_success', '提现成功');
+							break;
+						case '5':
+							openView.nativeView('course_remind.html', 'course_remind', '上课提醒');
+							break;
+						case '6':
+							openView.nativeView('course_arrangement.html', 'course_arrangement', '课程安排');
+							break;
+						case '7':
+						openView.nativeView('indent_succ.html', 'indent_succ', '订单信息');
+						break;
+						default:
+						
+						}
+				});
+			})
+		</script>
+	</body>
+
+</html>

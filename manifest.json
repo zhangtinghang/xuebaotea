@@ -1,7 +1,7 @@
 {
 	"@platforms": ["android", "iPhone", "iPad"],
-	"id": "H538B32A4",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "3131231",/*应用名称，程序桌面图标名称*/
+	"id": "H5B63AEC7",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"name": "学保",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0.0",/*应用版本名称*/
 		"code": "83"
@@ -10,7 +10,7 @@
 	"icons": {
 		"72": "icon.png"
 	},
-	"launch_path": "index.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"launch_path": "pages_myself/global_earch.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
 	"developer": {
 		"name": "",/*开发者名称*/
 		"email": "",/*开发者邮箱地址*/
@@ -104,6 +104,140 @@
         }
 	},
 	"plus": {
+		"statusbar": {
+			"immersed": true,
+			"background": "rgba(77, 169, 239,1)"
+		},
+		"launchwebview": {
+			"bottom": "0px",
+			"background": "#fff",
+			"subNViews": [
+				{
+					"id": "tabBar",
+					"styles": {
+						"bottom": "0px",
+						"left": "0",
+						"height": "51px",
+						"width": "100%",
+						"backgroundColor": "#fff"
+					},
+					"tags": [
+						{
+							"tag": "img",
+							"id": "indexIcon",
+							"src": "_www/images/index/main_page.png",
+							"position": {
+								"top": "6px",
+								"left": "9%",
+								"width": "7%",
+								"height": "24px"
+							}
+						}, {
+							"tag": "font",
+							"id": "indexText",
+							"text": "首页",
+							"position": {
+								"top": "27px",
+								"left": "0",
+								"width": "25%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"align": "center",
+								"size": "10px",
+								"margin": "2px"
+							}
+						},{
+							"tag": "img",
+							"id": "messIcon",
+							"src": "_www/images/index/main_page_hover.png",
+							"position": {
+								"top": "6px",
+								"left": "34%",
+								"width": "7%",
+								"height": "24px"
+							}
+						}, {
+							"tag": "font",
+							"id": "messText",
+							"text": "消息",
+							"position": {
+								"top": "27px",
+								"left": "25%",
+								"width": "25%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"align": "center",
+								"size": "10px"
+							}
+						},{
+							"tag": "img",
+							"id": "stuIcon",
+							"src": "_www/images/index/my.png",
+							"position": {
+								"top": "6px",
+								"right": "34%",
+								"width": "7%",
+								"height": "24px"
+							},
+							"sprite": {
+								"top": "0",
+								"left": "0",
+								"width": "100%",
+								"height": "100%"
+							}
+						}, {
+							"tag": "font",
+							"id": "stuText",
+							"text": "学生",
+							"position": {
+								"top": "27px",
+								"right": "25%",
+								"width": "25%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"align": "center",
+								"size": "10px",
+								"margin": "6px"
+							}
+						},{
+							"tag": "img",
+							"id": "meIcon",
+							"src": "_www/images/index/my_hover.png",
+							"position": {
+								"top": "6px",
+								"right": "9%",
+								"width": "7%",
+								"height": "24px"
+							},
+							"sprite": {
+								"top": "0",
+								"left": "0",
+								"width": "100%",
+								"height": "100%"
+							}
+						}, {
+							"tag": "font",
+							"id": "meText",
+							"text": "我",
+							"position": {
+								"top": "27px",
+								"right": "0",
+								"width": "25%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"align": "center",
+								"size": "10px",
+								"margin": "6px"
+							}
+						}
+					]
+				}
+			]
+		},
 		"splashscreen": {
 			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
 			"waiting": true

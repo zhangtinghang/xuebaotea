@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>班课学生</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_ul{
+				width: 100%;
+			}
+			.content_ul li{
+				display: flex;
+				align-items: center;
+				border-bottom: 1px solid rgba(220,220,220,.3);
+				padding: 0.222222rem 0;
+				background-color: #FFFFFF;
+			}
+			.content_ul li:active{
+				background-color: rgb(240,240,240);
+			}
+			.list_avatar{
+				width: 20%;
+				text-align: center;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.list_avatar img{
+				width: 1.25rem;
+				height: 1.25rem;
+			}
+			.list_message{
+				width: 80%;
+			}
+			
+			.message_title{
+				font-size: 0.444444rem;
+				color: #555555;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="content_ul">
+				<li>
+					<div class="list_avatar">
+						<img src="../images/main/teach_stu_head.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">李小华</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/main/teach_stu_head.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">王小明</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/main/teach_stu_head.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">李广</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!--引入环信SDK-->
+		<script type="text/javascript" src="../js/IM/webim.config.js" ></script>
+		<script type="text/javascript" src="../js/IM/strophe-1.2.8.min.js" ></script>
+		<script type="text/javascript" src="../js/IM/websdk-1.4.13.js" ></script>
+		<!--end-->
+		
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/util.js" ></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function () {
+				//导航
+			    listenReturn();
+			    listenNext('联系人','linkman_contacts.html','linkman_contacts','联系人');
+			})
+		</script>
+	</body>
+
+</html>

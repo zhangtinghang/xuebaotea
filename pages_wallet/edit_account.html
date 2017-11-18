@@ -1,0 +1,294 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>充值</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.body_title{
+				background-color: #FEFEFE;
+				padding: 2% 5%;
+				border-bottom:2px solid rgba(240,240,240,1);
+			}
+			.body_list_ul li{
+				display: flex;
+				justify-content: space-between;
+				background-color: #FEFEFE;
+				align-items: center;
+				padding: 0.388888rem 0;
+				border-bottom:2px solid rgba(240,240,240,1);
+			}
+			.body_list_ul li:active{
+				background-color: rgb(240,240,240);
+			}
+			.list_left{
+				width: 50%;
+				padding-left: 5%;
+			}
+			.list_left span{
+				margin-left: 0.388888rem;
+			}
+			.list_left img{
+				width: 0.666666rem;
+				height: 0.666666rem;
+			}
+			.mui-btn{
+				width: 70% !important;
+				margin: 0.388888rem auto !important;
+				border-radius:28px;
+				height: 1.166666rem !important;
+				line-height:1;
+				padding: 0;
+				background-color: #0dad95;
+				color: #FFFFFF;
+				border: none;
+				margin-top: 0.777777rem !important;
+			}
+			.list_right{
+				display: flex;
+				align-items: center;
+				margin-right: 5%;
+			}
+			.list_right img{
+				width: 0.416666rem;
+			}
+			
+			.input_box{
+				display: flex;
+				padding: 0 5%;
+				background-color: #fff;
+				height: 1.166666rem;
+				border-bottom:2px solid rgba(240,240,240,1);
+				overflow: hidden;
+			}
+			.input_box label{
+				width: 30%;
+				display: inline-flex;
+				align-items: center;
+				background-color: #FFF;
+				border: none;
+				font-size: 0.444444rem;
+				color: #333333;
+			}
+			.input_box input{
+				width: 70%;
+				margin: 0;
+				border: none;
+				height: 1.166666rem;
+				line-height: 1.166666rem;
+				padding: 0;
+				font-size: 0.444444rem;
+				color: #333333;
+			}
+			.title-2{
+				margin-top: 0.222222rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="content_body">
+				<div class="body_title">选择账号类型</div>
+				<ul class="body_list_ul">
+					<li data-type = "1">
+						<div class="list_left">
+							<img align="center" src="../images/wallet/icon_wx.png" />
+							<span>微信支付</span>
+						</div>
+						<div class="list_right">
+							<img id="weixin" src="../images/wallet/choose.png" />
+						</div>
+					</li>
+					<li data-type = "2">
+						<div class="list_left">
+							<img align="center" src="../images/wallet/icon_zfb.png"/>
+							<span>支付宝支付</span>
+						</div>
+						<div class="list_right">
+							<img id="zhifubao" src="../images/wallet/no_choose.png" />
+						</div>
+					</li>
+				</ul>
+				
+				<div class="body_title title-2">请输入账号信息</div>
+				<div class="input_box">
+					<label>姓名</label>
+					<input type="text" id="" value="王中王" />
+				</div>
+				<div class="input_box">
+					<label>账号</label>
+					<input type="text" id="" value="17780632669" />
+				</div>
+			</div>
+		<button type="button" id="agreeRecharge" class="mui-btn mui-btn-block">完成</button>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			var pays={};
+			mui.plusReady(function () {
+			    //监听返回
+			    listenReturn();
+			    
+			    //点击事件
+			    var weixin = document.getElementById("weixin");
+			    var zhifubao = document.getElementById("zhifubao");
+			    var type ='1';
+			    mui('.body_list_ul').on('tap','li',function(){
+			    	type = this.getAttribute('data-type');
+			    	switch (type){
+			    		case '1':
+			    			weixin.src='../images/wallet/choose.png';
+			    			zhifubao.src='../images/wallet/no_choose.png'
+			    			break;
+			    		case '2':
+			    			weixin.src='../images/wallet/no_choose.png';
+			    			zhifubao.src='../images/wallet/choose.png'
+			    			break;
+			    		default:
+			    			break;
+			    	}
+			    });
+			    
+			    //支付
+			    var agreeRecharge = document.getElementById("agreeRecharge");
+			    var pay_money = document.getElementById("pay_money");
+			    var state = app.getState();
+			    var pays={};
+			    agreeRecharge.addEventListener('tap',function(){
+			    	getPay();
+			    })
+			    
+			    // 获取支付通道
+				function getPay(){
+				    plus.payment.getChannels(function(channels){
+				    	console.log(JSON.stringify(channels))
+				    	if(type ==='1'){
+				    		//遍历支付通道
+					        for(var i in channels){
+								var channel=channels[i];
+								if(channel.id == 'wxpay'){
+									pays[channel.id]=channel;
+									checkServices(channel);
+									pay(channel.id,channel);
+								}							
+							}
+				    	}else if(type === '2'){
+				    		console.log(JSON.stringify('这是1'))
+				    		//遍历支付通道
+					        for(var i in channels){
+								var channel=channels[i];
+								if(channel.id == 'alipay'){
+									pays[channel.id]=channel;
+									checkServices(channel);
+									pay(channel.id,channel);
+								}						
+							}
+				    	}				        
+				    },function(e){
+				        console.log("获取支付通道失败："+e.message);
+				    });
+				}
+			    
+			    var w=null;
+				var ALIPAYSERVER='restful1/payment/alipay/paymentrequest';
+				var WXPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';
+				// 支付
+				// 2. 发起支付请求
+				function pay(id,channel){
+					var channel = channel;
+				    // 从服务器请求支付订单
+				    var PAYSERVER='';
+				    if(id=='alipay'){
+				        PAYSERVER=ALIPAYSERVER;
+				    }else if(id=='wxpay'){
+				        PAYSERVER=WXPAYSERVER;
+				    }else{
+				        plus.nativeUI.alert("不支持此支付通道！",null,"捐赠");
+				        return;
+				    }
+				    //第三方服务器请求
+				    var getPassword = document.getElementById("getPassword");
+				    var key = state.data.key;
+				    var userId = state.data.id;
+				    var timestamp = Date.parse(new Date());
+				    var Num_money = pay_money.value;
+				    console.log('服务器请求数据',userId,Num_money,timestamp)
+				    var hashStr = userId+Num_money+timestamp;
+					var sortStr = sortArr(hashStr);
+					var hash = CryptoJS.HmacSHA1(sortStr,key);
+					getPassword.value = hash;
+				    var ajaxData = {
+						url:PAYSERVER,
+						data: {
+							value:Num_money,
+							userId:userId,
+							timestamp:timestamp,
+							token:getPassword.value
+						},
+						type:'post'
+						}
+				    ajax(ajaxData, function(data) {
+				    		callbackData=data.data;
+							requestPay(channel,callbackData);
+						});
+					// 请求支付操作
+					function requestPay(channel,callbackData){
+						console.log(JSON.stringify(channel))
+						console.log(JSON.stringify(callbackData))
+						// 必须从业务服务器获取支付信息
+						plus.payment.request(channel, callbackData, function(){
+							alert("支付操作成功！");
+						}, function(e){
+							alert("支付失败："+e.message);
+						} );
+					}
+				}
+							    
+			    // 检测是否安装支付服务
+				function checkServices(pc){
+					if(!pc.serviceReady){
+						var txt=null;
+						switch(pc.id){
+							case 'alipay':
+							txt='检测到系统未安装“支付宝快捷支付服务”，无法完成支付操作，请先安装客服端！';
+							break;
+							default:
+							txt='系统未安装“'+pc.description+'”服务，无法完成支付，请先安装客服端！';
+							break;
+						}
+						plus.nativeUI.confirm(txt, function(e){
+							if(e.index==0){
+								pc.installService();
+							}
+						}, pc.description);
+					}
+				}
+			    //协议
+			    var tap = false;
+			    var agreement_img = document.getElementById("agreement_img");
+			    agreement_img.addEventListener('tap',function(){
+			    	if(tap == false){
+			    		agreement_img.src='../images/wallet/choose.png';
+			    		tap =true;
+			    	}else{
+			    		agreement_img.src='../images/wallet/no_choose.png';
+			    		tap =false;
+			    	}
+			    })
+			})
+		</script>
+	</body>
+
+</html>

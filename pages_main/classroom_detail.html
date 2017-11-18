@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>课堂反馈详情</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_course{
+				padding: 0 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				font-size: 0.416666rem;
+				color: #333333;
+				background-color: #FEFEFE;
+				height: 1.194444rem;
+				display: flex;
+				align-items: center;
+			}
+			.detail_list{
+				display: flex;
+				background-color: #FEFEFE;
+				padding-top: 0.388888rem;
+			}
+			.detail_list:last-child{
+				padding-bottom: 0.138888rem;
+			}
+			.list_left{
+				width: 20%;
+				text-align: center;
+				font-size: 0.444444rem;
+				color: #555555;
+			}
+			.list_right{
+				width: 80%;
+				font-size: 0.388888rem;
+				color: #333333;
+				padding-top: 1%;
+				padding-right: 2%;
+			}
+			.list_right img{
+				margin: 0 1%;
+				border-radius: 4px;
+				width: 1.666666rem;
+				height: 1.722222rem;
+			}
+			
+			/*评价*/
+			.evaluate{
+				padding: 0.207777rem 0;
+				text-align: left;
+				padding-left:5%;
+				background-color: #FEFEFE;
+				border-top:2px solid rgba(220,220,220,.5);
+				color: #333333;
+				font-size: 0.333333rem;
+				border-bottom:2px solid rgba(220,220,220,.5);
+			}
+			.commit_ul{
+				padding: 0 5%;
+				background-color: #FEFEFE;
+				padding-top: 0.222222rem;
+			}
+			.commit_ul li{
+				padding-bottom: 0.222222rem;
+				display: flex;
+			}
+			.commit_per{
+				width: 30%;
+			}
+			.commit_per>span{
+				color: #0dad95;
+			}
+			.commit_text{
+				width: 60%;
+			}
+			.commit_ul li>span{
+				color: #1B82D1;
+				padding-right:1%;
+			}
+			.footer{
+				position: fixed;
+				bottom: 0;
+				display: flex;
+				background-color: #FFFFFF;
+				padding: 0.222222rem;
+				width: 100%;
+				align-items: center;
+				height: 1.222222rem;
+			}
+			.footer input{
+				margin: 0 !important;
+				padding: 0 !important;
+				border: none;
+				background-color: #F0F0F0;
+				width: 80%;
+				height: 0.777777rem;
+				border-radius:8px;
+				color: #333333;
+				padding-left: 3% !important;
+			}
+			.foot-btn{
+				height: 0.777777rem;
+				width: 15%;
+				margin-left: 3%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 0.444444rem;
+				color: #FFFFFF;
+				border-radius:5px;
+				background-color: rgb(190,190,190);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="footer">
+			<input type="text" id="" value="" />
+			<div class="foot-btn">发送</div>
+		</div>
+		<div class="content">
+			<div class="content_course">语文课反馈</div>
+			<div class="detail_box">
+				<div class="detail_list">
+					<div class="list_left">重点:</div>
+					<div class="list_right">本节课的重点在于对文言文的特殊语句的区分。</div>
+				</div>
+				<div class="detail_list">
+					<div class="list_left">难点:</div>
+					<div class="list_right">祈使句使用。</div>
+				</div>
+				<div class="detail_list">
+					<div class="list_left">优点:</div>
+					<div class="list_right">学生对于祈使句理解有难度。</div>
+				</div>
+				<div class="detail_list">
+					<div class="list_left">缺点:</div>
+					<div class="list_right">多加练习。</div>
+				</div>
+				<div class="detail_list">
+					<div class="list_left">作业:</div>
+					<div class="list_right">文言文翻译。</div>
+				</div>
+				<div class="detail_list">
+					<div class="list_left"></div>
+					<div class="list_right"><img src="../images/wallet/icon_wx.png"></div>
+				</div>
+			</div>
+			<div class="evaluate">
+				学生评论
+			</div>
+			<div class="commit">
+				<ul class="commit_ul">
+					<li><div class="commit_per"><span>王小明：</span></div><div class="commit_text">老师很负责，上课讲的很好老师很负责，上课讲的很好</div></li>
+					<li><div class="commit_per"><span>我</span> 回复<span> 王小明：</span class="commit_text"></div><div>好好复习。</div></li>
+				</ul>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function (){
+				//监听返回
+			    listenReturn();
+				
+			    document.getElementById("comment_btn").addEventListener('tap',function(){
+			    	//传参
+			    	openView.nativeView('comment.html', 'comment', '发表评论');
+			    })
+			})
+		</script>
+	</body>
+
+</html>
