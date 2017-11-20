@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>课程详情</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_course{
+				padding:0 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				font-size: 0.416666rem;
+				color: #555555;
+				background-color: #FEFEFE;
+				height: 1.063888rem;
+				display: flex;
+				align-items: center;
+			}
+			.content_body{
+				padding-top: 0.388888rem !important;
+				width: 100%;
+				margin: 0;
+				padding: 0 5%;
+				background-color: #fefefe;
+			}
+			.list{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom: 0.388888rem;
+			}
+			.list span{
+				font-size: 0.388888rem;
+				color: #888888;
+			}
+			.list_left{
+				font-size: 0.416666rem !important;
+				color: #333333 !important;
+			}
+			
+			/*上课信息*/
+			.course_remind{
+				margin-top: 0.222222rem;
+				justify-content: space-between;
+			}
+			.course_remind:active{
+				background-color: rgb(240,240,240);
+			}
+			
+			.feedback {
+				color: #888888;
+				border: 2px solid #888888;
+				border-radius: 18px;
+				padding: 0 0.138888rem;
+				margin-left: 0.375rem;
+				font-size: 0.333333rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="content_course">课程信息</div>
+			<div class="content_body">
+				<div class="list"><span class="list_left">年级</span><span>初一</span></div>
+				<div class="list"><span class="list_left">学生</span><span>王小明</span></div>
+				<div class="list"><span class="list_left">课程类型</span><span>一对一</span></div>
+				<div class="list"><span class="list_left">问题类型</span><span>上课走神型</span></div>
+			</div>
+			
+			<div class="content_course course_remind">消费信息</div>
+			<div class="content_body">
+				<div class="list"><span class="list_left">上课日期</span><span>2017-10-10</span></div>
+				<div class="list"><span class="list_left">时间区间</span><span>09:20-10:20</span></div>
+				<div class="list"><span class="list_left">教学时间</span><span>59min</span></div>
+				<div class="list"><span class="list_left">教学收入</span><span>180.5学保币</span></div>
+			</div>
+			
+			<div id="courseFeedback" class="content_course course_remind">课堂反馈<span class="feedback">已反馈</span></div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				//监听返回
+			    listenReturn();
+				//课堂反馈
+			    document.getElementById("courseFeedback").addEventListener('tap',function(){
+			    	openView.nativeView('../pages_index/classroom_detail.html','classroom_detail','课堂反馈详情');
+			    })
+			})
+		</script>
+	</body>
+
+</html>

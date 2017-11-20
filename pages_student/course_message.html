@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>课程详情</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_course{
+				padding:0 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				font-size: 0.416666rem;
+				color: #555555;
+				background-color: #FEFEFE;
+				height: 1.063888rem;
+				display: flex;
+				align-items: center;
+			}
+			.content_body{
+				padding-top: 0.388888rem !important;
+				width: 100%;
+				margin: 0;
+				padding: 0 5%;
+				background-color: #fefefe;
+			}
+			.content_body_ul{
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				background-color: #fefefe;
+			}
+			.list{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom: 0.388888rem;
+			}
+			
+			.list span{
+				font-size: 0.388888rem;
+				color: #888888;
+			}
+			.list_left{
+				font-size: 0.416666rem !important;
+				color: #333333 !important;
+				width: 70%;
+			}
+			.list_li{
+				display: flex;
+				padding: 0 5%;
+				justify-content: space-between;
+				align-items: center;
+				height: 1.277777rem;
+				border-bottom: 2px solid rgb(240,240,240);
+			}
+			.list_li:active{
+				background-color: rgb(230,230,230);
+			}
+			.list_li span{
+				font-size: 0.388888rem;
+				color: #888888;
+			}
+			
+			/*上课信息*/
+			.course_remind{
+				margin-top: 0.222222rem;
+			}
+			
+			.right_icon{
+				display: block;
+			}
+			.right_icon img{
+				width: 0.472222rem;
+				height: 0.472222rem;
+			}
+			.course_message{
+				color: #0DAD95 !important;
+				margin-left: 15%;
+			}
+			.message_time{
+				border: 2px solid #0DAD95;
+				padding: 0 0.138888rem;
+				border-radius:18px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="content_course">课程信息</div>
+			<div class="content_body">
+				<div class="list"><span class="list_left">年级</span><span>初一</span></div>
+				<div class="list"><span class="list_left">学生</span><span>王小明</span></div>
+				<div class="list"><span class="list_left">课程类型</span><span>一对一</span></div>
+				<div class="list"><span class="list_left">问题类型</span><span>上课走神型</span></div>
+			</div>
+			
+			<div class="content_course course_remind">其他信息</div>
+			<ul class="content_body_ul">
+				<li class="list_li"><span class="list_left">上课日期<span class="course_message">2017年11月11日</span></span><span class="right_icon"><img src="../images/main/edit_arrange.png" /></span></li>
+				<li class="list_li"><span class="list_left">上课时间<span class="course_message message_time">9:20-11:20</span></span><span class="right_icon"><img src="../images/main/edit_arrange.png" /></span></li>
+				<li class="list_li"><span class="list_left">上课地点<span class="course_message">东软店</span></span><span class="right_icon"><img src="../images/main/edit_arrange.png" /></span></li>
+			</ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				//监听返回
+			    listenReturn();
+				//课堂反馈
+			    document.getElementById("courseFeedback").addEventListener('tap',function(){
+			    	openView.nativeView('../pages_index/classroom_detail.html','classroom_detail','课堂反馈详情');
+			    })
+			})
+		</script>
+	</body>
+
+</html>
