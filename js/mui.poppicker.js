@@ -7,7 +7,7 @@
  */
 
 (function($, document) {
-
+	var titleData = '';
 	//创建 DOM
 	$.dom = function(str) {
 		if (typeof(str) !== 'string') {
@@ -24,16 +24,7 @@
 		return [].slice.call($.__create_dom_div__.childNodes);
 	};
 
-	var panelBuffer = '<div class="mui-poppicker">\
-		<div class="picker_title" id="picker_title">上课选择</div>\
-		<div class="mui-poppicker-body">\
-		</div>\
-		<div class="mui-poppicker-header">\
-			<button class="mui-btn mui-poppicker-btn-cancel">取消</button>\
-			<button class="mui-btn mui-btn-blue mui-poppicker-btn-ok">确定</button>\
-			<div class="mui-poppicker-clear"></div>\
-		</div>\
-	</div>';
+	
 
 	var pickerBuffer = '<div class="mui-picker">\
 		<div class="mui-picker-inner">\
@@ -49,6 +40,18 @@
 		//构造函数
 		init: function(options) {
 			var self = this;
+			titleData=options || '';
+			var panelBuffer = '<div class="mui-poppicker">\
+				<div class="picker_title" id="picker_title">'+titleData+'</div>\
+				<div class="mui-poppicker-body">\
+				</div>\
+				<div class="mui-poppicker-header">\
+					<button class="mui-btn mui-poppicker-btn-cancel">取消</button>\
+					<button class="mui-btn mui-btn-blue mui-poppicker-btn-ok">确定</button>\
+					<div class="mui-poppicker-clear"></div>\
+				</div>\
+			</div>';
+			options = null;
 			self.options = options || {};
 			self.options.buttons = self.options.buttons || ['取消', '确定'];
 			self.panel = $.dom(panelBuffer)[0];

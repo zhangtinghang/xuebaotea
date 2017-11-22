@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>排课</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.nav_title {
+				width: 100%;
+				height: 0.763888rem;
+				display: flex;
+				align-items: center;
+				background-color: rgba(255, 255, 255, 1);
+			}
+			
+			.nav_line {
+				width: 3px;
+				background-color: #0dad95;
+				height: 0.436666rem;
+				margin-left: 5%;
+			}
+			
+			.nav_serve {
+				width: 50%;
+				margin-left: 0.222222rem;
+				color: #333333;
+				font-size: 0.388888rem;
+			}
+			
+			.body_list {
+				background-color: #FEFEFE;
+				padding: 0;
+			}
+			
+			.body_list_ul li {
+				padding: 0 5%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				height: 1.416666rem;
+				font-size: 0.444444rem;
+				color: rgb(51, 51, 51);
+				border-bottom: 2px solid rgb(240,240,240);
+			}
+			
+			.list_right {
+				color: rgb(136, 136, 136);
+			}
+			.list_right > input{
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 1.216666rem;
+				border: none;
+			}
+			.list_right > input::-webkit-input-placeholder{
+				font-size: 0.416666rem;
+				color: #888888;
+			}
+
+			/*按钮样式调整*/
+			
+			.right_btn {
+				display: flex;
+				align-items: center;
+				border: 2px solid #0dad95;
+				border-radius: 28px;
+				overflow: hidden;
+			}
+			
+			.mui-numbox {
+				display: flex;
+				align-items: center !important;
+				justify-content: center !important;
+				width: 3.611111rem !important;
+				height: 0.777777rem !important;
+				padding: 0 !important;
+				border: none;
+				border-radius: 0 !important;
+				background-color: #FEFEFE;
+			}
+			
+			.mui-input-numbox {
+				color: #0dad95;
+			}
+			
+			.mui-numbox .mui-input-numbox {
+				border-left: 1px solid #0dad95 !important;
+				border-right: 1px solid #0dad95 !important;
+			}
+			
+			.btn_box {
+				background-color: #FEFEFE !important;
+				display: flex;
+				position: relative !important;
+				justify-content: center;
+				text-align: center;
+				font-size: 0.65rem !important;
+				width: 100% !important;
+				padding: 0.0328888rem 0 !important;
+				color: #0dad95 !important;
+			}
+			.come_icon img{
+				width: 0.25rem;
+				height: 0.444444rem;
+			}
+			.btn_box:active {
+				background-color: rgb(240, 240, 240);
+			}
+			
+			.substract_btn {
+				width: 0.277777rem;
+				height: 0.027777rem;
+				margin-top: 0.357777rem;
+			}
+			
+			.add_btn {
+				width: 0.277777rem;
+				height: 0.277777rem;
+				margin-top: 0.217777rem;
+			}
+			.right_choose{
+				width: 70%;
+			}
+			.comment_btn{
+				text-align: right;
+			}
+			.comment_btn span{
+				padding-bottom: 0.067777rem;
+			}
+			.evaluate_btn{
+				color: rgb(190,190,190);
+				border: 1px solid rgb(190,190,190);
+				padding: 0.111111rem 0.222222rem;
+				border-radius: 18px;
+				margin: 0 0.5%;
+			}
+			.class_add_btn{
+				color: #FFFFFF !important;
+				background-color: #fc8455;
+				border:1px solid #fc8455 !important;
+			}
+			.left_site{
+				padding-left:0.388888rem;
+				color: #555555;
+			}
+			.nav_add_class{
+				text-align: right;
+				padding-right: 5%;
+				font-size: 0.388888rem;
+				color: #333333;
+			}
+			.nav_title_2{
+				margin-top: 0.222222rem;
+			}
+			/*课程安排*/
+			.course_ul{
+				width: 100%;
+			}
+			.course_ul li{
+				display: flex;
+				align-items: center;
+				padding:4% 2%;
+				position: relative;
+				border-top:1px solid rgba(220,220,220,.5);
+				background-color: #FFFFFF;
+			}
+			.course_ul li:last-child{
+				display: flex;
+				justify-content: center;
+				font-size: 0.416666rem;
+				color: #888888;
+			}
+			.course_ul li >span{
+				padding-left: 0.388888rem;
+				font-size: 0.388888rem;
+			}
+			.course_time{
+				margin-left: 0.388888rem;
+				padding: 0 0.338888rem !important;
+				border: 2px solid #0dad95;
+				border-radius:18px;
+				color: #0dad95;
+			}
+			.course_place{
+				display: flex;
+				justify-content: space-between;
+				position: absolute;
+				right: 5%;
+				color: #555555;
+				width: 23%;
+				top: 0.508888rem;
+			}
+			.course_place span>img{
+				width: 0.472222rem;
+				height: 0.472222rem;
+			}
+			.fast_add{
+				font-size: 0.416666rem;
+				color: #888888;
+			}
+			.fast_add img{
+				width: 0.347222rem;
+				height: 0.347222rem;
+				margin-left: 0.111111rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="nav_title">
+				<div class="nav_line"></div>
+				<span class="nav_serve">课程信息</span>
+			</div>
+			<div class="body_list">
+				<ul class="body_list_ul">
+					<li><span>剩余排课时间</span><span class="list_right come_icon">600分钟</span></li>
+					<li><span>课程节数</span><span class="list_right right_btn">
+							<div class="mui-numbox" data-numbox-step='50' data-numbox-min='0' >
+								<div class="btn_box mui-btn-numbox-minus" type="button"><img class="substract_btn" src="../images/main/substract.png" /></div>
+								<input id="num" readonly="readonly" class="mui-input-numbox" type="number" />
+								<div class="btn_box mui-btn-numbox-plus" type="button"><img class="add_btn" src="../images/main/add.png" /></div>
+							</div>
+					</span></li>
+					<li><span>授课地址<span class="left_site">荣成国际培训机构</span></span><span class="list_right come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></span></li>
+				</ul>
+			</div>
+		<div class="nav_title nav_title_2">
+			<div class="nav_line"></div>
+			<span class="nav_serve">课程安排</span>
+			<sapn class="nav_serve nav_add_class">新增</sapn>
+		</div>
+		
+		<ul class="course_ul">
+			<li><span>1</span><span>10月29日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><img src="../images/main/edit_arrange.png" /></span><span><img src="../images/main/delete.png"/></span></span></li>
+			<li><span>2</span><span>10月30日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><img src="../images/main/edit_arrange.png" /></span><span><img src="../images/main/delete.png"/></span></span></li>
+			<li><span class="fast_add">快速排课<img src="../images/main/fast_add.png" /></span></li>
+		</ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+			    //监听返回
+			    listenReturn();
+			    //监听值改变
+		     	var numBox=document.getElementById("num");
+		     	 var left_text = document.getElementById("left_text");
+				numBox.addEventListener('change',function(){
+					 left_text.innerText = numBox.value*20;
+					console.log(numBox.value);
+				});
+				
+				 //单选框
+			   var list_ul = document.getElementById("list_ul");
+			   var list_li = document.getElementsByClassName('evaluate_btn');
+			   mui('.comment_btn').on('tap','.evaluate_btn',function(){
+				   	for(var i=0;i<list_li.length;i++){
+				   		list_li[i].classList.remove('add_btn');
+				   	}
+				   	var that = this;
+				   	if(that.classList.contains('add_btn')){
+				   		that.classList.remove('add_btn');
+				   	}else{
+				   		that.classList.add('add_btn');
+				   	}	
+			   });
+			})
+		</script>
+	</body>
+
+</html>

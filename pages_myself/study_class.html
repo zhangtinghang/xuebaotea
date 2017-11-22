@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>教学年级</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.list_ul{
+				display: flex;
+				flex-wrap: wrap;
+				background-color: #FFFFFF;
+				padding-top: 0.791666rem;
+			}
+			.list_ul li{
+				width: 33.333%;
+				display: inline-flex;
+				align-items: center;
+				padding-left: 0.777777rem;
+				padding-bottom: 0.791666rem;
+			}
+			.list_ul li>img{
+				width: 0.402777rem;
+				height: 0.388888rem;
+			}.list_ul li>span{
+				margin-left: 0.138888rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="list_ul">
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>幼小</span>
+				</li>
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>一年级</span>
+				</li>
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>二年级</span>
+				</li>
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>三年级</span>
+				</li>
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>四年级</span>
+				</li>
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>五年级</span>
+				</li>
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>六年级</span>
+				</li>
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>初一</span>
+				</li>
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>初二</span>
+				</li>
+				
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>初三</span>
+				</li>
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>高一</span>
+				</li>
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>高二</span>
+				</li>
+				<li>
+					<img src="../images/myself/kspk_no.png"/>
+					<span>高三</span>
+				</li>
+			</ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			
+			//复选框
+			   mui('.list_ul').on('tap','img',function(){
+				   	var that = this;
+				   	//lastIndexOf返回一个指定的字符串值最后出现的位置
+				   	var imgName = that.src.substr(that.src.lastIndexOf('/') + 1); 
+				   if(imgName =='kspk_no.png'){
+				   		that.src="../images/myself/kspk_yes.png"
+				   }else{
+				   		that.src="../images/myself/kspk_no.png"
+				   } 	
+			   })
+		</script>
+	</body>
+
+</html>

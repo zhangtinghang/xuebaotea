@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>邀请码</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet"/>
+		<style>
+			.list_ul li{
+				padding: 0 0.388888rem;
+				height: 1.416666rem;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				background-color: #FEFEFE;
+				font-family: MicrosoftYaHei;
+				font-size: 0.416666rem;
+				color: #333333;
+				border-bottom: 1px solid rgba(240,240,240,1) !important;
+				
+			}
+			.list_ul li>input{
+				margin: 0;
+				padding: 0;
+				border: none;
+				width: 75%;
+				height: 1.388888rem;
+				font-size: 0.416666rem;
+				color: #555555;
+			}
+			.list_li_right img{
+				width: 0.166666rem;
+				height: 0.291666rem;
+			}
+			.photoImg img{
+				width: 0.583333rem;
+				height: 0.527777rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="list_ul">
+				<li>教师姓名 <input type="text" /></li>
+				<li>教师宣言<input type="text" /></li>
+				<li><span>教学年级</span><span class="list_li_right"><img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
+				<li><span>个人简历</span><span class="list_li_right"><img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
+				<li><span>个人照片</span><span class="list_li_right photoImg"><img src="../images/myself/upload_photo.png" /></span></li>
+			</ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+			    //监听返回
+			    listenReturn();
+			})
+		</script>
+	</body>
+
+</html>

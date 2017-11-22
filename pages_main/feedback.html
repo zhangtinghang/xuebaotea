@@ -10,7 +10,7 @@
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<style>
 			body,html{
-				background-color: #FEFEFE;
+				background-color: #EFEFF4;
 			}
 			.write_text{
 				height: 4.166666rem;
@@ -26,6 +26,7 @@
 				align-items: center;
 				flex-wrap: wrap;
 				padding-left: 0.5rem;
+				background-color: #FFFFFF;
 			}
 			.addImg_box{
 				width: 1.944444rem;
@@ -73,32 +74,50 @@
 				width: 80%;
 				margin: 0.777777rem auto;
 				border-radius:42px;
-				background-color: #0DAD95;
+				background-color: #0dad95;
 				color: #FEFEFE;
 				font-size: 0.5rem;
 				height: 1.166666rem !important;
-				line-height: 0.8;
+				line-height: 0.5;
 				border: none;
+			}
+			.heade_title{
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+				height: 1.416666rem;
+				border-bottom: 1px solid rgb(240,240,240);
+				background-color: #FFFFFF;
+				font-size: 0.416666rem;
+				color: #333333;
+			}
+			.heade_title input{
+				margin: 0 !important;
+				padding: 0 !important;
+				width: 80%;
+				border: none;
+				font-size: 0.416666rem;
+				color: #888888;
+			}
+			.content{
+				background-color: #FFFFFF;
 			}
 		</style>
 	</head>
 
 	<body>
 		<div class="content">
-			<textarea class="write_text" placeholder="请简单描述遇到的问题"></textarea>
+			<div class="heade_title">
+				标题 <input type="text" name="" id="" value="" placeholder="请输入你的标题" />
+			</div>
+			<textarea class="write_text" placeholder="说点什么吧..."></textarea>
 			<div class="addImg">
 				<div class="addImg_box">
-					<img src="../images/myself/icon_tptj.png" />
-				</div>
-				<div class="addImg_text">添加图片说明</div>				
+					<img src="../images/main/icon_tptj.png" />
+				</div>			
 			</div>
-			<div class="link_me">
-				<label>联系电话</label>
-				<input type="tel" name="" id="" value="" placeholder="选填，方便我们联系你" />
-			</div>
-			
-			<button type="button" class="mui-btn mui-btn-block">提交</button>
 		</div>
+		<button type="button" class="mui-btn mui-btn-block">发布动态</button>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">

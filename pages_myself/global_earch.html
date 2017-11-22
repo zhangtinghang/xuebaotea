@@ -135,7 +135,7 @@
 			})
 			//顶部修改
 			var picker_title = document.getElementById("picker_title");
-			var userPicker = new mui.PopPicker();
+			var userPicker = new mui.PopPicker('上课地点');
 			userPicker.setData([{
 				value: 'teacher',
 				text: '教师上门'
@@ -169,7 +169,7 @@
 					}, false);
 
 			//上课距离选择器
-			var kilPicker = new mui.PopPicker();
+			var kilPicker = new mui.PopPicker('上课距离');
 			kilPicker.setData([{
 				value: '3',
 				text: '3km'
