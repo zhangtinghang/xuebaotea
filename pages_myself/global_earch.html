@@ -119,9 +119,13 @@
 		<script src="../js/mui.picker.js"></script>
 		<!--<script type="text/javascript" src="../js/mui.picker.min.js" ></script>-->
 		<script src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">
 			mui.init();
-			mui.plusReady(function () {
+			mui.plusReady(function () {	
+				//事件监听
+				listenReturn();
+				
 				//开关控制
 			    var global_btn = document.getElementById("global_btn");
 				global_btn.addEventListener("toggle",function(event){
@@ -135,7 +139,7 @@
 			})
 			//顶部修改
 			var picker_title = document.getElementById("picker_title");
-			var userPicker = new mui.PopPicker('上课地点');
+			var userPicker = new mui.PopPicker({title:'上课地点'});
 			userPicker.setData([{
 				value: 'teacher',
 				text: '教师上门'
@@ -169,7 +173,7 @@
 					}, false);
 
 			//上课距离选择器
-			var kilPicker = new mui.PopPicker('上课距离');
+			var kilPicker = new mui.PopPicker({title:'上课距离'});
 			kilPicker.setData([{
 				value: '3',
 				text: '3km'

@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title></title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_ul{
+				width: 100%;
+			}
+			.content_ul li{
+				display: flex;
+				align-items: center;
+				border-bottom: 1px solid rgba(220,220,220,.3);
+				padding: 0.222222rem 0;
+				background-color: #FFFFFF;
+			}
+			.content_ul li:active{
+				background-color: rgb(240,240,240);
+			}
+			.list_avatar{
+				width: 18%;
+				text-align: center;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.list_avatar img{
+				width: 1rem;
+				height: 1rem;
+			}
+			.list_message{
+				width: 82%;
+			}
+			
+			.message_title{
+				font-size: 0.444444rem;
+				color: #555555;
+			}
+			.list_word{
+				margin-left: 5%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="content_ul">
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/create_list.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">创建群聊</div>
+					</div>
+				</li>
+				<li id="group-chat">
+					<div class="list_avatar">
+						<img src="../images/im/list.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">群聊</div>
+					</div>
+				</li>
+			</ul>
+			
+			<ul class="content_ul">
+				<div class="list_word">W</div>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/message_list.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">王泽</div>
+					</div>
+				</li>
+				<div class="list_word">Z</div>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张振</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_1.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张小华</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init()		
+			mui.plusReady(function () {
+			    listenReturn();
+			    var ws = plus.webview.currentWebview();
+				var view = ws.getTitleNView();
+				view.drawText('添加', {
+					top: '0px',
+					right: '18px',
+					height: '44px',
+					width: '44px'
+				}, {
+					size: '15px',
+					color: '#fefefe'
+				}, 'next');
+				view.addEventListener("click", function(e) {
+					if(screen.width - e.clientX <= 60) {
+						//打开明细页面
+						openView.usuView('im_search.html', 'im_search');
+					}
+				}, false);
+				
+				//跳转群聊
+				document.getElementById("group-chat").addEventListener('tap',function(){
+					openView.nativeView('group_list.html', 'group_list', '群聊列表');
+				})
+			})
+		</script>
+	</body>
+
+</html>

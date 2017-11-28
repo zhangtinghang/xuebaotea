@@ -183,7 +183,22 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    
+			    //绘制新建动态图标
+			    var ws = plus.webview.currentWebview();
+				var view = ws.getTitleNView();
+				// 绘制图片
+				bitmap1 = new plus.nativeObj.Bitmap('bmp1');
+				bitmap1.load('_www/images/myself/edit.png',function(){
+					view.drawBitmap(bitmap1, {top:'0px',left:'0px',width:'100%',height:'100%'}, {top:'8px',right:'16px',width:'23px',height:'25px'} );
+				},function(e){
+					console.log('bmp1.png load failed! '+JSON.stringify(e));
+				});
+				//监听图片事件
+				view.addEventListener("click", function(e) {
+					if(screen.width - e.clientX <= 60) {
+						openView.nativeView('../pages_main/feedback.html', 'feedback', '新建动态');
+					}
+				}, false);
 			    //评论
 			    mui('.content').on('tap','.footer_comm',function(){
 			    	openView.nativeView('../pages_index/comment.html', 'comment', '留言');

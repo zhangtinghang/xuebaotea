@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.mui-bar{
+				background-color:#0dad95;
+				display: flex;
+				align-items: center;
+				justify-content:space-between;
+				box-shadow: none;
+				position: fixed;
+				font-size: 20px;
+				color: #fefefe;
+			}
+			.header_center{
+				margin-left: 13.5%;
+				text-align: center;
+			}
+			.header_right{
+				font-size: 16px;
+			}
+
+			.content_ul{
+				width: 100%;
+			}
+			.content_ul li{
+				display: flex;
+				align-items: center;
+				border-bottom: 1px solid rgba(220,220,220,.3);
+				padding: 0.222222rem 0;
+				background-color: #FFFFFF;
+			}
+			.content_ul li:active{
+				background-color: rgb(240,240,240);
+			}
+			.list_avatar{
+				width: 20%;
+				text-align: center;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.list_avatar img{
+				width: 1.25rem;
+				height: 1.25rem;
+			}
+			.list_message{
+				width: 80%;
+			}
+			
+			.message_title{
+				font-size: 0.444444rem;
+				color: #555555;
+			}
+			.message_body{
+				font-size: 0.333333rem;
+				color: #888888;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<div></div>
+			<div class="header_center">消息列表</div>
+			<div class="header_right" id="linkman">联系人</div>
+		</header>
+		<div class="mui-content content" id="content">
+			<ul class="content_ul">
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/list.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">数学提高班</div>
+						<div class="message_body">李小华：老师我的练习已经做完</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/message_list.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">王老师</div>
+						<div class="message_body">老师帮我看一下这个题</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张老师</div>
+						<div class="message_body">老师我的练习已经做完</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张老师</div>
+						<div class="message_body">老师我的练习已经做完</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张老师</div>
+						<div class="message_body">老师我的练习已经做完</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张老师</div>
+						<div class="message_body">老师我的练习已经做完</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张老师</div>
+						<div class="message_body">老师我的练习已经做完</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张老师</div>
+						<div class="message_body">老师我的练习已经做完</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张老师</div>
+						<div class="message_body">老师我的练习已经做完</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张老师</div>
+						<div class="message_body">老师我的练习已经做完</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张老师</div>
+						<div class="message_body">老师我的练习已经做完</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张老师</div>
+						<div class="message_body">老师我的练习已经做完</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张老师</div>
+						<div class="message_body">老师我的练习已经做完</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张老师</div>
+						<div class="message_body">老师我的练习已经做完</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!--沉浸式状态栏-->
+		<script type="text/javascript" src="../js/immersed.js" ></script>
+		<!--引入环信SDK-->
+		<script type="text/javascript" src="../js/IM/webim.config.js" ></script>
+		<script type="text/javascript" src="../js/IM/strophe-1.2.8.min.js" ></script>
+		<script type="text/javascript" src="../js/IM/websdk-1.4.13.js" ></script>
+		<!--end-->
+		
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/util.js" ></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function () {
+				document.getElementById("linkman").addEventListener('tap',function(){
+					openView.nativeView('linkman_contacts.html', 'linkman_contacts', '联系人');
+				})
+				
+				mui('.content_ul').on('tap','li',function(){
+					openView.nativeView('chat.html', 'chat', '聊天','','none');
+				})
+			})
+		</script>
+	</body>
+
+</html>

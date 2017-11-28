@@ -32,8 +32,8 @@
 			}
 			
 			.evaluate_btn{
-				color: #1b82d1;
-				border: 1px solid #1b82d1;
+				color: #0dad95;
+				border: 1px solid #0dad95;
 				padding: 0.061666rem 0.469444rem;
 				border-radius: 18px;
 				margin: 0 5%;
@@ -43,6 +43,17 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+			}
+			.mui-btn{
+				width: 80%;
+				margin: 0.777777rem auto;
+				border-radius:42px;
+				background-color: #0dad95;
+				color: #FEFEFE;
+				font-size: 0.5rem;
+				height: 1.166666rem !important;
+				line-height: 0.8;
+				border: none;
 			}
 		</style>
 	</head>
@@ -54,7 +65,7 @@
 				<div class="money balance">800.50</div>
 			</div>
 			<div class="balance_btn">
-				<span id="Recharge" class="evaluate_btn">提现</span>
+				<button type="button" id="withdraw_deposit" class="mui-btn mui-btn-block">提现</button>
 			</div>
 		</div>	
 		<script src="../js/mui.min.js"></script>
@@ -65,6 +76,10 @@
 				//事件监听
 				listenReturn();
 				listenNext('明细','touchBalance.html','touchBalance','余额明细');	
+				//提现
+				document.getElementById("withdraw_deposit").addEventListener('tap',function(){
+					openView.nativeView('withdraw_deposit.html', 'withdraw_deposit', '提现');
+				})
 			});
 		</script>
 	</body>

@@ -33,8 +33,17 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    var self = plus.webview.currentWebview();
-			    var type = self.eg;
+			    //渲染
+			    listenReturnRight('完成');
+			    var ws = plus.webview.currentWebview();
+				var view = ws.getTitleNView();
+			    view.addEventListener("click", function(e) {
+				if(screen.width - e.clientX <= 60){
+						//事件逻辑处理
+						mui.back();
+					}
+				}, false);
+			    var type = ws.eg;
 			    document.getElementById("list_box").value=type;
 			})
 		</script>

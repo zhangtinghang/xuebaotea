@@ -22,6 +22,9 @@
 				border-bottom: 1px solid rgba(240,240,240,1) !important;
 				
 			}
+			.comeTo:active{
+				background-color: rgb(240,240,240);
+			}
 			.list_ul li>input{
 				margin: 0;
 				padding: 0;
@@ -29,7 +32,7 @@
 				width: 75%;
 				height: 1.388888rem;
 				font-size: 0.416666rem;
-				color: #555555;
+				color: #555555 !important;
 			}
 			.list_li_right img{
 				width: 0.166666rem;
@@ -45,11 +48,11 @@
 	<body>
 		<div class="content">
 			<ul class="list_ul">
-				<li>教师姓名 <input type="text" /></li>
+				<li>教师姓名 <input type="text" placeholder="" /></li>
 				<li>教师宣言<input type="text" /></li>
-				<li><span>教学年级</span><span class="list_li_right"><img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
-				<li><span>个人简历</span><span class="list_li_right"><img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
-				<li><span>个人照片</span><span class="list_li_right photoImg"><img src="../images/myself/upload_photo.png" /></span></li>
+				<li class="comeTo newView" data-type = "1"><span>教学年级</span><span class="list_li_right"><img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
+				<li class="comeTo newView" data-type = "2"><span>个人简历</span><span class="list_li_right"><img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
+				<li class="comeTo"><span>个人照片</span><span class="list_li_right photoImg"><img src="../images/myself/upload_photo.png" /></span></li>
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -59,6 +62,31 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    //渲染
+			    listenReturnRight('提交审核','60px');
+			    var ws = plus.webview.currentWebview();
+				var view = ws.getTitleNView();
+			    view.addEventListener("click", function(e) {
+				if(screen.width - e.clientX <= 60){
+						//事件逻辑处理
+						mui.back();
+					}
+				}, false);
+				mui('.list_ul').on('tap','.newView',function(){
+			    	var type = this.getAttribute('data-type');
+			    	switch(type)
+			    	{
+			    		case '1':
+			    		openView.nativeView('study_class.html', 'study_class', '教学年级');
+			    		break;
+			    		case '2':
+			    		//个人资料
+			    		openView.nativeView('my_resume.html', 'my_resume', '个人简历');
+			    		break;
+			    		default:
+						  //异常处理
+					}
+			    })
 			})
 		</script>
 	</body>

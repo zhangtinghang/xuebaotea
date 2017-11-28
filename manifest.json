@@ -1,7 +1,7 @@
 {
 	"@platforms": ["android", "iPhone", "iPad"],
 	"id": "H5B63AEC7",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "学保",/*应用名称，程序桌面图标名称*/
+	"name": "易学宝",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0.0",/*应用版本名称*/
 		"code": "83"
@@ -10,7 +10,7 @@
 	"icons": {
 		"72": "icon.png"
 	},
-	"launch_path": "pages_myself/global_earch.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"launch_path": "index.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
 	"developer": {
 		"name": "",/*开发者名称*/
 		"email": "",/*开发者邮箱地址*/
@@ -56,9 +56,7 @@
          "Invocation": {
             "description": "使用Native.js能力"
         },
-        "Messaging": {
-            "description": "访问通讯能力"
-        },
+        
         "Orientation": {
             "description": "访问方向感应器"
         },
@@ -81,15 +79,11 @@
         "Zip": {
             "description": "文件压缩与解压缩"
         },
-        "Barcode": {
-            "description": "管理二维码扫描插件"
-        },
+        
         "Maps": {
             "description": "管理地图插件"
         },
-        "Speech": {
-            "description": "管理语音识别插件"
-        },
+        
         "Webview":{
         	"description": "窗口管理"
         },
@@ -106,7 +100,7 @@
 	"plus": {
 		"statusbar": {
 			"immersed": true,
-			"background": "rgba(77, 169, 239,1)"
+			"background": "rgb(13,173,149)"
 		},
 		"launchwebview": {
 			"bottom": "0px",
@@ -125,7 +119,7 @@
 						{
 							"tag": "img",
 							"id": "indexIcon",
-							"src": "_www/images/index/main_page.png",
+							"src": "_www/images/index/man_page.png",
 							"position": {
 								"top": "6px",
 								"left": "9%",
@@ -150,7 +144,7 @@
 						},{
 							"tag": "img",
 							"id": "messIcon",
-							"src": "_www/images/index/main_page_hover.png",
+							"src": "_www/images/index/information.png",
 							"position": {
 								"top": "6px",
 								"left": "34%",
@@ -174,7 +168,7 @@
 						},{
 							"tag": "img",
 							"id": "stuIcon",
-							"src": "_www/images/index/my.png",
+							"src": "_www/images/index/students.png",
 							"position": {
 								"top": "6px",
 								"right": "34%",
@@ -205,7 +199,7 @@
 						},{
 							"tag": "img",
 							"id": "meIcon",
-							"src": "_www/images/index/my_hover.png",
+							"src": "_www/images/index/my.png",
 							"position": {
 								"top": "6px",
 								"right": "9%",
@@ -258,9 +252,9 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": ["<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>","<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"]
+				"permissions": ["<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
 			},
-			"orientation": ["portrait-primary", "portrait-secondary"],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+			"orientation": ["portrait-primary"],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
 			"icons": {
 				"ios": {
 					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
@@ -322,6 +316,646 @@
 					"xxhdpi": ""
 				}
 			}
+		}
+	},
+	"dependencies":{
+		"pages": {
+			"pages_main/feedback.html": {
+				"href": "pages_main/feedback.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/main/icon_tptj.png"
+				],
+				"priority": 0
+			},
+			"pages_myself/more_dynamic.html": {
+				"href": "pages_myself/more_dynamic.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/myself/edit.png",
+					"images/myself/teacher_dynamic_head.png",
+					"images/myself/dynamic.png",
+					"images/myself/pensonnel.png",
+					"images/myself/chat_num.png"
+				],
+				"refer": [
+					"pages_main/feedback.html"
+				],
+				"priority": 0
+			},
+			"pages_myself/self_change.html": {
+				"href": "pages_myself/self_change.html",
+				"resources": [
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/zoom/flexible.js",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"priority": 1
+			},
+			"pages_myself/selfDetail.html": {
+				"href": "pages_myself/selfDetail.html",
+				"resources": [
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/zoom/flexible.js",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/myself/next_content.png",
+					"images/myself/head.png"
+				],
+				"refer": [
+					"pages_myself/self_change.html"
+				],
+				"priority": 1
+			},
+			"pages_myself/study_class.html": {
+				"href": "pages_myself/study_class.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/myself/kspk_yes.png",
+					"images/myself/kspk_no.png"
+				],
+				"priority": 2
+			},
+			"pages_myself/my_resume.html": {
+				"href": "pages_myself/my_resume.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/main/teach_experience.png",
+					"images/main/js_grzx_fk.png"
+				],
+				"priority": 3
+			},
+			"pages_myself/lessons_data.html": {
+				"href": "pages_myself/lessons_data.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/myself/next_content.png",
+					"images/myself/upload_photo.png"
+				],
+				"refer": [
+					"pages_myself/study_class.html",
+					"pages_myself/my_resume.html"
+				],
+				"priority": 2
+			},
+			"pages_myself/platform_list.html": {
+				"href": "pages_myself/platform_list.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"priority": 3
+			},
+			"pages_wallet/withdraw_deposit.html": {
+				"href": "pages_wallet/withdraw_deposit.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"priority": 4
+			},
+			"pages_wallet/touchBalance.html": {
+				"href": "pages_wallet/touchBalance.html",
+				"resources": [
+					"js/mui.min.js",
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/config.js"
+				],
+				"priority": 5
+			},
+			"pages_wallet/balance.html": {
+				"href": "pages_wallet/balance.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"refer": [
+					"pages_wallet/withdraw_deposit.html",
+					"pages_wallet/touchBalance.html"
+				],
+				"priority": 4
+			},
+			"pages_myself/global_earch.html": {
+				"href": "pages_myself/global_earch.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/mui.picker.css",
+					"css/mui.poppicker.css",
+					"js/mui.min.js",
+					"js/mui.picker.js",
+					"js/mui.poppicker.js",
+					"js/config.js",
+					"images/myself/chos_way.png"
+				],
+				"priority": 5
+			},
+			"pages_myself/feedback.html": {
+				"href": "pages_myself/feedback.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/myself/icon_tptj.png"
+				],
+				"priority": 6
+			},
+			"login/changePassword.html": {
+				"href": "login/changePassword.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"priority": 7
+			},
+			"pages_myself/Invitation_code.html": {
+				"href": "pages_myself/Invitation_code.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"priority": 8
+			},
+			"pages_myself/setting.html": {
+				"href": "pages_myself/setting.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"refer": [
+					"pages_myself/feedback.html",
+					"login/changePassword.html",
+					"pages_myself/Invitation_code.html"
+				],
+				"priority": 6
+			},
+			"pages_student/me.html": {
+				"href": "pages_student/me.html",
+				"resources": [
+					"js/mui.min.js",
+					"js/config.js",
+					"images/index/return.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/zoom/flexible.js",
+					"images/myself/self_bg.png",
+					"images/myself/head.png",
+					"images/myself/my_walnut.png",
+					"images/myself/next_content.png",
+					"images/myself/all_serch.png",
+					"images/myself/teach_material.png",
+					"images/myself/self_data.png",
+					"images/myself/plateform_data.png",
+					"images/myself/set_some.png"
+				],
+				"refer": [
+					"pages_myself/more_dynamic.html",
+					"pages_myself/selfDetail.html",
+					"pages_myself/lessons_data.html",
+					"pages_myself/platform_list.html",
+					"pages_wallet/balance.html",
+					"pages_myself/global_earch.html",
+					"pages_myself/setting.html"
+				],
+				"priority": 0
+			},
+			"im/group_list.html": {
+				"href": "im/group_list.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/im/create_list.png",
+					"images/im/list.png"
+				],
+				"priority": 1
+			},
+			"im/im_search.html": {
+				"href": "im/im_search.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/immersed.js",
+					"images/im/message_list.png",
+					"images/im/avatar_2.png",
+					"images/im/avatar_1.png"
+				],
+				"priority": 2
+			},
+			"im/linkman_contacts.html": {
+				"href": "im/linkman_contacts.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/im/create_list.png",
+					"images/im/list.png",
+					"images/im/message_list.png",
+					"images/im/avatar_2.png",
+					"images/im/avatar_1.png"
+				],
+				"refer": [
+					"im/group_list.html",
+					"im/im_search.html"
+				],
+				"priority": 1
+			},
+			"im/msg_list.html": {
+				"href": "im/msg_list.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/immersed.js",
+					"js/mui.min.js",
+					"js/util.js",
+					"js/config.js",
+					"images/im/list.png",
+					"images/im/message_list.png",
+					"images/im/avatar_2.png"
+				],
+				"refer": [
+					"im/linkman_contacts.html"
+				],
+				"priority": 1
+			},
+			"pages_main/course_scheduling.html": {
+				"href": "pages_main/course_scheduling.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/mui.picker.css",
+					"css/mui.poppicker.css",
+					"js/mui.min.js",
+					"js/config.js",
+					"js/mui.picker.js",
+					"js/mui.poppicker.js",
+					"js/city.data-3.js",
+					"images/myself/kspk_yes.png",
+					"images/myself/kspk_no.png",
+					"images/main/fast_add.png",
+					"images/main/js_grzl_youjiantou.png",
+					"images/main/edit_arrange.png",
+					"images/main/delete.png",
+					"images/main/substract.png",
+					"images/main/add.png"
+				],
+				"priority": 2
+			},
+			"pages_student/course_message.html": {
+				"href": "pages_student/course_message.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/main/edit_arrange.png"
+				],
+				"priority": 3
+			},
+			"pages_student/course_record.html": {
+				"href": "pages_student/course_record.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/main/js_grzl_youjiantou.png"
+				],
+				"refer": [
+					"pages_student/course_message.html"
+				],
+				"priority": 3
+			},
+			"pages_student/student_detail.html": {
+				"href": "pages_student/student_detail.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/main/teach_stu_head.png",
+					"images/student/female.png",
+					"images/student/call_student.png",
+					"images/main/js_grzl_youjiantou.png"
+				],
+				"refer": [
+					"pages_main/course_scheduling.html",
+					"pages_student/course_record.html",
+					"pages_student/course_message.html"
+				],
+				"priority": 2
+			},
+			"pages_student/all_student.html": {
+				"href": "pages_student/all_student.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/immersed.js",
+					"js/config.js",
+					"images/main/teach_stu_head.png",
+					"images/student/female.png"
+				],
+				"refer": [
+					"pages_student/student_detail.html"
+				],
+				"priority": 2
+			},
+			"pages_main/course_introduce.html": {
+				"href": "pages_main/course_introduce.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/main/teach_experience.png",
+					"images/main/js_grzx_fk.png"
+				],
+				"priority": 3
+			},
+			"pages_main/new_class.html": {
+				"href": "pages_main/new_class.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/mui.picker.css",
+					"css/mui.poppicker.css",
+					"js/mui.min.js",
+					"js/config.js",
+					"js/mui.picker.js",
+					"js/mui.poppicker.js",
+					"js/city.data-3.js",
+					"images/myself/kspk_yes.png",
+					"images/myself/kspk_no.png",
+					"images/main/fast_add.png",
+					"images/main/js_grzl_youjiantou.png",
+					"images/main/edit_arrange.png",
+					"images/main/delete.png",
+					"images/main/substract.png",
+					"images/main/add.png"
+				],
+				"refer": [
+					"pages_main/course_introduce.html"
+				],
+				"priority": 3
+			},
+			"pages_main/fill_feedback.html": {
+				"href": "pages_main/fill_feedback.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/main/teach_experience.png",
+					"images/main/js_grzx_fk.png"
+				],
+				"priority": 4
+			},
+			"pages_main/calendar.html": {
+				"href": "pages_main/calendar.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"refer": [
+					"pages_main/new_class.html",
+					"pages_main/fill_feedback.html"
+				],
+				"priority": 3
+			},
+			"pages_main/classroom_detail.html": {
+				"href": "pages_main/classroom_detail.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/wallet/icon_wx.png"
+				],
+				"priority": 4
+			},
+			"pages_wallet/Withdrawal_success.html": {
+				"href": "pages_wallet/Withdrawal_success.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"priority": 5
+			},
+			"pages_main/course_remind.html": {
+				"href": "pages_main/course_remind.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"priority": 6
+			},
+			"pages_main/in_class.html": {
+				"href": "pages_main/in_class.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"priority": 8
+			},
+			"pages_main/server_list.html": {
+				"href": "pages_main/server_list.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/main/icon_schooltime.png",
+					"images/main/look_detail_icon.png",
+					"images/main/icon_ktfk.png",
+					"images/main/icon_txcg.png",
+					"images/main/icon_sktx.png"
+				],
+				"refer": [
+					"pages_main/classroom_detail.html",
+					"pages_wallet/Withdrawal_success.html",
+					"pages_main/course_remind.html",
+					"pages_main/fill_feedback.html",
+					"pages_main/in_class.html"
+				],
+				"priority": 4
+			},
+			"pages_main/class_stu.html": {
+				"href": "pages_main/class_stu.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/util.js",
+					"js/config.js",
+					"images/main/teach_stu_head.png"
+				],
+				"priority": 9
+			},
+			"pages_main/single_class.html": {
+				"href": "pages_main/single_class.html",
+				"resources": [
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/main/teach_stu_head.png",
+					"images/main/oder_phone.png"
+				],
+				"refer": [
+					"pages_main/class_stu.html"
+				],
+				"priority": 9
+			},
+			"index.html": {
+				"href": "index.html",
+				"resources": [
+					"js/mui.min.js",
+					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"images/main/baner_picture.png",
+					"js/immersed.js",
+					"js/util.js",
+					"images/index/my_hover.png",
+					"images/index/man_page_hover.png",
+					"images/index/information.png",
+					"images/index/my.png",
+					"images/index/students.png",
+					"images/index/information_hover.png",
+					"images/index/students_hover.png",
+					"images/index/man_page.png",
+					"js/config.js",
+					"images/main/order_arrange.png",
+					"images/main/class_arrange.png",
+					"images/main/in_class_icon.png",
+					"images/main/look_detail_icon.png",
+					"images/main/recharge_record_icon.png",
+					"images/main/class_feedback_icon.png"
+				],
+				"refer": [
+					"pages_student/me.html",
+					"im/msg_list.html",
+					"pages_student/all_student.html",
+					"pages_main/calendar.html",
+					"pages_main/server_list.html",
+					"pages_main/course_remind.html",
+					"pages_wallet/Withdrawal_success.html",
+					"pages_main/in_class.html",
+					"pages_main/fill_feedback.html",
+					"pages_main/single_class.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"login/register.html",
+				"js/mui.picker.min.js",
+				"images/wallet/no_choose.png",
+				"im/create_im.html",
+				"images/wallet/icon_zfb.png",
+				"login/forget.html",
+				"pages_student/course_detail.html",
+				"login/Payment_Settings.html",
+				"pages_wallet/edit_account.html",
+				"login/login.html",
+				"js/city.data.js",
+				"js/mui.js",
+				"css/mui.picker.min.css",
+				"css/chat-msg.css",
+				"images/im/picture.png",
+				"images/wallet/choose.png",
+				"images/login/username.png",
+				"images/main/icon_ddxx_shouye.png",
+				"im/customer.html",
+				"images/login/look_password.png",
+				"css/style.css",
+				"images/login/password.png",
+				"css/mui.css",
+				"images/myself/self_head.png",
+				"images/im/message.png",
+				"images/student/male.png",
+				"im/chat.html",
+				"pages_myself/indent_detail.html"
+			]
 		}
 	}
 }

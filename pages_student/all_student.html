@@ -7,15 +7,18 @@
 		<title>课程订单</title>
 		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
-		<style>
-			body,html{
-				height: 100%;
-				width: 100%;
+		<style>			
+			.mui-bar{
+				background-color:#0dad95;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				box-shadow: none;
+				position: fixed;
+				font-size: 20px;
+				color: #fefefe;
 			}
 			/*班课样式*/
-			.content{
-				height: 100%;
-			}
 			.dot{
 				width: 0.097222rem;
 				height: 0.097222rem;
@@ -119,7 +122,7 @@
 			/*框架样式调整*/
 			.mui-control-content {
 				background-color: white;
-				min-height: 300px;
+				min-height: 400px;
 			}
 			.mui-control-content .mui-loading {
 				margin-top: 50px;
@@ -136,21 +139,18 @@
 			.mui-active{
 				color: #0dad95 !important;
 			}
-			.mui-slider{
+			/*.mui-slider{
 				height: 100%;
-			}
-			.mui-scroll {
-				padding-bottom: 3.094444rem;
-			}
+			}*/
 			.mui-control-content{
 				background-color: rgb(239,239,244);
 			}
 			.mui-slider-indicator.mui-segmented-control{
 				background-color: #FFFFFF;
 			}
-			.mui-slider-group{
+			/*.mui-slider-group{
 				height: 100% !important;
-			}
+			}*/
 			.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{
 				border: none !important;
 			}
@@ -161,7 +161,6 @@
 				padding: 0.377777rem;
 				background-color: #FEFEFE;
 				padding-bottom: 0;
-				padding-top: 0.791666rem;
 			}
 			.list_item_ul{
 				display: flex;
@@ -202,11 +201,19 @@
 			.class_time{
 				color: #33c1a1;
 			}
+			.content{
+				overflow: hidden;
+			}
 		</style>
 	</head>
 	<body>
-		<div class="content">
+		<header id="header" class="mui-bar mui-bar-nav">
+			<div></div>
+			<div class="header_center">学生列表</div>
+		</header>
+		<div class="mui-content content" id="content">
 			<div id="slider" class="mui-slider">
+				<div id="segmentedControl">
 				<div class="list_item">
 				<ul class="list_item_ul">
 					<li>
@@ -230,7 +237,8 @@
 					<a class="mui-control-item" href="#item2mobile">
 				所有学生
 			</a>
-				</div>
+				</div>				
+			</div>
 				<div id="sliderProgressBar"></div>
 				<div id="mui-slider-group" class="mui-slider-group">
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
@@ -408,14 +416,25 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<!--沉浸式状态栏-->
+		<script type="text/javascript" src="../js/immersed.js" ></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
-			    //监听返回
-			    listenReturn();   
+				
 			})
-			
+			//修改框架高度
+			var dom = document.getElementsByClassName('mui-control-content');
+			var segmentedControl = document.getElementById("segmentedControl").offsetHeight;
+			var headerHeight = document.getElementById("header").offsetHeight;
+			var ViewHeight = window.innerHeight;
+			var surplusHeight = ViewHeight-segmentedControl-headerHeight-5+'px';
+			var muislidergroup = document.getElementById("mui-slider-group");
+			muislidergroup.style.height = surplusHeight;
+			for(var i=0,len=dom.length; i<len; i++){
+			    dom[i].style.height = ViewHeight-segmentedControl-headerHeight-4+'px';
+			}
 			//DIV局部滚动
 			mui('.mui-scroll-wrapper').scroll({
 				indicators: true //是否显示滚动条
@@ -435,6 +454,11 @@
 					}
 				}
 			});
+			
+			//点击事件
+			mui('.mui-scroll').on('tap','.one_box',function(){
+				openView.nativeView('student_detail.html', 'student_detail', '学生详情','','none');
+			})
 		</script>
 	</body>
 </html>

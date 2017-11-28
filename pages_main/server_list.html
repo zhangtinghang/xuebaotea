@@ -124,7 +124,7 @@
 			</div>
 		</div>
 		
-		<div class="class_message" data-type="2">
+		<div class="class_message" data-type="5">
 			<div class="message_title">
 				<div class="title_img"><img src="../images/main/icon_ktfk.png" /></div>
 				<div class="title_text">课堂反馈</div>
@@ -152,23 +152,17 @@
 							openView.nativeView('in_class.html', 'in_class', '上课中');
 							break;
 						case '2':
-							openView.nativeView('pay_success.html', 'pay_success', '充值成功');
+							openView.nativeView('fill_feedback.html', 'fill_feedback', '课堂反馈');
 							break;
 						case '3':
-							openView.nativeView('classroom_detail.html', 'classroom_detail', '课堂反馈详情');
+						openView.nativeView('../pages_wallet/Withdrawal_success.html','Withdrawal_success', '提现成功');	
 							break;
 						case '4':
-							openView.nativeView('Withdrawal_success.html', 'Withdrawal_success', '提现成功');
-							break;
-						case '5':
 							openView.nativeView('course_remind.html', 'course_remind', '上课提醒');
 							break;
-						case '6':
-							openView.nativeView('course_arrangement.html', 'course_arrangement', '课程安排');
+						case '5':
+							openView.nativeView('classroom_detail.html', 'classroom_detail', '课堂反馈');
 							break;
-						case '7':
-						openView.nativeView('indent_succ.html', 'indent_succ', '订单信息');
-						break;
 						default:
 						
 						}

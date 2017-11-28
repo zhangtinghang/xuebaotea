@@ -8,6 +8,8 @@
 		<title>新建班课</title>
 		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
 		<style>
 			.nav_title {
 				width: 100%;
@@ -19,16 +21,21 @@
 			
 			.nav_line {
 				width: 3px;
-				background-color: #007AFF;
+				background-color: #0dad95;
 				height: 0.436666rem;
 				margin-left: 5%;
 			}
 			
 			.nav_serve {
-				width: 70%;
+				width: 78%;
 				margin-left: 0.222222rem;
 				color: #333333;;
 				font-size: 0.388888rem;
+			}
+			.nav_add_class{
+				text-align: right;
+				font-size: 0.388888rem;
+				color: #333333;
 			}
 			
 			.body_list {
@@ -151,12 +158,6 @@
 				padding-left:0.388888rem;
 				color: #555555;
 			}
-			.nav_add_class{
-				text-align: right;
-				padding-right: 5%;
-				font-size: 0.388888rem;
-				color: #333333;
-			}
 			.nav_title_2{
 				margin-top: 0.222222rem;
 			}
@@ -207,6 +208,122 @@
 				height: 0.347222rem;
 				margin-left: 0.111111rem;
 			}
+			/*picker*/
+			.mui-btn {
+				font-size: 16px;
+				padding: 8px;
+				margin: 3px;
+			}
+			h5.mui-content-padded {
+				margin-left: 3px;
+				margin-top: 20px !important;
+			}
+			h5.mui-content-padded:first-child {
+				margin-top: 12px !important;
+			}
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+			.mui-poppicker{
+				background-color: #FFFFFF;
+			}
+			.mui-poppicker-body{
+				background-color: #FFFFFF;
+				border-top: none;
+			}
+			.mui-picker{
+				background-color: #FFFFFF;
+			}
+			.mui-pciker-rule-ft{
+				width: 70%;
+				margin-left: 15%;
+				border-top: 2px solid #bebebe;
+				border-bottom: 2px solid #bebebe;
+				height: 1.583333rem;
+			}
+			.mui-pciker-list li{
+				color: #88888;
+				font-size: 0.444444rem;
+			}
+			.mui-pciker-list{
+				height: 1.583333rem;
+				line-height:1.583333rem;
+			}
+			.mui-btn{
+				border: none;
+			}
+			.mui-poppicker{
+				box-shadow:none;
+			}
+			.mui-poppicker-header{
+				padding: 0.208888rem 0.138888rem;
+			}
+			.mui-btn-blue{
+				background-color: #FFFFFF;
+				color: #0DAD95;
+				font-size: 0.444444rem;
+			}
+			/*遮罩相关*/
+			.mui-popover .mui-popover-arrow {
+				display: none;
+			}
+			#popover{
+				bottom:0 !important;
+				width: 100%;
+				border-radius:0 ;
+			}
+			.popover-box{
+				
+			}
+			.mui-popover{
+				background-color: #FFFFFF;
+				padding: 0 8%;
+			}
+			.popover_title{
+				font-size: 0.444444rem;
+				text-align: center;
+				padding: 0.388888rem 0;
+				border-bottom: 1px solid #F0F0F0;
+				color: #555555;
+			}
+			.popover_list_ul{
+				padding: 0 0.458333rem;
+			}
+			.popover_list_ul li{
+				padding: 0 5%;
+				height: 1.416666rem;
+				font-size:0.444444rem;
+				color: #333333;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 2px solid #F0F0F0;
+			}
+			.popover_list_ul li>img{
+				width: 0.402777rem;
+				height: 0.388888rem;
+			}
+			.popover_list_ul li:last-child{
+				border: none;
+			}
+			.popover_btn{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-size: 0.444444rem;
+				color: #555555;
+				height: 1.388888rem;
+				border-top:1px solid #F0F0F0;
+				padding: 0 5%;
+			}
+			.confirmBtn{
+				color: #0dad95;
+			}
+			.text_active{
+				color: #0dad95;
+			}
 		</style>
 	</head>
 
@@ -219,7 +336,7 @@
 			<div class="body_list">
 				<ul class="body_list_ul">
 					<li><span>班课名称</span><span class="list_right input_box"><input type="text" id="" value="" placeholder="请输入课程名" /></span></li>
-					<li><span>课程介绍</span><span class="list_right come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></span></li>
+					<li id="course_description"><span>课程介绍</span><span class="list_right come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></span></li>
 					<li><span>上课人数</span><span class="list_right right_btn">
 							<div class="mui-numbox" data-numbox-step='50' data-numbox-min='0' >
 								<div class="btn_box mui-btn-numbox-minus" type="button"><img class="substract_btn" src="../images/main/substract.png" /></div>
@@ -230,7 +347,7 @@
 					<li><span>课程节数</span><span class="list_right right_btn">
 							<div class="mui-numbox" data-numbox-step='50' data-numbox-min='0' >
 								<div class="btn_box mui-btn-numbox-minus" type="button"><img class="substract_btn" src="../images/main/substract.png" /></div>
-								<input id="num" readonly="readonly" class="mui-input-numbox" type="number" />
+								<input readonly="readonly" class="mui-input-numbox" type="number" />
 								<div class="btn_box mui-btn-numbox-plus" type="button"><img class="add_btn" src="../images/main/add.png" /></div>
 							</div>
 						</span></li>
@@ -247,45 +364,176 @@
 		<div class="nav_title nav_title_2">
 			<div class="nav_line"></div>
 			<span class="nav_serve">课程安排</span>
-			<sapn class="nav_serve nav_add_class">新增</sapn>
+			<sapn class="nav_add_class" id="addClass">新增</sapn>
 		</div>
 		
-		<ul class="course_ul">
-			<li><span>1</span><span>10月29日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><img src="../images/main/edit_arrange.png" /></span><span><img src="../images/main/delete.png"/></span></span></li>
-			<li><span>2</span><span>10月30日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><img src="../images/main/edit_arrange.png" /></span><span><img src="../images/main/delete.png"/></span></span></li>
-			<li><span class="fast_add">快速排课<img src="../images/main/fast_add.png" /></span></li>
+		<ul class="course_ul" id="course_ul">
+			<li class="course_li"><span>1</span><span>10月29日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><img src="../images/main/edit_arrange.png" /></span><span><img src="../images/main/delete.png"/></span></span></li>
+			<li class="course_li"><span>2</span><span>10月30日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><img src="../images/main/edit_arrange.png" /></span><span><img src="../images/main/delete.png"/></span></span></li>
+			<li><span class="fast_add" id="fast_add">快速排课<img src="../images/main/fast_add.png" /></span></li>
 		</ul>
+		</div>
+		<div id="popover" class="mui-popover">
+				<div class="popover-box">
+					<div class="popover_title">自定义时间重复</div>
+					<div class="popover_list">
+						<ul class="popover_list_ul">
+							<li><span>周日</span><img src="../images/myself/kspk_no.png" /></li>
+							<li><span>周一</span><img src="../images/myself/kspk_no.png" /></li>
+							<li><span>周二</span><img src="../images/myself/kspk_no.png" /></li>
+							<li><span>周三</span><img src="../images/myself/kspk_no.png" /></li>
+							<li><span>周四</span><img src="../images/myself/kspk_no.png" /></li>
+							<li><span>周五</span><img src="../images/myself/kspk_no.png" /></li>
+							<li><span>周六</span><img src="../images/myself/kspk_no.png" /></li>
+						</ul> 
+					</div>
+					<div  class="popover_btn"><span id="returnBtn">取消</span><span class="confirmBtn" id="confirmBtn">确定</span></div>
+				</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script src="../js/mui.picker.js"></script>
+		<!--<script type="text/javascript" src="../js/mui.picker.min.js" ></script>-->
+		<script src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../js/city.data-3.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    //完成处理
+			    listenReturnRight('完成');
+			    var ws = plus.webview.currentWebview();
+				var view = ws.getTitleNView();
+			    view.addEventListener("click", function(e) {
+				if(screen.width - e.clientX <= 60){
+						//事件逻辑处理
+						mui.back();
+					}
+				}, false);
 			    //监听值改变
 		     	var numBox=document.getElementById("num");
-		     	 var left_text = document.getElementById("left_text");
 				numBox.addEventListener('change',function(){
-					 left_text.innerText = numBox.value*20;
 					console.log(numBox.value);
 				});
+				//遮罩层
+				var pop = document.getElementById("popover");
+				var mask = mui.createMask(function() {
+					pop.classList.remove('mui-active');					
+				});
+				//课程介绍
+				document.getElementById("course_description").addEventListener('tap',function(){
+					openView.nativeView('course_introduce.html', 'course_introduce', '课程介绍');
+				});
+				//新增排课
+				var addPicker = new mui.PopPicker({
+							layer: 3,
+							title:'选择日期',
+							buttons:['取消', '下一步']
+						});
+				var timePicker = new mui.PopPicker({
+							layer: 3,
+							title:'选择日期'
+						});
+				addPicker.setData(cityData3);
+				timePicker.setData(cityData3);
+				var addClass = document.getElementById('addClass');
+						addClass.addEventListener('tap', function(event) {
+						addPicker.show(function(items) {
+								console.log(JSON.stringify(items));
+								//返回 false 可以阻止选择框的关闭
+	//							return false;
+							timePicker.show(function(items){
+								
+								console.log(items)
+							})
+							});
+						}, false);
+				//快速排课
+				var fastPicker = new mui.PopPicker({
+						title:'快速添加'
+					});
+				fastPicker.setData([{
+					value: '0',
+					text: '每天时间重复'
+				}, {
+					value: '1',
+					text: '每周时间重复'
+				}, {
+					value: '2',
+					text: '自定义时间'
+				}]);
+				var fast_add = document.getElementById("fast_add");
+				var course_ul = document.getElementById("course_ul");
+				var course_li = document.getElementsByClassName('course_li');
+				fast_add.addEventListener('tap',function(){
+					if(course_li.length!=0){
+						fastPicker.show(function(items){					
+							console.log('快速排课',JSON.stringify(items))
+							if(items[0].value=='2'){
+								setTimeout(function(){
+									mask.show();
+									pop.classList.add('mui-active');
+								},50);
+							}
+						})
+					}else{
+						//直接打开自定义
+						setTimeout(function(){
+							mask.show();
+							pop.classList.add('mui-active');
+						},50);
+					}
+				})	
 				
-				 //单选框
-			   var list_ul = document.getElementById("list_ul");
-			   var list_li = document.getElementsByClassName('evaluate_btn');
-			   mui('.comment_btn').on('tap','.evaluate_btn',function(){
-				   	for(var i=0;i<list_li.length;i++){
-				   		list_li[i].classList.remove('add_btn');
-				   	}
-				   	var that = this;
-				   	if(that.classList.contains('add_btn')){
-				   		that.classList.remove('add_btn');
-				   	}else{
-				   		that.classList.add('add_btn');
-				   	}	
-			   });
+				//点击确定
+			  	 var confirmBtn = document.getElementById("confirmBtn");
+			    confirmBtn.addEventListener('tap',function(){
+			    	pop.classList.remove('mui-active');
+			    	mask.close();
+			    })
+			    //点击取消
+			    var returnBtn = document.getElementById("returnBtn");
+			    returnBtn.addEventListener('tap',function(){
+			    	pop.classList.remove('mui-active');
+			    	mask.close();
+			    })
 			})
+			
+				 //单选框
+				   var list_ul = document.getElementById("list_ul");
+				   var list_li = document.getElementsByClassName('evaluate_btn');
+				   mui('.comment_btn').on('tap','.evaluate_btn',function(){
+					   	for(var i=0;i<list_li.length;i++){
+					   		list_li[i].classList.remove('class_add_btn');
+					   	}
+					   	var that = this;
+					   	if(that.classList.contains('class_add_btn')){
+					   		that.classList.remove('class_add_btn');
+					   	}else{
+					   		that.classList.add('class_add_btn');
+					   	}	
+				   });
+			
+			  	//遮罩复选框
+			  	mui('.popover_list_ul').on('tap','li',function(){
+				   	var that = this;
+				   	var child = that.childNodes;
+				   	var span = child[0];
+				   	var img = child[1];
+				   	if(span.classList.contains('text_active')){
+						    span.classList.remove('text_active');
+						}else{
+							span.classList.add('text_active');
+						}
+				   	//lastIndexOf返回一个指定的字符串值最后出现的位置
+				   	var imgName = img.src.substr(img.src.lastIndexOf('/') + 1); 
+				   if(imgName =='kspk_no.png'){
+				   		img.src="../images/myself/kspk_yes.png"
+				   }else{
+				   		img.src="../images/myself/kspk_no.png"
+				   } 	
+			   })
 		</script>
 	</body>
 

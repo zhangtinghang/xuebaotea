@@ -7,7 +7,6 @@
  */
 
 (function($, document) {
-	var titleData = '';
 	//创建 DOM
 	$.dom = function(str) {
 		if (typeof(str) !== 'string') {
@@ -40,7 +39,8 @@
 		//构造函数
 		init: function(options) {
 			var self = this;
-			titleData=options || '';
+			self.options = options || {};
+			var titleData=self.options.title || '';
 			var panelBuffer = '<div class="mui-poppicker">\
 				<div class="picker_title" id="picker_title">'+titleData+'</div>\
 				<div class="mui-poppicker-body">\
@@ -51,8 +51,7 @@
 					<div class="mui-poppicker-clear"></div>\
 				</div>\
 			</div>';
-			options = null;
-			self.options = options || {};
+			
 			self.options.buttons = self.options.buttons || ['取消', '确定'];
 			self.panel = $.dom(panelBuffer)[0];
 			document.body.appendChild(self.panel);

@@ -307,6 +307,10 @@
 					}
 				}
 			});
+			//已经报课名单
+			mui('.mui-scroll').on('tap','.more_detail',function(){
+				openView.nativeView('class_stu.html', 'class_stu', '班课学生');
+			})
 		</script>
 	</body>
 </html>

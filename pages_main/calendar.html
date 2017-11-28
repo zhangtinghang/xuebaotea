@@ -323,27 +323,16 @@
 			mui.plusReady(function() {
 				//监听返回
 				listenReturn();
+				//新建班课
+				listenNext('新建班课','new_class.html','new_class','新建班课','60px');
+				//当前日期
 				mui('#date-list').on('tap', '.date_day', function() {
 					//			var day = this.getAttribute('date-day');
 				})
-				var time = todu(date.getFullYear()) + '年' + todu(date.getMonth() + 1) + '月';
-				var ws = plus.webview.currentWebview();
-				var view = ws.getTitleNView();
-				view.drawText(time, {
-					top: '0px',
-					right: '20px',
-					height: '44px',
-					width: '80px'
-				}, {
-					size: '15px',
-					color: '#fefefe'
-				}, 'next');
-				//监听时间打开，打开popover
-				view.addEventListener("click", function(e) {
-					if(screen.width - e.clientX <= 110) {
-						console.log('点击')
-					}
-				}, false);
+				//内容列表
+				mui('.list_ul').on('tap','li',function(){
+					openView.nativeView('fill_feedback.html', 'fill_feedback', '课堂反馈');
+				})
 				
 			})
 			

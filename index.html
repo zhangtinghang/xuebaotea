@@ -1,15 +1,352 @@
 <!DOCTYPE html>
 <html>
-<head>
-   <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<title>首页</title>
-	<script src="js/mui.min.js"></script>
-	<script type="text/javascript" src="js/zoom/flexible.js"></script>
-	<link href="css/mui.min.css" rel="stylesheet" />
-</head>
-<body>
-	
-</body>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>首页</title>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/zoom/flexible.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}			
+			ul,
+			li {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			/*轮播图*/
+			
+			.mui-slider {
+				width: 100%;
+				min-height: 5.555555rem;
+				background-image: url(images/main/baner_picture.png);
+				background-position: left top;
+				background-repeat:no-repeat;
+				background-size: 100% 100%;
+			}
+			
+			.mui-slider-indicator {
+				bottom: 24px;
+			}
+			/*课程表*/
+			
+			.course_box {
+				display: flex;
+				position: relative;
+				width: 98%;
+				margin: 0 auto;
+				margin-top: -13px;
+				padding: 0;
+				height: 3.333333rem;
+				justify-content: space-around;
+				z-index: 9;
+			}
+			
+			.course {
+				width: 49.5%;
+				height: 3.333333rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 0.5rem;
+				color: #FFFFFF;
+			}
+			.course_indent{
+				background-color: #4ea9ef;
+			}
+			.course_indent img{
+				width: 1.166666rem;
+				height: 1.25rem;
+				margin-right: 0.541666rem;
+			}
+			.course_arrange{
+				background-color: #33c1a1;
+			}
+			.course_arrange img{
+				width: 1.194444rem;
+				height: 1.236111rem;
+				margin-right: 0.541666rem;
+			}
+			/*服务消息*/
+			
+			.serve_nav {
+				width: 100%;
+				height: 1.063888rem;
+				border-bottom: 1px solid rgba(220, 220, 220, .5);
+				display: flex;
+				align-items: center;
+				background-color: rgba(255, 255, 255, 1);
+				margin-top: 0.222222rem;
+			}
+			
+			.nav_line {
+				width: 3px;
+				background-color: #007AFF;
+				height: 0.436666rem;
+				margin-left: 5%;
+			}
+			
+			.nav_serve {
+				width: 70%;
+				margin-top: 0.128888rem;
+				margin-left: 0.163333rem;
+				color: rgba(136, 136, 136, 1);
+				font-size: 0.388888rem;
+			}
+			
+			.nav_more {
+				width: 30%;
+				text-align: right;
+				padding-right: 5%;
+				color: rgba(136, 136, 136, 1);
+			}
+			
+			.class_message {
+				width: 100%;
+				background-color: rgba(255, 255, 255, 1);
+				margin-bottom: 0.111111rem;
+			}
+			.class_message:active{
+				background-color: rgb(240,240,240);
+			}
+			
+			.message_title {
+				display: flex;
+				padding: 0.222222rem 5%;
+				align-items: center;
+			}
+			
+			.title_img {
+				width: 0.75rem;
+				height: 0.75rem;
+			}
+			
+			.title_img img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.title_text {
+				padding-left: 0.388888rem;
+				font-size: 0.416666rem;
+				color: rgb(51, 51, 51);
+			}
+			
+			.title_time {
+				color: rgba(136, 136, 136, 1);
+				padding-left: 0.222222rem;
+				font-size: 0.277777rem;
+			}
+			
+			.message_body {
+				width: 100%;
+				padding-bottom: 0.388888rem;
+				display: flex;
+				justify-content: space-between;
+				color: rgba(136, 136, 136, 1);
+			}
+			
+			.body_choose {
+				color: rgba(85, 85, 85, 1);
+				font-size:0.388888rem;
+				margin-left: 5%;
+				padding-left: 1.138rem;
+			}
+			
+			.body_detail {
+				color: rgb(136, 136, 136);
+				font-size: 0.277777rem;
+				padding-right: 5%;
+				display: inline-flex;
+				align-items: center;
+			}
+			
+			.body_detail>img {
+				width: 0.166666rem;
+				height: 0.152777rem;
+				margin-left: 0.057777rem;
+			}
+			#msg-content{
+				padding-bottom: 51px;
+			}			
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content" id="msg-content">
+				<!--静态图片-->
+				<!--<img v-if="sliderBox.num == 1" id="img1" :src="sliderBox.ajaxUrl+item.carouselImageUrl" />-->
+				<!--轮播图片-->
+				<div id="slider" class="mui-slider" >
+					<!--<img src="images/cbd.jpg" />-->
+				</div>
+			
+
+			<!--课程表-->
+			<div class="course_box">
+				<div class="course course_indent" id="course"><img src="images/main/order_arrange.png" />课程订单</div>
+				<div class="course course_arrange" id="arrangement">
+					<img src="images/main/class_arrange.png" />
+					课程安排
+				</div>
+			</div>
+
+			<!--服务消息-->
+			<div class="serve_nav">
+				<div class="nav_line"></div>
+				<span class="nav_serve">服务消息</span>
+				<div id="server_more" class="nav_more">更多</div>
+			</div>
+			<div class="class_message_box" id="class_message_box">
+				<div class="class_message" data-type="1">
+					<div class="message_title">
+						<div class="title_img"><img src="images/main/in_class_icon.png" /></div>
+						<div class="title_text">上课中</div>
+						<div class="title_time">16:54</div>
+					</div>
+					<div class="message_body">
+						<div class="body_choose">【语文】</div>
+						<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
+					</div>
+				</div>
+				
+				<div class="class_message" data-type="2">
+					<div class="message_title">
+						<div class="title_img"><img src="images/main/recharge_record_icon.png" /></div>
+						<div class="title_text">充值记录</div>
+						<div class="title_time">10:04</div>
+					</div>
+					<div class="message_body">
+						<div class="body_choose">1000学保币充值成功</div>
+						<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
+					</div>
+				</div>
+
+				<div class="class_message" data-type="3">
+					<div class="message_title">
+						<div class="title_img"><img src="images/main/class_feedback_icon.png" /></div>
+						<div class="title_text">课堂反馈</div>
+						<div class="title_time">昨天 9:40</div>
+					</div>
+					<div class="message_body">
+						<div class="body_choose">【数学课堂反馈】</div>
+						<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
+					</div>
+				</div>
+			</div>
+
+
+			<!--取出加密值-->
+			<input type="text" style="visibility:hidden" id="getPassword" value="" />
+		</div>
+		<!--沉浸式适配-->
+		<script type="text/javascript" src="js/immersed.js" ></script>
+		<!--原生渲染插件-->
+		<script src="js/util.js"></script>
+		<!--引入环信SDK-->
+		<script type="text/javascript" src="js/IM/webim.config.js"></script>
+		<script type="text/javascript" src="js/IM/strophe-1.2.8.min.js"></script>
+		<script type="text/javascript" src="js/IM/websdk-1.4.13.js"></script>
+		<!--end-->
+		<script type="text/javascript" src="js/config.js"></script>
+		<script type="text/javascript" src="js/login_config.js"></script>
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+		<script type="text/javascript" src="js/storage/indexedDB.js" ></script>
+		<script type="text/javascript" src="js/storage/websql.js" ></script>
+		<script type="text/javascript" src="js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="js/ajax.js" ></script>
+		<script type="text/javascript">
+			var aniShow = {};
+			mui.init({
+				swipeBack: false //关闭右滑关闭功能
+			});
+			mui.plusReady(function () {
+			    // 创建子webview窗口 并初始化
+				util.initSubpage(aniShow);
+
+				var nview = plus.nativeObj.View.getViewById('tabBar'),
+					activePage = plus.webview.currentWebview(),
+					targetPage,
+					subpages = util.options.subpages,
+					pageW = window.innerWidth,
+					currIndex = 0;
+
+				/**
+				 * 根据判断view控件点击位置判断切换的tab
+				 */
+				nview.addEventListener('click', function(e) {
+					var clientX = e.clientX;
+					if(clientX > parseInt(pageW * 0) && clientX <= parseInt(pageW * 0.25)) {
+						currIndex = 0;
+					} else if(clientX > parseInt(pageW * 0.26) && clientX <= parseInt(pageW * 0.5)) {
+						currIndex = 1;
+					}else if(clientX > parseInt(pageW * 0.51) && clientX <= parseInt(pageW * 0.75)) {
+						currIndex = 2;
+					}else if(clientX > parseInt(pageW * 0.76) && clientX <= parseInt(pageW * 1)) {
+						currIndex = 3;
+					}
+					// 匹配对应tab窗口	
+					if(currIndex > 0) {
+						targetPage = plus.webview.getWebviewById(subpages[currIndex - 1]);
+					} else {
+						targetPage = plus.webview.currentWebview();
+					}
+
+					if(targetPage == activePage) {
+						return;
+					}
+
+					//底部选项卡切换
+					util.toggleNview(currIndex);
+					// 子页面切换
+					util.changeSubpage(targetPage, activePage, aniShow);
+					//更新当前活跃的页面
+					activePage = targetPage;
+				});
+				
+				//课程订单
+				document.getElementById("course").addEventListener('tap',function(){
+					openView.nativeView('pages_main/single_class.html', 'single_class', '课程订单','','none');
+				})
+				//课程安排
+				document.getElementById("arrangement").addEventListener('tap',function(){
+					openView.nativeView('pages_main/calendar.html', 'calendar', '课程安排','','none');
+				})
+				//更多服务
+				document.getElementById("server_more").addEventListener('tap',function(){
+					openView.nativeView('pages_main/server_list.html', 'server_list', '服务消息');
+				});
+				//具体服务
+				mui('#class_message_box').on('tap','.class_message',function(){
+					var type = this.getAttribute('data-type');
+					switch(type)
+			    	{
+			    		case '1':
+			    		openView.nativeView('pages_main/in_class.html', 'in_class', '上课中');
+			    		break;
+			    		case '2':
+			    		openView.nativeView('pages_wallet/Withdrawal_success.html','Withdrawal_success', '提现成功');
+			    		break;
+			    		case '3':
+			    		openView.nativeView('pages_main/fill_feedback.html', 'fill_feedback', '课堂反馈');
+			    		break;
+			    		case '4':
+			    		openView.nativeView('pages_main/course_remind.html', 'course_remind', '上课提醒');
+			    		break;
+			    		default:
+						  //异常处理
+					}
+				})
+			})
+		</script>
+	</body>
+
 </html>

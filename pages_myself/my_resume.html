@@ -101,7 +101,7 @@
 				<li class="mui-table-view-cell mui-collapse mui-active">
 					<a class="mui-navigate-right" data-type = "0" href="#"><div class="title_icon classRotate"><img align="center" src="../images/main/teach_experience.png"/></div><div class="title_text">教学经历</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box"></textarea>
+						<textarea name="" class="textarea_box"  placeholder="请填写你的教学目标..."></textarea>
 					</div>
 				</li>
 				
@@ -109,7 +109,7 @@
 					<div class="line_box"></div>
 					<a class="mui-navigate-right" data-type="1" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">成功案例</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box"></textarea>
+						<textarea name="" class="textarea_box" placeholder="请填写你的成功案例..."></textarea>
 					</div>
 				</li>
 				
@@ -118,9 +118,9 @@
 					<div class="line_box"></div>
 					<a class="mui-navigate-right" data-type="2" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">荣誉</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box"></textarea>
+						<textarea name="" class="textarea_box" placeholder="请填写你的荣誉..."></textarea>
 						<div class="img_box">
-							<span><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /></span><img src="../images/main/js_grzx_fk.png" />
+							<span></span><img src="../images/main/js_grzx_fk.png" />
 						</div>
 					</div>
 				</li>
@@ -134,6 +134,16 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			     //渲染
+			    listenReturnRight('完成');
+			    var ws = plus.webview.currentWebview();
+				var view = ws.getTitleNView();
+			    view.addEventListener("click", function(e) {
+				if(screen.width - e.clientX <= 60){
+						//事件逻辑处理
+						mui.back();
+					}
+				}, false);
 			})
 			//遍历li
 			var mui_table_view =document.getElementById("mui-table-view");

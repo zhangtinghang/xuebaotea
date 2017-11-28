@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title></title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_ul{
+				width: 100%;
+			}
+			.content_ul li{
+				display: flex;
+				align-items: center;
+				border-bottom: 1px solid rgba(220,220,220,.3);
+				padding: 0.222222rem 0;
+				background-color: #FFFFFF;
+			}
+			.list_avatar{
+				width: 18%;
+				text-align: center;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.list_avatar img{
+				width: 1rem;
+				height: 1rem;
+			}
+			.list_message{
+				width: 82%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			
+			.message_title{
+				font-size: 0.444444rem;
+				color: #555555;
+			}
+			.message_add{
+				margin-right: 5%;
+				color:#888888;
+				font-size: 0.333333rem;
+			}
+			.message_add:active{
+				color: #1b82d1;
+			}
+			.mui-bar{
+				background-color: #0DAD95;
+				display: flex;
+				align-items: center;
+				box-shadow: none;
+			}
+			.return-icon{
+				top:10px;
+                left:15px;
+                width:10%;
+                height:23px;
+			}
+			.return-icon img{
+				 width:12px;
+                height:23px;
+			}
+			input[type=search]{
+				text-align:left;
+				height: 34px !important;
+			}
+			.search-input{
+				width: 80% !important;
+				margin-left: 0 !important;
+				padding-left: 0 !important;
+				border-radius:0 !important;
+				color: #FFFFFF !important;
+				background-color: rgba(200,200,200,0) !important;
+			}
+			
+			input::-webkit-input-placeholder{
+			    color: #FFFFFF;opacity:1;
+			}
+			
+			.search_text{
+				width: 15%;
+				padding: 10px 0;
+				padding-right: 0.208333rem;
+				text-align: right;
+				color: #fefefe;
+				font-size: 0.388888rem !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<div class="return-icon mui-action-back"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAbCAYAAAB1NA+iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjdENkRFRTdGQjM0MTExRTdBQ0RFQ0FGMEVDREZGMUYxIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjdENkRFRTgwQjM0MTExRTdBQ0RFQ0FGMEVDREZGMUYxIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6N0Q2REVFN0RCMzQxMTFFN0FDREVDQUYwRUNERkYxRjEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6N0Q2REVFN0VCMzQxMTFFN0FDREVDQUYwRUNERkYxRjEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6UxFOBAAABB0lEQVR42mL8//8/A5mAC4inMoAMIANrAPHl/2Rqjgbiz/+hgBSNHEA88z8quE2sZlUgPo+meTEQ8xGjORSIPyJpBDk/HiaPTyM7EE9Gs/UsEKshq8OlWRGITyNp/AfEE6CGMhAyIACI3yNpfgXEPrhcisxhBeI+qG0wsA+IpfCFEYwhB8THkTT+BuJqIGYiFMgwJ79D0vwQiK2ITR8MaE5eA8QCpCQwBiTNW8lJ2uguWAvEgqQa4A3Eb9DCwJoUA3DFQg0QMxNrAL50IE2sAbhS4msg9iXFAFx5YSKxeQFfbjwHxOrEGoCvPEggxQBcJdJSYkskfGXiHbqWyljrBUZKayaAAAMAzRgYGVr0LLIAAAAASUVORK5CYII=" /></div>
+			<input class="search-input" type="search" placeholder="请输入姓名或手机号" x-webkit-grammar="builtin:search" lang="zh-CN">
+			<div class="search_text">搜索</div>
+		</header>
+		<div class="mui-content" id="content">	
+			<ul class="content_ul">
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/message_list.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">王泽</div>
+						<div class="message_add">添加</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张振</div>
+						<div class="message_add">添加</div>
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_1.png" />
+					</div>
+					<div class="list_message">
+						<div class="message_title">张小华</div>
+						<div class="message_add">添加</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/immersed.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				
+			})
+		</script>
+	</body>
+
+</html>
