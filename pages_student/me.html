@@ -125,6 +125,35 @@
 			.function_list_li:active{
 				background-color: rgb(240,240,240);
 			}
+			
+			.list_money{
+				border-bottom: 4px solid rgb(240,240,240);
+			}
+			.list_search{
+				border-bottom: 4px solid rgb(240,240,240);
+			}
+			
+			.call_phone{
+				background-color: #0DAD95;
+				padding:0;
+				border-radius:28px;
+				width: 3.247222rem;
+				height: 0.777777rem;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: absolute;
+				color: #FEFEFE;
+				right: 5%;
+				top: 50%;
+				margin-top: -0.388888rem;
+				font-size: 0.388888rem;
+			}
+			.call_phone img{
+				width: 0.305555rem;
+				height: 0.333333rem;
+				margin-right: 0.138888rem;
+			}
 		</style>
 	</head>
 
@@ -151,7 +180,7 @@
 			
 			<div class="function_list">
 				<ul class="function_list_ul">
-					<li class="function_list_li" data-type = "1">
+					<li class="function_list_li list_money" data-type = "1">
 						<div class="function_list_li_left">
 							<img class="response" align="center" src="../images/myself/my_walnut.png"/>
 							我的钱包
@@ -160,7 +189,7 @@
 							<img class="next_content" align="center" src="../images/myself/next_content.png" />
 						</div>
 					</li>
-					<li class="function_list_li" data-type = "2">
+					<li class="function_list_li list_search" data-type = "2">
 						<div class="function_list_li_left">
 							<img class="response" align="center" src="../images/myself/all_serch.png"/>
 							全局搜索
@@ -203,6 +232,15 @@
 						</div>
 						<div class="function_list_li_right">
 							<img class="next_content" align="center" src="../images/myself/next_content.png" />
+						</div>
+					</li>
+					<li class="function_list_li" data-type = "8">
+						<div class="function_list_li_left">
+							<img class="client_phone" align="center" src="../images/me/client_phone.png"/>
+							客服电话
+						</div>
+						<div class="function_list_li_right">
+							<div class="call_phone"><img align="center" src="../images/me/phone_client.png" />028-8602348</div>
 						</div>
 					</li>
 					<li class="function_list_li" data-type = "7">

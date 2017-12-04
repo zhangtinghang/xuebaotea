@@ -16,13 +16,6 @@
 			.content{
 				height: 100%;
 			}
-			.dot{
-				width: 0.097222rem;
-				height: 0.097222rem;
-				background-color: rgb(27,130,209);
-				border-radius:90px;
-				margin-right: 0.097222rem;
-			}
 			.list_ul{
 				padding-left: 5%;
 				background-color: #FEFEFE;
@@ -50,7 +43,7 @@
 				font-size: 0.388888rem;
 			}
 			.list_left_num{
-				color: rgb(27,130,209);
+				color: #0DAD95;
 				font-size: 0.416666rem;
 			}
 			.more_detail{
@@ -117,7 +110,7 @@
 				text-align: center;
 				padding-top: 0.388888rem;
 				color: #333333;
-				font-size: 0.416666rem;
+				font-size: 0.444444rem;
 				border-top:2px solid #F0F0F0;
 			}
 			/*框架样式调整*/
@@ -292,7 +285,7 @@
 			mui('.mui-scroll-wrapper').scroll({
 				indicators: true //是否显示滚动条
 			});
-			var html2 = '<div class="list_ul"><li><div class="dot"></div>少儿英语班</li><li>上课时间：2017年07月01日-07月31日</li><li>上课时长：24.0小时</li><li><span>报名情况：<span class="list_left_num">3</span>/5</span></li><li class="more_detail">查看已报课学生</li></div>';
+			var html2 = '<div class="list_ul"><li>少儿英语班</li><li>上课时间：2017年07月01日-07月31日</li><li>上课时长：24.0小时</li><li><span>报名情况：<span class="list_left_num">3</span>/5</span></li><li class="more_detail">查看已报课学生</li></div>';
 			var item2 = document.getElementById('item2mobile');
 			var sliderProgressBar = document.getElementById("sliderProgressBar");
 			document.getElementById('slider').addEventListener('slide', function(e) {
