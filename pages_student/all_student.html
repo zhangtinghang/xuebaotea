@@ -407,8 +407,7 @@
 						<div id="scroll2" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<div class="mui-loading">
-									<div class="mui-spinner">
-									</div>
+									<div class="mui-spinner"></div>
 								</div>
 							</div>
 						</div>
@@ -449,7 +448,7 @@
 				}else if(e.detail.slideNumber === 1) {
 					sliderProgressBar.style.marginLeft='60%';
 					if (item2.querySelector('.mui-loading')) {
-						setTimeout(function() {
+						setTimeout(function(){
 							item2.querySelector('.mui-scroll').innerHTML = html2;
 						}, 500);
 					}

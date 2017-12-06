@@ -107,11 +107,23 @@
 			.box_footer{
 				width: 90%;
 				margin: 0 auto;
-				text-align: center;
 				padding-top: 0.388888rem;
 				color: #333333;
 				font-size: 0.444444rem;
 				border-top:2px solid #F0F0F0;
+				display: flex;
+			}
+			.box_footer span{
+				width: 50%;
+				text-align: center;
+				font-size: 0.416666rem;
+				color: #555555;
+			}
+			.box_footer span:first-child{
+				border-right:1px solid rgb(240,240,240);
+			}
+			.confirmBtn{
+				color: #0DAD95 !important;
 			}
 			/*框架样式调整*/
 			.mui-control-content {
@@ -201,7 +213,7 @@
 										</div>
 									</div>
 									<div class="box_footer">
-										接受订单
+										<span class="confirmBtn">接受订单</span><span>返回订单</span>
 									</div>
 								</div>
 								
@@ -227,7 +239,7 @@
 										</div>
 									</div>
 									<div class="box_footer">
-										接受订单
+										<span class="confirmBtn">接受订单</span><span>返回订单</span>
 									</div>
 								</div>
 								
@@ -253,7 +265,7 @@
 										</div>
 									</div>
 									<div class="box_footer">
-										接受订单
+										<span class="confirmBtn">接受订单</span><span>返回订单</span>
 									</div>
 								</div>
 								

@@ -24,7 +24,6 @@
 				background-position: left top;
 				background-repeat: no-repeat;
 				position: relative;
-				z-index: -1;
 			}
 			.header_box_i{
 				position: absolute;
@@ -67,6 +66,7 @@
 				color: #FEFEFE;
 				margin-top: 0.288888rem;
 				font-size: 0.388888rem;
+				z-index: 99;
 			}
 		
 			/*列表*/
@@ -81,7 +81,8 @@
 				justify-content: space-between;
 				align-items: center;
 				background-color: #FEFEFE;
-				padding: 0.416666rem 0.388888rem;
+				padding: 0 0.388888rem;
+				height: 1.416666rem;
 				border-bottom: 2px solid rgb(240,240,240);
 				position: relative;
 			}
@@ -104,19 +105,39 @@
 				width: 0.166666rem;
 				height: 0.291666rem;
 			}
-			.response{
-				width: 0.527777rem;
-				height: 0.555555rem;
+			.img_response{
+				width: 0.416666rem;
+				height: 0.416666rem;
 			}
-			.self_data{
+			.img_search{
+				width: 0.416666rem;
+				height: 0.402777rem;
+			}
+			.img_data{
 				width: 0.402777rem;
 				height: 0.430555rem;
 			}
-			.client_phone{
+			.img_class{
+				width: 0.416666rem;
+				height: 0.513888rem;
+			}
+			.img_dynamic{
+				width: 0.472222rem;
+				height: 0.472222rem;
+			}
+			.img_selfdata{
+				width: 0.402777rem;
+				height: 0.430555rem;
+			}
+			.img_platform{
+				width: 0.361111rem;
+				height: 0.416666rem;
+			}
+			.img_call{
 				width: 0.430555rem;
 				height: 0.402777rem;
 			}
-			.set_some{
+			.img_setting{
 				width: 0.444444rem;
 				height: 0.444444rem;
 			}
@@ -154,12 +175,18 @@
 				height: 0.333333rem;
 				margin-right: 0.138888rem;
 			}
+			.search_status{
+				color: #0DAD95;
+				font-size: 0.388888rem;
+				margin-right: 3%;
+				
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="content" id="msg-content">
-			<div class="header_box">
+			<div class="header_box" id="header_box">
 				<i class="header_box_i"></i>
 				<div class="avatar_box">
 					<div class="header_avatar">
@@ -172,88 +199,103 @@
 					<div class="header_name">
 						我爱学习，学习使我快乐！
 					</div>
-					<div class="header_age">
-						成都市&nbsp;&nbsp;|&nbsp;&nbsp;语文&nbsp;&nbsp;|&nbsp;&nbsp;三星教师
+					<div class="header_age" id="teacher_detail">
+						成都市&nbsp;&nbsp;|&nbsp;&nbsp;语文&nbsp;&nbsp;|&nbsp;&nbsp;<span >三星教师</span>
 					</div>
 				</div>
 			</div>
-			
-			<div class="function_list">
-				<ul class="function_list_ul">
-					<li class="function_list_li list_money" data-type = "1">
-						<div class="function_list_li_left">
-							<img class="response" align="center" src="../images/myself/my_walnut.png"/>
-							我的钱包
-						</div>
-						<div class="function_list_li_right">
-							<img class="next_content" align="center" src="../images/myself/next_content.png" />
-						</div>
-					</li>
-					<li class="function_list_li list_search" data-type = "2">
-						<div class="function_list_li_left">
-							<img class="response" align="center" src="../images/myself/all_serch.png"/>
-							全局搜索
-						</div>
-						<div class="function_list_li_right">
-							<img class="next_content" align="center" src="../images/myself/next_content.png" />
-						</div>
-					</li>
-					<li class="function_list_li" data-type = "3">
-						<div class="function_list_li_left">
-							<img class="response" align="center" src="../images/myself/teach_material.png"/>
-							授课资料
-						</div>
-						<div class="function_list_li_right">
-							<img class="next_content" align="center" src="../images/myself/next_content.png" />
-						</div>
-					</li>		
-					<li class="function_list_li" data-type ="4">
-						<div class="function_list_li_left">
-							<img class="self_data" align="center" src="../images/myself/self_data.png"/>
-							我的动态
-						</div>
-						<div class="function_list_li_right">
-							<img class="next_content" align="center" src="../images/myself/next_content.png" />
-						</div>
-					</li>
-					<li class="function_list_li" data-type ="5">
-						<div class="function_list_li_left">
-							<img class="self_data" align="center" src="../images/myself/plateform_data.png"/>
-							个人资料
-						</div>
-						<div class="function_list_li_right">
-							<img class="next_content" align="center" src="../images/myself/next_content.png" />
-						</div>
-					</li>
-					<li class="function_list_li" data-type = "6">
-						<div class="function_list_li_left">
-							<img class="client_phone" align="center" src="../images/myself/plateform_data.png"/>
-							平台资料
-						</div>
-						<div class="function_list_li_right">
-							<img class="next_content" align="center" src="../images/myself/next_content.png" />
-						</div>
-					</li>
-					<li class="function_list_li" data-type = "8">
-						<div class="function_list_li_left">
-							<img class="client_phone" align="center" src="../images/me/client_phone.png"/>
-							客服电话
-						</div>
-						<div class="function_list_li_right">
-							<div class="call_phone"><img align="center" src="../images/me/phone_client.png" />028-8602348</div>
-						</div>
-					</li>
-					<li class="function_list_li" data-type = "7">
-						<div class="function_list_li_left">
-							<img class="set_some" align="center" src="../images/myself/set_some.png" />
-							设置
-						</div>
-						<div class="function_list_li_right">
-							<img class="next_content" align="center" src="../images/myself/next_content.png" />
-						</div>
-					</li>
-				</ul>
+				
+		<div class="mui-scroll-wrapper" id="mui-scroll-wrapper">
+			<div class="mui-scroll" id="mui-control-content">
+				<!--这里放置真实显示的DOM内容-->
+				<div class="function_list">
+					<ul class="function_list_ul">
+						<li class="function_list_li list_money" data-type = "1">
+							<div class="function_list_li_left">
+								<img class="img_response" align="center" src="../images/myself/my_walnut.png"/>
+								我的钱包
+							</div>
+							<div class="function_list_li_right">
+								<img class="next_content" align="center" src="../images/myself/next_content.png" />
+							</div>
+						</li>
+						<li class="function_list_li list_search" data-type = "2">
+							<div class="function_list_li_left">
+								<img class="img_search" align="center" src="../images/myself/all_serch.png"/>
+								全局搜索
+							</div>
+							<div class="function_list_li_right">
+								<span class="search_status">开启</span><img class="next_content"  src="../images/myself/next_content.png" />
+							</div>
+						</li>
+						<li class="function_list_li" data-type = "3">
+							<div class="function_list_li_left">
+								<img class="img_data" align="center" src="../images/myself/teach_material.png"/>
+								授课资料
+							</div>
+							<div class="function_list_li_right">
+								<img class="next_content" align="center" src="../images/myself/next_content.png" />
+							</div>
+						</li>
+						<li class="function_list_li" data-type = "9">
+							<div class="function_list_li_left">
+								<img class="img_class" align="center" src="../images/myself/icon_bkjl.png"/>
+								班课记录
+							</div>
+							<div class="function_list_li_right">
+								<img class="next_content" align="center" src="../images/myself/next_content.png" />
+							</div>
+						</li>
+						<li class="function_list_li" data-type ="4">
+							<div class="function_list_li_left">
+								<img class="img_dynamic" align="center" src="../images/myself/my_dynamic.png"/>
+								我的动态
+							</div>
+							<div class="function_list_li_right">
+								<img class="next_content" align="center" src="../images/myself/next_content.png" />
+							</div>
+						</li>
+						<li class="function_list_li" data-type ="5">
+							<div class="function_list_li_left">
+								<img class="img_selfdata" align="center" src="../images/myself/self_data.png"/>
+								个人资料
+							</div>
+							<div class="function_list_li_right">
+								<img class="next_content" align="center" src="../images/myself/next_content.png" />
+							</div>
+						</li>
+						<li class="function_list_li" data-type = "6">
+							<div class="function_list_li_left">
+								<img class="img_platform" align="center" src="../images/myself/plateform_data.png"/>
+								平台资料
+							</div>
+							<div class="function_list_li_right">
+								<img class="next_content" align="center" src="../images/myself/next_content.png" />
+							</div>
+						</li>
+						<li class="function_list_li" data-type = "8">
+							<div class="function_list_li_left">
+								<img class="img_call" align="center" src="../images/myself/client_phone.png"/>
+								客服电话
+							</div>
+							<div class="function_list_li_right">
+								<div class="call_phone"><img align="center" src="../images/myself/phone_client.png" />028-8602348</div>
+							</div>
+						</li>
+						<li class="function_list_li" data-type = "7">
+							<div class="function_list_li_left">
+								<img class="img_setting" align="center" src="../images/myself/set_some.png" />
+								设置
+							</div>
+							<div class="function_list_li_right">
+								<img class="next_content" align="center" src="../images/myself/next_content.png" />
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
+		</div>
+			
 			<!--取出加密值-->
 			<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		</div>
@@ -287,7 +329,11 @@
 //								plus.nativeUI.toast('请求超时！');
 //							}
 //					},true); 
-		    
+			
+		    //教师详情页
+		document.getElementById("teacher_detail").addEventListener('tap',function(){
+			openView.usuView('teacher_detail.html', 'teacher_detail');
+		})
 		    //课堂反馈
 		    mui('.function_list_ul').on('tap','.function_list_li',function(){
 		    	var type = this.getAttribute('data-type');
@@ -314,11 +360,28 @@
 		    		case '7':
 		    		openView.nativeView('../pages_myself/setting.html', 'setting', '设置');
 		    		break;
+		    		case '8':
+		    		//拨打电话
+		    		break;
+		    		case '9':
+		    		openView.nativeView('../pages_myself/all_class.html', 'all_class', '班课记录');
+		    		break;
 		    		default:
 					  //异常处理
 				}
 		    })
 		})
+		
+			//修改框架高度
+			var header_box = document.getElementById('header_box').offsetHeight;
+			var mui_scroll_wrapper = document.getElementById("mui-scroll-wrapper");
+			var ViewHeight = window.innerHeight;
+			mui_scroll_wrapper.style.height  = ViewHeight - header_box + 'px';
+			mui_scroll_wrapper.style.top = header_box + 'px';
+			//DIV局部滚动
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			});
 		
 //		var vm = new Vue({
 //				el: '#msg-content',

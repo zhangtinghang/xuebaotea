@@ -267,10 +267,16 @@
 			.mui-poppicker-header{
 				padding: 0.208888rem 0.138888rem;
 			}
-			.mui-btn-blue{
+			.mui-poppicker-btn-cancel{
+				font-size: 0.444444rem !important;
+			}
+			.mui-poppicker-btn-ok{
 				background-color: #FFFFFF;
 				color: #0DAD95;
-				font-size: 0.444444rem;
+				font-size: 0.444444rem !important;
+			}
+			.mui-poppicker-btn-ok:active{
+				background-color: #0DAD95 !important;	
 			}
 			/*遮罩相关*/
 			.mui-popover .mui-popover-arrow {
@@ -280,9 +286,6 @@
 				bottom:0 !important;
 				width: 100%;
 				border-radius:0 ;
-			}
-			.popover-box{
-				
 			}
 			.mui-popover{
 				background-color: #FFFFFF;
@@ -331,6 +334,10 @@
 			.text_active{
 				color: #0dad95;
 			}
+			
+			.mui-poppicker-body{
+				height: 190px;
+			}
 		</style>
 	</head>
 
@@ -350,7 +357,7 @@
 								<div class="btn_box mui-btn-numbox-plus" type="button"><img class="add_btn" src="../images/main/add.png" /></div>
 							</div>
 					</span></li>
-					<li><span>授课地址<span class="left_site">荣成国际培训机构</span></span><span class="list_right come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></span></li>
+					<li id="left_site"><span>授课地址<span class="left_site">荣成国际培训机构</span></span><span class="list_right come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></span></li>
 				</ul>
 			</div>
 		<div class="nav_title nav_title_2">
@@ -404,6 +411,10 @@
 						mui.back();
 					}
 				}, false);
+				//授课地址监听
+				document.getElementById("left_site").addEventListener('tap',function(){
+					openView.nativeView('../pages_student/location.html','location','地址');
+				})
 			    //监听值改变
 		     	var numBox=document.getElementById("num");
 				numBox.addEventListener('change',function(){

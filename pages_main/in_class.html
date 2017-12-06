@@ -13,11 +13,12 @@
 				padding:0 0.388888rem;
 				display: flex;
 				align-items: center;
-				border-bottom:2px solid rgba(220,220,220,.5);
+				border-bottom:2px solid rgba(240,240,240,1);
 				font-size: 0.416666rem;
 				color: #555555;
 				background-color: #FEFEFE;
 				height: 1.194444rem;
+				border-top:7px solid rgba(240,240,240,1);
 			}
 			.content_body{
 				width: 100%;
@@ -42,13 +43,9 @@
 				font-size: 0.416666rem !important;
 				color: #5555555;
 			}
-			.body_btn{
-				margin-top: 1.416666rem;
-			}
 			.mui-btn{
 				width: 80%;
 				margin: 0 auto;
-				margin-top: 0.777777rem;
 				border-radius:42px;
 				background-color: #0DAD95;
 				color: #FEFEFE;
@@ -57,11 +54,29 @@
 				line-height: 0.5;
 				border: none;
 			}
+			.nav{
+				background-color: #fefefe;
+			}
+			.nav_title{
+				text-align: center;
+				font-size: 0.666666rem;
+				padding-top: 1.541666rem;
+				padding-bottom: 1.208333rem;
+			}
+			.body_btn{
+				padding-bottom: 1.194444rem;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="content">
+			<div class="nav">
+				<div class="nav_title">上课状态</div>
+				<div class="body_btn">
+					<button type="button" class="mui-btn mui-btn-block">结束</button>
+				</div>
+			</div>
 			<div class="content_course">课程信息</div>
 			<div class="content_body">
 				<div class="list"><span class="list_left">年级</span><span>初一</span></div>
@@ -69,10 +84,7 @@
 				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
 				<div class="list"><span class="list_left">排课时长</span><span>120分钟</span></div>
 				<div class="list list_last"><span class="list_left">开始时间</span><span>09：20</span></div>
-			</div>
-			<div class="body_btn">
-				<button type="button" class="mui-btn mui-btn-block">结束</button>
-			</div>
+			</div>			
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>

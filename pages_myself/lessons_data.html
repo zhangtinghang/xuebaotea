@@ -50,9 +50,9 @@
 			<ul class="list_ul">
 				<li>教师姓名 <input type="text" placeholder="" /></li>
 				<li>教师宣言<input type="text" /></li>
-				<li class="comeTo newView" data-type = "1"><span>教学年级</span><span class="list_li_right"><img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
+				<li class="comeTo newView" data-type = "0"><span>教学科目</span><span class="list_li_right">语文&nbsp;&nbsp;<img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
+				<li class="comeTo newView" data-type = "1"><span>教学年级</span><span class="list_li_right">国学&nbsp;&nbsp;<img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
 				<li class="comeTo newView" data-type = "2"><span>个人简历</span><span class="list_li_right"><img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
-				<li class="comeTo"><span>个人照片</span><span class="list_li_right photoImg"><img src="../images/myself/upload_photo.png" /></span></li>
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -75,7 +75,9 @@
 				mui('.list_ul').on('tap','.newView',function(){
 			    	var type = this.getAttribute('data-type');
 			    	switch(type)
-			    	{
+			    	{case '0':
+			    		openView.nativeView('../pages_student/subject_list.html', 'subject_list', '教学科目');
+			    		break;
 			    		case '1':
 			    		openView.nativeView('study_class.html', 'study_class', '教学年级');
 			    		break;

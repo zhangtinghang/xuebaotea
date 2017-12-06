@@ -198,50 +198,88 @@
 					课程安排
 				</div>
 			</div>
-
 			<!--服务消息-->
-			<div class="serve_nav">
+			<div class="serve_nav" id="course_box">
 				<div class="nav_line"></div>
 				<span class="nav_serve">服务消息</span>
 				<div id="server_more" class="nav_more">更多</div>
 			</div>
-			<div class="class_message_box" id="class_message_box">
-				<div class="class_message" data-type="1">
-					<div class="message_title">
-						<div class="title_img"><img src="images/main/in_class_icon.png" /></div>
-						<div class="title_text">上课中</div>
-						<div class="title_time">16:54</div>
-					</div>
-					<div class="message_body">
-						<div class="body_choose">【语文】</div>
-						<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
-					</div>
-				</div>
-				
-				<div class="class_message" data-type="2">
-					<div class="message_title">
-						<div class="title_img"><img src="images/main/recharge_record_icon.png" /></div>
-						<div class="title_text">充值记录</div>
-						<div class="title_time">10:04</div>
-					</div>
-					<div class="message_body">
-						<div class="body_choose">1000学保币充值成功</div>
-						<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
-					</div>
-				</div>
-
-				<div class="class_message" data-type="3">
-					<div class="message_title">
-						<div class="title_img"><img src="images/main/class_feedback_icon.png" /></div>
-						<div class="title_text">课堂反馈</div>
-						<div class="title_time">昨天 9:40</div>
-					</div>
-					<div class="message_body">
-						<div class="body_choose">【数学课堂反馈】</div>
-						<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
+			<div class="mui-scroll-wrapper" id="mui-scroll-wrapper">
+				<div class="mui-scroll" id="mui-scroll">
+					
+					<div class="class_message_box" id="class_message_box">
+						<div class="class_message" data-type="1">
+							<div class="message_title">
+								<div class="title_img"><img src="images/main/in_class_icon.png" /></div>
+								<div class="title_text">上课中</div>
+								<div class="title_time">16:54</div>
+							</div>
+							<div class="message_body">
+								<div class="body_choose">【语文】</div>
+								<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
+							</div>
+						</div>
+						
+						<div class="class_message" data-type="2">
+							<div class="message_title">
+								<div class="title_img"><img src="images/main/recharge_record_icon.png" /></div>
+								<div class="title_text">充值记录</div>
+								<div class="title_time">10:04</div>
+							</div>
+							<div class="message_body">
+								<div class="body_choose">1000学保币充值成功</div>
+								<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
+							</div>
+						</div>
+		
+						<div class="class_message" data-type="3">
+							<div class="message_title">
+								<div class="title_img"><img src="images/main/class_feedback_icon.png" /></div>
+								<div class="title_text">课堂反馈</div>
+								<div class="title_time">昨天 9:40</div>
+							</div>
+							<div class="message_body">
+								<div class="body_choose">【数学课堂反馈】</div>
+								<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
+							</div>
+						</div>
+						<div class="class_message" data-type="3">
+							<div class="message_title">
+								<div class="title_img"><img src="images/main/class_feedback_icon.png" /></div>
+								<div class="title_text">课堂反馈</div>
+								<div class="title_time">昨天 9:40</div>
+							</div>
+							<div class="message_body">
+								<div class="body_choose">【数学课堂反馈】</div>
+								<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
+							</div>
+						</div>
+						<div class="class_message" data-type="3">
+							<div class="message_title">
+								<div class="title_img"><img src="images/main/class_feedback_icon.png" /></div>
+								<div class="title_text">课堂反馈</div>
+								<div class="title_time">昨天 9:40</div>
+							</div>
+							<div class="message_body">
+								<div class="body_choose">【数学课堂反馈】</div>
+								<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
+							</div>
+						</div>
+						<div class="class_message" data-type="3">
+							<div class="message_title">
+								<div class="title_img"><img src="images/main/class_feedback_icon.png" /></div>
+								<div class="title_text">课堂反馈</div>
+								<div class="title_time">昨天 9:40</div>
+							</div>
+							<div class="message_body">
+								<div class="body_choose">【数学课堂反馈】</div>
+								<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+			
 
 
 			<!--取出加密值-->
@@ -346,6 +384,21 @@
 					}
 				})
 			})
+			
+			//框架调整
+			var course_box = document.getElementById("course_box");
+			var courseOffSetHeight = course_box.offsetHeight;
+			var courseOffSetTop = course_box.offsetTop;
+			var mui_scroll_wrapper = document.getElementById("mui-scroll-wrapper");
+			var ViewHeight = window.innerHeight;
+			var mui_scroll = document.getElementById("mui-scroll");
+			mui_scroll_wrapper.style.height  = ViewHeight - courseOffSetHeight - courseOffSetTop -50 + 'px';
+			mui_scroll_wrapper.style.top = courseOffSetHeight + courseOffSetTop + 'px';
+			//DIV局部滚动
+			mui('.mui-scroll-wrapper').scroll({
+				deceleration:0.00006,
+				indicators: true //是否显示滚动条
+			});
 		</script>
 	</body>
 
