@@ -82,7 +82,7 @@
 			    			openView.nativeView('self_change.html', 'self_change', '学校',{'eg':'青城一中'});
 			    			break;
 			    		case '2':
-			    			openView.nativeView('self_change.html', 'self_change', '姓名',{'eg':'小明'});
+			    			openView.nativeView('localtion.html', 'localtion', '区域');
 			    			break;
 		    			case '3':
 		    				openView.nativeView('../pages_student/location.html', 'location', '地址',{'eg':'东软店'});
@@ -91,6 +91,12 @@
 			    			break;
 			    	}
 			    })
+			    //接收区域参数
+				window.addEventListener('address',function(event){
+					var value = event.detail.value;
+					studentData.data.cityName = value;
+		    		vm.studentData.cityName = value;
+				});
 			})
 		</script>
 	</body>

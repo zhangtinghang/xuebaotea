@@ -45,64 +45,39 @@
 	</head>
 	<body>
 		<div class="content">
-			<div class="date_list">十月</div>
 			<div class="content_list">
 				<ul class="content_list_ul">
-					<li>
+					<li data-type = "0">
 						<div class="list_left">
-							<div class="list_title">支付宝充值</div>
+							<div class="list_title">提现支付宝</div>
 							<div class="list_time">2017-10-13 12 : 30</div>
 						</div>
 						<div class="list_right">
-							+1000 学币
+							-1000 学币
 						</div>
 					</li>
-					<li>
+					<li data-type = "1">
 						<div class="list_left">
-							<div class="list_title">支付宝充值</div>
+							<div class="list_title">转入-王小明-一对一</div>
 							<div class="list_time">2017-10-13 12 : 30</div>
 						</div>
 						<div class="list_right">
-							+1000 学币
+							+120 学币
 						</div>
 					</li>
-					<li>
+					<li data-type = "0">
 						<div class="list_left">
-							<div class="list_title">支付宝充值</div>
+							<div class="list_title">提现支付宝</div>
 							<div class="list_time">2017-10-13 12 : 30</div>
 						</div>
 						<div class="list_right">
-							+1000 学币
-						</div>
-					</li>
-				</ul>				
-			</div>
-			
-			<div class="date_list">九月</div>
-			<div class="content_list">
-				<ul class="content_list_ul">
-					<li>
-						<div class="list_left">
-							<div class="list_title">支付宝充值</div>
-							<div class="list_time">2017-10-13 12 : 30</div>
-						</div>
-						<div class="list_right">
-							+1000 学币
+							-1000 学币
 						</div>
 					</li>
 					
-					<li>
+					<li data-type = "2">
 						<div class="list_left">
-							<div class="list_title">支付宝充值</div>
-							<div class="list_time">2017-10-13 12 : 30</div>
-						</div>
-						<div class="list_right">
-							+1000 学币
-						</div>
-					</li>
-					<li>
-						<div class="list_left">
-							<div class="list_title">支付宝充值</div>
+							<div class="list_title">转入-王小明-班课</div>
 							<div class="list_time">2017-10-13 12 : 30</div>
 						</div>
 						<div class="list_right">
@@ -119,6 +94,24 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    //提现详情
+				mui('.content_list_ul').on('tap','li',function(){
+					var type = this.getAttribute('data-type');
+					switch(type)
+			    	{
+			    		case '0':
+			    		openView.nativeView('Withdrawal_success.html', 'Withdrawal_success', '提现成功');
+			    		break;
+			    		case '1':
+			    		openView.nativeView('../pages_myself/indent_detail.html', 'indent_detail', '订单详情',{'type':type});
+			    		break;
+			    		case '2':
+			    		openView.nativeView('../pages_myself/indent_detail.html', 'indent_detail', '订单详情',{'type':type});
+			    		break;
+			    		default:
+						  //异常处理
+			    	}
+				})
 			})
 		</script>
 	</body>

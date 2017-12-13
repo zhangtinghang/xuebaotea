@@ -107,12 +107,12 @@
 		</style>
 	</head>
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<ul id="mui-table-view" class="mui-table-view">
 				<li class="mui-table-view-cell mui-collapse mui-active">
 					<a class="mui-navigate-right" data-type = "0" href="#"><div class="title_icon classRotate"><img align="center" src="../images/main/teach_experience.png"/></div><div class="title_text">教学目标</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box"></textarea>
+						<textarea name="" id="teach_goal" class="textarea_box"></textarea>
 					</div>
 				</li>
 				
@@ -120,16 +120,19 @@
 					<div class="line_box"></div>
 					<a class="mui-navigate-right" data-type="1" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">教学内容</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box"></textarea>
+						<textarea name="" id="teach_content" class="textarea_box"></textarea>
 						<div class="img_box">
-							<span><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /></span><img src="../images/main/js_grzx_fk.png" />
+							<span><img v-for="(val, key, index) in teach_img" :src="val.path" /></span><img id="img_btn" src="../images/main/js_grzx_fk.png" />
 						</div>
 					</div>
 				</li>
 			</ul>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
@@ -137,19 +140,82 @@
 			    listenReturn();
 			    //完成监听
 			    listenReturnRight('完成');
+			    //存放图片地址
+			    var imgfile=[];
 			   	var ws = plus.webview.currentWebview();
 				var view = ws.getTitleNView();
+				var teach_goal = document.getElementById("teach_goal");
+				var teach_content = document.getElementById("teach_content");
+				var new_classPage =  plus.webview.getWebviewById('new_class');
 			    view.addEventListener("click", function(e) {
+			    	console.log(JSON.stringify(imgfile))
 				if(screen.width - e.clientX <= 60){
 						//事件逻辑处理
+						//将值传递出去
+						mui.fire(new_classPage,'courseChange',{
+						    teach_goal:teach_goal.value,
+						    teach_content:teach_content.value,
+						    imgfile:imgfile
+					  	});
+					  //清空数据
+					  clearForm();
 						mui.back();
 					}
 				}, false);
+				
+				//获取照片信息
+				document.getElementById("img_btn").addEventListener('tap',function(){
+					var btnArray = [{
+						title: "拍照"
+					}, {
+						title: "从相册选择"
+					}];
+					plus.nativeUI.actionSheet({
+						title: "选择照片",
+						cancel: "取消",
+						buttons: btnArray
+					}, function(e) {
+						var index = e.index;
+						switch (index) {
+							case 0:
+								break;
+							case 1:
+								var cmr = plus.camera.getCamera();
+								cmr.captureImage(function(path) {
+									var lfs = "file://" + plus.io.convertLocalFileSystemURL(path);
+									addFile(lfs);
+								}, function(err) {});
+							break;
+							case 2:
+								plus.gallery.pick(function(path) {					
+									for(var i in path.files){
+											lfs=path.files[i];
+									    	addFile(lfs);
+								    	}
+								}, function(err) {}, {filter:"image",multiple:true,maximum:3,system:false});
+							break;
+						}
+					});
+				})
+				
+				var addFile = function(path) {
+					imgfile.push({path:path});
+					//渲染图片
+					vm.teach_img = imgfile;
+				}
+				var clearForm = function(){
+					teach_goal.innerHTML='';
+					teach_content.innerHTML='';
+					imgfile=[];
+				}
 			})
 			//遍历li
 			var mui_table_view =document.getElementById("mui-table-view");
+			
 			var title_icon = mui_table_view.getElementsByClassName('title_icon');
+			
 			var mui_collapse = mui('.mui-collapse');
+			
 			mui('.mui-table-view').on('tap','.mui-navigate-right',function(){
 				var type = this.getAttribute('data-type');
 				if(this.parentNode.classList.contains('mui-active')){
@@ -161,7 +227,14 @@
 					title_icon[type].classList.add('classRotate');
 				}
 			})
-			
+			var vm = new Vue({
+                el: '#msg-content',
+                data: {
+                    teach_goal:'',
+                    teach_content:'',
+                    teach_img:[]
+                }
+            })
 		</script>
 	</body>
 </html>

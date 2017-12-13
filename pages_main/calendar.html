@@ -244,9 +244,15 @@
 				</li>
 			</ul>
 		</div>
-	</div>		
+	</div>	
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script>
 			//将单位数前加0
 			function todu(n) {
@@ -333,10 +339,21 @@
 //				mui('.list_ul').on('tap','li',function(){
 //					openView.nativeView('fill_feedback.html', 'fill_feedback', '课堂反馈');
 //				})
-				
+				//获取网络数据
+				var timeOfMonth = todu(date.getFullYear()) + todu(date.getMonth() + 1);
+			    var ajaxData = {
+						url:'restful1/course/getCoursesByMonth',
+						data: {
+							timeOfMonth:timeOfMonth
+						},
+						type:'post'
+					}
+				ajax(ajaxData, function(data) {
+					console.log('这是课程列表===',JSON.stringify(data))		
+				},true);
 			})
 			
-			//监听滑动
+				//监听滑动
 				var bodyBox = document.getElementById("bodyBox");
 				var dateList = document.getElementById("date-list");
 				var now_day = date.getDate();
@@ -352,28 +369,28 @@
 				var moveTop = -(listBoxToTop + dateListBoxToTop + liBoxHeight)+1;
 				//上滑
 				bodyBox.addEventListener('swipeup',function(){
-					dateList.style.transition="transform 500ms ease-out";
-					dateList.style.webkitTransition="-webkit-transform 500ms ease-out";
-					dateList.style.transform="translateY("+liBoxToTop+"px)";
-            		dateList.style.webkitTransform="-webkit-translateY("+liBoxToTop+"px)";       		
+					dateList.style.transition="-webkit-transform 500ms ease-out";
+					dateList.style.webkitTransition="transform 500ms ease-out";
+					dateList.style.transform="-webkit-translateY("+liBoxToTop+"px)";
+          			dateList.style.webkitTransform="translateY("+liBoxToTop+"px)";       		
             		//列表
-            		list_box.style.transition="transform 500ms ease-out";       		
-            		list_box.style.webkitTransition="-webkit-transform 500ms ease-out";
-            		list_box.style.transform="translateY("+moveTop+"px)";
-            		list_box.style.webkitTransform="-webkit-translateY("+moveTop+"px)";
+            		list_box.style.transition="-webkit-transform 500ms ease-out";       		
+          			list_box.style.webkitTransition="transform 500ms ease-out";
+            		list_box.style.transform="-webkit-translateY("+moveTop+"px)";
+          			list_box.style.webkitTransform="translateY("+moveTop+"px)";
             		
 				});
 				//下滑
 				bodyBox.addEventListener('swipedown',function(){
 					dateList.style.transition="-webkit-transform 500ms ease-out";
-					dateList.style.webkitTransition="-webkit-transform 500ms ease-out";
-            		dateList.style.transform="translateY(0)";
-            		dateList.style.webkitTransform="-webkit-translateY(0)";
+					dateList.style.webkitTransition="transform 500ms ease-out";
+            		dateList.style.transform="-webkit-translateY(0)";
+            		dateList.style.webkitTransform="translateY(0)";
             		//列表
-            		list_box.style.webkitTransition="-webkit-transform 500ms ease-out";
-            		list_box.style.transition="transform 500ms ease-out";
-            		list_box.style.webkitTransform="-webkit-translateY(0)";
-            		list_box.style.transform="translateY(0)";
+            		list_box.style.webkitTransition="transform 500ms ease-out";
+            		list_box.style.transition="-webkit-transform 500ms ease-out";
+            		list_box.style.webkitTransform="translateY(0)";
+            		list_box.style.transform="-webkit-translateY(0)";
 				});
 				
 				//修改当前周几

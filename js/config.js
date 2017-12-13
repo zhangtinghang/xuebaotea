@@ -148,3 +148,35 @@ var listenReturnRight = function(text,width,callback){
 		color: '#fefefe'
 	}, 'next');
 }
+//修改上下滑动框架高度
+var wrapperFrame = function(){
+	//修改框架高度
+	var wrapper_box = document.getElementById("wrapper_box");
+	var clear_offsetTop = wrapper_box.offsetTop;
+	var msg_content = document.body.offsetHeight;
+	var wrapperHeight = msg_content-clear_offsetTop;
+	wrapper_box.style.height=document.body.offsetHeight-wrapper_box.offsetTop+'px';
+	console.log('框架距离顶部高度',clear_offsetTop)
+	console.log('body高度',msg_content)
+	mui.toast(document.body.offsetHeight)
+	//DIV局部滚动
+		mui('.mui-scroll-wrapper').scroll({
+			indicators: true //是否显示滚动条
+		});
+}
+//修改左右上下框架高度
+var silderwrapperFrame = function(){
+	var slider = document.getElementById("slider");
+	var slider_offsetTop = slider.offsetTop;
+	var msg_content = document.body.offsetHeight;
+	var wrapperHeight = msg_content-slider_offsetTop;
+	slider.style.height=wrapperHeight+'px';
+	//滚动区域高度
+	var mui_slider_group = document.getElementById("mui-slider-group");
+	slider_group_offsetTop = mui_slider_group.offsetTop;
+	mui_slider_group.style.height = wrapperHeight - slider_group_offsetTop+'px';
+	//DIV局部滚动
+	mui('.mui-scroll-wrapper').scroll({
+		indicators: true //是否显示滚动条
+	});
+}

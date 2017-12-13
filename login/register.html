@@ -131,10 +131,10 @@
 			var acquire_code = document.getElementById("acquire_code");
 			acquire_code.addEventListener('tap',function(){
 				if(countdown != 60){
-					return;
+					return plus.nativeUI.toast('请稍后');
 				}
 				if(!dc.phone.value){
-						plus.nativeUI.toast('请输入手机号！');
+					plus.nativeUI.toast('请输入手机号！');
 					}else{
 						settime();
 						//APP后台发送短信
@@ -145,7 +145,7 @@
 							},
 							type: 'post'
 						};
-						ajax(ajaxData, function(data) {
+						ajax(ajaxData, function(data){
 							if(data.code==200){
 								plus.nativeUI.toast(data.msg);
 							}else{
@@ -179,7 +179,7 @@
 						var ajaxData = {
 							url:'public/users/register',
 							data: {
-								type:'student',
+								type:'teacher',
 								phone:dc.phone.value,
 								smsCode:dc.auth_code.value,
 								password:dc.password.value
@@ -190,7 +190,7 @@
 						var options = {
 						    username: dc.phone.value,
 						    password: dc.password.value,
-						    nickname: '学保Stu',
+						    nickname: '学保tea',
 						    appKey: WebIM.config.appkey,
 						    success: function (data) {
 						    	mui.back();
@@ -206,7 +206,7 @@
 							if(data.code == 200){
 								plus.nativeUI.toast(data.msg);
 								//注册环信
-								 conn.registerUser(options);
+								conn.registerUser(options);
 							}else{
 								//注册失败回调
 								plus.nativeUI.toast('注册失败，请稍后再试！');

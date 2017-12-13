@@ -23,13 +23,13 @@
 
 			/*轮播图*/
 			
-			.mui-slider {
+			.mui-slider{
 				width: 100%;
-				min-height: 5.555555rem;
-				background-image: url(images/main/baner_picture.png);
+				height: 5.555555rem;
+				/*background-image: url(images/main/baner_picture.png);
 				background-position: left top;
 				background-repeat:no-repeat;
-				background-size: 100% 100%;
+				background-size: 100% 100%;*/
 			}
 			
 			.mui-slider-indicator {
@@ -76,7 +76,7 @@
 			}
 			/*服务消息*/
 			
-			.serve_nav {
+			.serve_nav{
 				width: 100%;
 				height: 1.063888rem;
 				border-bottom: 1px solid rgba(240, 240, 240, 1);
@@ -280,13 +280,9 @@
 				</div>
 			</div>
 			
-
-
 			<!--取出加密值-->
 			<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		</div>
-		<!--沉浸式适配-->
-		<script type="text/javascript" src="js/immersed.js" ></script>
 		<!--原生渲染插件-->
 		<script src="js/util.js"></script>
 		<!--引入环信SDK-->
@@ -297,12 +293,11 @@
 		<script type="text/javascript" src="js/config.js"></script>
 		<script type="text/javascript" src="js/login_config.js"></script>
 		<script type="text/javascript" src="js/vue.min.js" ></script>
-		<script type="text/javascript" src="js/storage/indexedDB.js" ></script>
 		<script type="text/javascript" src="js/storage/websql.js" ></script>
 		<script type="text/javascript" src="js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="js/ajax.js" ></script>
 		<script type="text/javascript">
-			var aniShow = {};
+			var aniShow = {}; 
 			mui.init({
 				swipeBack: false //关闭右滑关闭功能
 			});
@@ -350,6 +345,50 @@
 					activePage = targetPage;
 				});
 				
+				
+				//轮播图相关数据处理（字符串拼接）
+				var slider = mui("#slider");				
+					slider.slider({
+						interval: 200
+					});
+				var ajaxData = {
+						url:'public/app/carousel',
+						data: {
+							type:'teacher'
+						},
+						type:'post'
+					}
+				ajax(ajaxData, function(data){
+					if(data.data){
+						creatSlider(data.data);
+					}else{
+						console.log('请求轮播失败',JSON.stringify(data))
+					}						
+				});
+				
+				//登录状态检测 
+				var state = app.getState();
+				if(state.data){
+					if(!state || !state.data.key || !state.IM_token){
+						openView.incView('login/login.html', 'login', '欢迎登陆');
+					}
+				}else{
+					openView.incView('login/login.html', 'login', '欢迎登陆');
+				}
+				
+				
+				//监听推送消息
+				plus.push.addEventListener( "receive", function( msg ) {
+				    	console.log('监听到消息',JSON.stringify(msg))
+				    	mui.toast('这是接收的消息'+msg);
+				        if ( msg.aps ) {  // Apple APNS message
+				             mui.toast( "接收到在线APNS消息：" );
+				        } else {
+				             mui.toast( "接收到在线透传消息：" );
+				        }
+				    }, false );
+				
+				
 				//课程订单
 				document.getElementById("course").addEventListener('tap',function(){
 					openView.nativeView('pages_main/single_class.html', 'single_class', '课程订单','','none');
@@ -384,21 +423,72 @@
 					}
 				})
 			})
+				var vm = new Vue({
+					el: '#msg-content',
+					data: {
+						teacherMessage:{}//教师动态数据
+					}			
+				})
 			
-			//框架调整
-			var course_box = document.getElementById("course_box");
-			var courseOffSetHeight = course_box.offsetHeight;
-			var courseOffSetTop = course_box.offsetTop;
-			var mui_scroll_wrapper = document.getElementById("mui-scroll-wrapper");
-			var ViewHeight = window.innerHeight;
-			var mui_scroll = document.getElementById("mui-scroll");
-			mui_scroll_wrapper.style.height  = ViewHeight - courseOffSetHeight - courseOffSetTop -50 + 'px';
-			mui_scroll_wrapper.style.top = courseOffSetHeight + courseOffSetTop + 'px';
-			//DIV局部滚动
-			mui('.mui-scroll-wrapper').scroll({
-				deceleration:0.00006,
-				indicators: true //是否显示滚动条
-			});
+				//框架调整
+				var course_box = document.getElementById("course_box");
+				var courseOffSetHeight = course_box.offsetHeight;
+				var courseOffSetTop = course_box.offsetTop;
+				var mui_scroll_wrapper = document.getElementById("mui-scroll-wrapper");
+				var ViewHeight = window.innerHeight;
+				var mui_scroll = document.getElementById("mui-scroll");
+				mui_scroll_wrapper.style.height  = ViewHeight - courseOffSetHeight - courseOffSetTop -50 + 'px';
+				mui_scroll_wrapper.style.top = courseOffSetHeight + courseOffSetTop + 'px';
+				//DIV局部滚动
+				mui('.mui-scroll-wrapper').scroll({
+					deceleration:0.00006,
+					indicators: true //是否显示滚动条
+				});
+						
+			function creatSlider(data){
+					var len = data.length;
+					// 图片
+					var sliderGroup = document.createElement("div");
+					sliderGroup.className = "mui-slider-group mui-slider-loop";
+					var group  = '<div class="mui-slider-item mui-slider-item-duplicate">'+
+						'<a href="javascript:;" data-type="'+ajaxUrl+data[len-1].carouselUrl+'">'+
+							'<img src="'+ajaxUrl+data[len-1].carouselImageUrl+'">'+
+						'</a>'+
+					'</div>';
+					for(var i=0; i < len;i++){
+						group += '<div class="mui-slider-item">'+
+							'<a href="javascript:;" data-type="'+ajaxUrl+data[i].carouselUrl+'">'+
+								'<img src="'+ajaxUrl+data[i].carouselImageUrl+'">'+
+							'</a>'+
+						'</div>';
+					}
+					group += '<div class="mui-slider-item mui-slider-item-duplicate">'+
+						'<a href="javascript:;" data-type = "'+ajaxUrl+ data[0].carouselUrl +'">'+
+							'<img src="'+ajaxUrl+data[0].carouselImageUrl+'">'+
+						'</a>'+
+					'</div>';
+					sliderGroup.innerHTML = group;
+					
+					// 圆点
+					var sliderIndicator = document.createElement("div");
+					sliderIndicator.className = "mui-slider-indicator";
+					for(var i=0; i < len;i++){
+						var item = document.createElement("div");
+						item.className = "mui-indicator";
+						if(i==0){
+							item.classList.add('mui-active');
+						}
+						sliderIndicator.appendChild(item);
+					}
+						
+					var slider = document.getElementById('slider');
+					slider.appendChild(sliderGroup);
+					slider.appendChild(sliderIndicator);
+					
+					mui("#slider").slider({
+						interval: 5000
+					});
+				}
 		</script>
 	</body>
 

@@ -27,73 +27,47 @@
 		</style>
 	</head>
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_list">
 				<ul class="content_list_ul">
-					<li>
-						国学
-					</li>
-					<li>
-						兴趣英语
-					</li>
-					<li>
-						数学思维提升
-					</li>
-					<li>
-						珠心算
-					</li>
-					<li>
-						阅读与写作
-					</li>
-					<li>
-						语文
-					</li>
-					<li>
-						数学
-					</li>
-					<li>
-						英语
-					</li>
-					<li>
-						物理
-					</li>
-					<li>
-						化学
-					</li>
-					<li>
-						生物
-					</li>
-					<li>
-						政治
-					</li>
-					<li>
-						历史
-					</li>
-					<li>
-						地理
-					</li>
-					<li>
-						小语种
-					</li>
-					<li>
-						心理健康
-					</li>
-					<li>
-						家庭教育
-					</li>
-					<li>
-						课程规划
-					</li>					
+					<li v-for="item in subjectList" v-text="item.subjectName"></li>				
 				</ul>				
 			</div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />	
 		<script type="text/javascript" src="../js/mui.min.js" ></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script>
 			mui.init({});
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    
+			    var ajaxData = {
+						url:'restful1/subject/getAllSubject',
+						data: {},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+						if(data.code == 200){
+							vm.subjectList = data.data;
+						}else{
+							plus.nativeUI.toast(data.msg);
+						}
+				},true);
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					subjectList:[]
+				}			
 			})
 		</script>
 	</body>

@@ -24,6 +24,7 @@
 				background-position: left top;
 				background-repeat: no-repeat;
 				position: relative;
+				z-index: 5;
 			}
 			.header_box_i{
 				position: absolute;
@@ -181,6 +182,11 @@
 				margin-right: 3%;
 				
 			}
+			
+			#wrapper_box{
+				height: calc(100% - 6.25rem);
+				height: -webkit-calc(100% - 6.25rem);
+			}
 		</style>
 	</head>
 
@@ -204,101 +210,102 @@
 					</div>
 				</div>
 			</div>
-				
-		<div class="mui-scroll-wrapper" id="mui-scroll-wrapper">
-			<div class="mui-scroll" id="mui-control-content">
-				<!--这里放置真实显示的DOM内容-->
-				<div class="function_list">
-					<ul class="function_list_ul">
-						<li class="function_list_li list_money" data-type = "1">
-							<div class="function_list_li_left">
-								<img class="img_response" align="center" src="../images/myself/my_walnut.png"/>
-								我的钱包
-							</div>
-							<div class="function_list_li_right">
-								<img class="next_content" align="center" src="../images/myself/next_content.png" />
-							</div>
-						</li>
-						<li class="function_list_li list_search" data-type = "2">
-							<div class="function_list_li_left">
-								<img class="img_search" align="center" src="../images/myself/all_serch.png"/>
-								全局搜索
-							</div>
-							<div class="function_list_li_right">
-								<span class="search_status">开启</span><img class="next_content"  src="../images/myself/next_content.png" />
-							</div>
-						</li>
-						<li class="function_list_li" data-type = "3">
-							<div class="function_list_li_left">
-								<img class="img_data" align="center" src="../images/myself/teach_material.png"/>
-								授课资料
-							</div>
-							<div class="function_list_li_right">
-								<img class="next_content" align="center" src="../images/myself/next_content.png" />
-							</div>
-						</li>
-						<li class="function_list_li" data-type = "9">
-							<div class="function_list_li_left">
-								<img class="img_class" align="center" src="../images/myself/icon_bkjl.png"/>
-								班课记录
-							</div>
-							<div class="function_list_li_right">
-								<img class="next_content" align="center" src="../images/myself/next_content.png" />
-							</div>
-						</li>
-						<li class="function_list_li" data-type ="4">
-							<div class="function_list_li_left">
-								<img class="img_dynamic" align="center" src="../images/myself/my_dynamic.png"/>
-								我的动态
-							</div>
-							<div class="function_list_li_right">
-								<img class="next_content" align="center" src="../images/myself/next_content.png" />
-							</div>
-						</li>
-						<li class="function_list_li" data-type ="5">
-							<div class="function_list_li_left">
-								<img class="img_selfdata" align="center" src="../images/myself/self_data.png"/>
-								个人资料
-							</div>
-							<div class="function_list_li_right">
-								<img class="next_content" align="center" src="../images/myself/next_content.png" />
-							</div>
-						</li>
-						<li class="function_list_li" data-type = "6">
-							<div class="function_list_li_left">
-								<img class="img_platform" align="center" src="../images/myself/plateform_data.png"/>
-								平台资料
-							</div>
-							<div class="function_list_li_right">
-								<img class="next_content" align="center" src="../images/myself/next_content.png" />
-							</div>
-						</li>
-						<li class="function_list_li" data-type = "8">
-							<div class="function_list_li_left">
-								<img class="img_call" align="center" src="../images/myself/client_phone.png"/>
-								客服电话
-							</div>
-							<div class="function_list_li_right">
-								<div class="call_phone"><img align="center" src="../images/myself/phone_client.png" />028-8602348</div>
-							</div>
-						</li>
-						<li class="function_list_li" data-type = "7">
-							<div class="function_list_li_left">
-								<img class="img_setting" align="center" src="../images/myself/set_some.png" />
-								设置
-							</div>
-							<div class="function_list_li_right">
-								<img class="next_content" align="center" src="../images/myself/next_content.png" />
-							</div>
-						</li>
-					</ul>
+			<div class="clear_position" id="wrapper_box">
+				<div class="mui-scroll-wrapper" id="mui-scroll-wrapper">
+					<div class="mui-scroll" id="mui-control-content">
+						<!--这里放置真实显示的DOM内容-->
+						<div class="function_list">
+							<ul class="function_list_ul">
+								<li class="function_list_li list_money" data-type = "1">
+									<div class="function_list_li_left">
+										<img class="img_response" align="center" src="../images/myself/my_walnut.png"/>
+										我的钱包
+									</div>
+									<div class="function_list_li_right">
+										<img class="next_content" align="center" src="../images/myself/next_content.png" />
+									</div>
+								</li>
+								<li class="function_list_li list_search" data-type = "2">
+									<div class="function_list_li_left">
+										<img class="img_search" align="center" src="../images/myself/all_serch.png"/>
+										全局搜索
+									</div>
+									<div class="function_list_li_right">
+										<span class="search_status">开启</span><img class="next_content"  src="../images/myself/next_content.png" />
+									</div>
+								</li>
+								<li class="function_list_li" data-type = "3">
+									<div class="function_list_li_left">
+										<img class="img_data" align="center" src="../images/myself/teach_material.png"/>
+										授课资料
+									</div>
+									<div class="function_list_li_right">
+										<img class="next_content" align="center" src="../images/myself/next_content.png" />
+									</div>
+								</li>
+								<li class="function_list_li" data-type = "9">
+									<div class="function_list_li_left">
+										<img class="img_class" align="center" src="../images/myself/icon_bkjl.png"/>
+										班课记录
+									</div>
+									<div class="function_list_li_right">
+										<img class="next_content" align="center" src="../images/myself/next_content.png" />
+									</div>
+								</li>
+								<li class="function_list_li" data-type ="4">
+									<div class="function_list_li_left">
+										<img class="img_dynamic" align="center" src="../images/myself/my_dynamic.png"/>
+										我的动态
+									</div>
+									<div class="function_list_li_right">
+										<img class="next_content" align="center" src="../images/myself/next_content.png" />
+									</div>
+								</li>
+								<li class="function_list_li" data-type ="5">
+									<div class="function_list_li_left">
+										<img class="img_selfdata" align="center" src="../images/myself/self_data.png"/>
+										个人资料
+									</div>
+									<div class="function_list_li_right">
+										<img class="next_content" align="center" src="../images/myself/next_content.png" />
+									</div>
+								</li>
+								<li class="function_list_li" data-type = "6">
+									<div class="function_list_li_left">
+										<img class="img_platform" align="center" src="../images/myself/plateform_data.png"/>
+										平台资料
+									</div>
+									<div class="function_list_li_right">
+										<img class="next_content" align="center" src="../images/myself/next_content.png" />
+									</div>
+								</li>
+								<li class="function_list_li" data-type = "8">
+									<div class="function_list_li_left">
+										<img class="img_call" align="center" src="../images/myself/client_phone.png"/>
+										客服电话
+									</div>
+									<div class="function_list_li_right">
+										<div class="call_phone"><img align="center" src="../images/myself/phone_client.png" />028-8602348</div>
+									</div>
+								</li>
+								<li class="function_list_li" data-type = "7">
+									<div class="function_list_li_left">
+										<img class="img_setting" align="center" src="../images/myself/set_some.png" />
+										设置
+									</div>
+									<div class="function_list_li_right">
+										<img class="next_content" align="center" src="../images/myself/next_content.png" />
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-			
-			<!--取出加密值-->
-			<input type="text" style="visibility:hidden" id="getPassword" value="" />
-		</div>
+		
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 	</body>
 	<script src="../js/mui.min.js"></script>
 	<script type="text/javascript" src="../js/config.js" ></script>
@@ -308,10 +315,10 @@
 	<script type="text/javascript" src="../js/ajax.js" ></script>
 	<script>
 		mui.init({
-			swipeBack:false //启用右滑关闭功能
+			swipeBack:false, //启用右滑关闭功能
 		});
-		
 		mui.plusReady(function () {
+				var ws=plus.webview.currentWebview();
 //					var studentData = null; 
 //					var ajaxData = {
 //							url:'restful1/users/findStudent',
@@ -371,17 +378,10 @@
 				}
 		    })
 		})
-		
-			//修改框架高度
-			var header_box = document.getElementById('header_box').offsetHeight;
-			var mui_scroll_wrapper = document.getElementById("mui-scroll-wrapper");
-			var ViewHeight = window.innerHeight;
-			mui_scroll_wrapper.style.height  = ViewHeight - header_box + 'px';
-			mui_scroll_wrapper.style.top = header_box + 'px';
 			//DIV局部滚动
-			mui('.mui-scroll-wrapper').scroll({
-				indicators: true //是否显示滚动条
-			});
+				mui('.mui-scroll-wrapper').scroll({
+					indicators: true //是否显示滚动条
+				});
 		
 //		var vm = new Vue({
 //				el: '#msg-content',

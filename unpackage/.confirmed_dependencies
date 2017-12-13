@@ -234,7 +234,8 @@
       "pages_myself/platform_list.html",
       "pages_wallet/balance.html",
       "pages_myself/global_earch.html",
-      "pages_myself/setting.html"
+      "pages_myself/setting.html",
+      "pages_myself/all_class.html"
     ],
     "priority": 0
   },
@@ -571,7 +572,8 @@
       "images/main/in_class_icon.png",
       "images/main/look_detail_icon.png",
       "images/main/recharge_record_icon.png",
-      "images/main/class_feedback_icon.png"
+      "images/main/class_feedback_icon.png",
+      "im/msg_list.html"
     ],
     "refer": [
       "pages_student/me.html",

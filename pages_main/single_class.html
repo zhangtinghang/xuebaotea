@@ -1,321 +1,350 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<title>课程订单</title>
-		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
-		<link href="../css/mui.min.css" rel="stylesheet" />
-		<style>
-			body,html{
-				height: 100%;
-				width: 100%;
-			}
-			/*班课样式*/
-			.content{
-				height: 100%;
-			}
-			.list_ul{
-				padding-left: 5%;
-				background-color: #FEFEFE;
-				margin-bottom: 0.222222rem !important;
-			}
-			.list_ul li{
-				color: rgb(85,85,85);
-				font-size: 0.388888rem;
-				padding-bottom: 0.388888rem;
-			}
-			.list_ul li:first-child{
-				display: flex;
-				align-items: center;
-				font-size: 0.444444rem;
-				color: rgb(51,51,51);
-				padding:0.388888rem 0;
-			}
-			.list_ul li:last-child{
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				font-size: 0.444444rem;
-			}
-			.list_ul li > span{
-				font-size: 0.388888rem;
-			}
-			.list_left_num{
-				color: #0DAD95;
-				font-size: 0.416666rem;
-			}
-			.more_detail{
-				justify-content: center !important;
-				width: 80%;
-				margin: 0 auto;
-				border-top:2px solid #F0F0F0;
-				padding: 0.388888rem 0 !important;
-				font-size: 0.416666rem !important;
-				color: #333333 !important; 
-			}
-			
-			/*一对一样式*/
-			.one_box{
-				padding: 0.388888rem 0.388888rem;
-				background-color: #FFFFFF;
-				margin-bottom: 0.222222rem;
-			}
-			.box_head{
-				display: flex;
-				justify-content: space-between;
-				color: #555555;
-			}
-			.one_left{
-				width: 70%;
-				display: inline-flex;				
-			}
-			.left_avatar{
-				width: 1.25rem;
-				height: 1.25rem;
-				overflow: hidden;
-				border-radius:90px;
-				background-color: rgb(240,240,240);
-				margin-right: 0.319444rem;
-			}
-			.left_avatar img{
-				width: 100%;
-				height: 100%;
-			}
-			.left_text{
-				width: 5rem;
-			}
-			.text_detail{
-				margin-bottom: 0.388888rem;
-				font-size: 0.388888rem;
-				color: #555555;
-			}
-			
-			.one_right{
-				width: 30%;
-				text-align: right;
-			}
-			.right_img{
-				padding-top: 0.222222rem;
-				padding-right: 0.055555rem;
-			}
-			.right_img img{
-				width: 0.583333rem !important;
-				height: 0.583333rem;
-			}
-			.box_footer{
-				width: 90%;
-				margin: 0 auto;
-				padding-top: 0.388888rem;
-				color: #333333;
-				font-size: 0.444444rem;
-				border-top:2px solid #F0F0F0;
-				display: flex;
-			}
-			.box_footer span{
-				width: 50%;
-				text-align: center;
-				font-size: 0.416666rem;
-				color: #555555;
-			}
-			.box_footer span:first-child{
-				border-right:1px solid rgb(240,240,240);
-			}
-			.confirmBtn{
-				color: #0DAD95 !important;
-			}
-			/*框架样式调整*/
-			.mui-control-content {
-				background-color: white;
-				min-height: 300px;
-			}
-			.mui-control-content .mui-loading {
-				margin-top: 50px;
-			}
-			#sliderProgressBar{
-				width: 30%;
-				margin-left: 10%;
-				height: 2px;
-				background-color: #0dad95;
-				margin-top: -1px;
-				margin-bottom: 0.097222rem;
-				position: relative;
-			}
-			.mui-active{
-				color: #0dad95 !important;
-			}
-			.mui-slider{
-				height: 100%;
-			}
-			.mui-slider .mui-slider-group{
-				height: 100% !important;
-			}
-			.mui-scroll{
-				padding-bottom:1.794444rem;
-			}
-			.mui-control-content{
-				background-color: rgb(239,239,244);
-			}
-			.mui-slider-indicator.mui-segmented-control{
-				padding-top: 0.791666rem;
-				background-color: #FFFFFF;
-			}
-			.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{
-				border: none !important;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="content">
-			<!--<div class="list_ul">
-				<li><div class="dot"></div>少儿英语班</li>
-				<li>上课时间：2017年07月01日-07月31日</li>
-				<li>上课时长：24.0小时</li>
-				<li><span>报名情况：<span class="list_left_num">3</span>/5</span></li>
-				<li class="more_detail">查看已报课学生</li>
-			</div>-->
-			
-			
-			<div id="slider" class="mui-slider">
-				<div id="sliderSegmentedControl" class=" mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<a class="mui-control-item" href="#item1mobile">
-				一对一
-			</a>
-					<a class="mui-control-item" href="#item2mobile">
-				班课
-			</a>
-				</div>
-				<div id="sliderProgressBar"></div>
-				<div class="mui-slider-group">
-					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
-						<div id="scroll1" class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								<div class="one_box">
-									<div class="box_head">
-										<div class="one_left">
-											<div class="left_avatar">
-												<img src="../images/main/teach_stu_head.png"/>
-											</div>
-											<div class="left_text">
-												<div class="text_detail"><span>学生姓名：</span><span>王小明</span></div>
-												<div class="text_detail"><span>学生年级：</span><span>一年级</span></div>
-												<div class="text_detail"><span>报课时长：</span><span>1200分钟</span></div>
-												<div class="text_detail"><span>问题类型：</span><span>上课走神型</span></div>
-												<div class="text_detail"><span>上课方式：</span><span>教师上门</span></div>
-											</div>
-										</div>
-										<div class="one_right">
-											<div class="right_time">9:30</div>
-											<div class="right_img">
-												<img src="../images/main/oder_phone.png" />
-											</div>
-										</div>
-									</div>
-									<div class="box_footer">
-										<span class="confirmBtn">接受订单</span><span>返回订单</span>
-									</div>
-								</div>
-								
-								<div class="one_box">
-									<div class="box_head">
-										<div class="one_left">
-											<div class="left_avatar">
-												<img src="../images/main/teach_stu_head.png"/>
-											</div>
-											<div class="left_text">
-												<div class="text_detail"><span>学生姓名：</span><span>王小明</span></div>
-												<div class="text_detail"><span>学生年级：</span><span>一年级</span></div>
-												<div class="text_detail"><span>报课时长：</span><span>1200分钟</span></div>
-												<div class="text_detail"><span>问题类型：</span><span>上课走神型</span></div>
-												<div class="text_detail"><span>上课方式：</span><span>教师上门</span></div>
-											</div>
-										</div>
-										<div class="one_right">
-											<div class="right_time">9:30</div>
-											<div class="right_img">
-												<img src="../images/main/oder_phone.png" />
-											</div>
-										</div>
-									</div>
-									<div class="box_footer">
-										<span class="confirmBtn">接受订单</span><span>返回订单</span>
-									</div>
-								</div>
-								
-								<div class="one_box">
-									<div class="box_head">
-										<div class="one_left">
-											<div class="left_avatar">
-												<img src="../images/main/teach_stu_head.png"/>
-											</div>
-											<div class="left_text">
-												<div class="text_detail"><span>学生姓名：</span><span>王小明</span></div>
-												<div class="text_detail"><span>学生年级：</span><span>一年级</span></div>
-												<div class="text_detail"><span>报课时长：</span><span>1200分钟</span></div>
-												<div class="text_detail"><span>问题类型：</span><span>上课走神型</span></div>
-												<div class="text_detail"><span>上课方式：</span><span>教师上门</span></div>
-											</div>
-										</div>
-										<div class="one_right">
-											<div class="right_time">9:30</div>
-											<div class="right_img">
-												<img src="../images/main/oder_phone.png" />
-											</div>
-										</div>
-									</div>
-									<div class="box_footer">
-										<span class="confirmBtn">接受订单</span><span>返回订单</span>
-									</div>
-								</div>
-								
-							</div>
-						</div>
-					</div>
-					<div id="item2mobile" class="mui-slider-item mui-control-content">
-						<div id="scroll2" class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								<div class="mui-loading">
-									<div class="mui-spinner">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script src="../js/mui.min.js"></script>
-		<script type="text/javascript" src="../js/config.js" ></script>
-		<script type="text/javascript">
-			mui.init();
-			mui.plusReady(function () {
-			    //监听返回
-			    listenReturn();   
-			})
-			
-			mui('.mui-scroll-wrapper').scroll({
-				indicators: true //是否显示滚动条
-			});
-			var html2 = '<div class="list_ul"><li>少儿英语班</li><li>上课时间：2017年07月01日-07月31日</li><li>上课时长：24.0小时</li><li><span>报名情况：<span class="list_left_num">3</span>/5</span></li><li class="more_detail">查看已报课学生</li></div>';
-			var item2 = document.getElementById('item2mobile');
-			var sliderProgressBar = document.getElementById("sliderProgressBar");
-			document.getElementById('slider').addEventListener('slide', function(e) {
-				if(e.detail.slideNumber === 0){
-					sliderProgressBar.style.marginLeft='10%';
-				}else if(e.detail.slideNumber === 1) {
-					sliderProgressBar.style.marginLeft='60%';
-					if (item2.querySelector('.mui-loading')) {
-						setTimeout(function() {
-							item2.querySelector('.mui-scroll').innerHTML = html2;
-						}, 500);
-					}
-				}
-			});
-			//已经报课名单
-			mui('.mui-scroll').on('tap','.more_detail',function(){
-				openView.nativeView('class_stu.html', 'class_stu', '班课学生');
-			})
-		</script>
-	</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>课程订单</title>
+        <script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+        <link href="../css/mui.min.css" rel="stylesheet" />
+        <style>
+            body,html{
+                height: 100%;
+                width: 100%;
+            }
+            /*班课样式*/
+            .content{
+                height: 100%;
+            }
+            .list_ul{
+                padding-left: 5%;
+                background-color: #FEFEFE;
+                margin-bottom: 0.222222rem !important;
+            }
+            .list_ul li{
+                color: rgb(85,85,85);
+                font-size: 0.388888rem;
+                padding-bottom: 0.388888rem;
+            }
+            .list_ul li:first-child{
+                display: flex;
+                align-items: center;
+                font-size: 0.444444rem;
+                color: rgb(51,51,51);
+                padding:0.388888rem 0;
+            }
+            .list_ul li:last-child{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 0.444444rem;
+            }
+            .list_ul li > span{
+                font-size: 0.388888rem;
+            }
+            .list_left_num{
+                color: #0DAD95;
+                font-size: 0.416666rem;
+            }
+            .more_detail{
+                justify-content: center !important;
+                width: 80%;
+                margin: 0 auto;
+                border-top:2px solid #F0F0F0;
+                padding: 0.388888rem 0 !important;
+                font-size: 0.416666rem !important;
+                color: #333333 !important; 
+            }
+            
+            /*一对一样式*/
+            .one_box{
+                padding: 0.388888rem 0.388888rem;
+                background-color: #FFFFFF;
+                margin-bottom: 0.222222rem;
+            }
+            .box_head{
+                display: flex;
+                justify-content: space-between;
+                color: #555555;
+            }
+            .one_left{
+                width: 70%;
+                display: inline-flex;               
+            }
+            .left_avatar{
+                width: 1.25rem;
+                height: 1.25rem;
+                overflow: hidden;
+                border-radius:90px;
+                background-color: rgb(240,240,240);
+                margin-right: 0.319444rem;
+            }
+            .left_avatar img{
+                width: 100%;
+                height: 100%;
+            }
+            .left_text{
+                width: 5rem;
+            }
+            .text_detail{
+                margin-bottom: 0.388888rem;
+                font-size: 0.388888rem;
+                color: #555555;
+            }
+            
+            .one_right{
+                width: 30%;
+                text-align: right;
+            }
+            .right_img{
+                padding-top: 0.222222rem;
+                padding-right: 0.055555rem;
+            }
+            .right_img img{
+                width: 0.583333rem !important;
+                height: 0.583333rem;
+            }
+            .box_footer{
+                width: 90%;
+                margin: 0 auto;
+                padding-top: 0.388888rem;
+                color: #333333;
+                font-size: 0.444444rem;
+                border-top:2px solid #F0F0F0;
+                display: flex;
+            }
+            .box_footer span{
+                width: 50%;
+                text-align: center;
+                font-size: 0.416666rem;
+                color: #555555;
+            }
+            .box_footer span:first-child{
+                border-right:1px solid rgb(240,240,240);
+            }
+            .confirmBtn{
+                color: #0DAD95 !important;
+            }
+            /*框架样式调整*/
+            .mui-control-content {
+                background-color: white;
+                min-height: 300px;
+            }
+            .mui-control-content .mui-loading {
+                margin-top: 50px;
+            }
+            #sliderProgressBar{
+                width: 30%;
+                margin-left: 10%;
+                height: 2px;
+                background-color: #0dad95;
+                margin-top: -1px;
+                margin-bottom: 0.097222rem;
+                position: relative;
+            }
+            .mui-active{
+                color: #0dad95 !important;
+            }
+            .mui-slider{
+                height: 100%;
+            }
+            .mui-slider .mui-slider-group{
+                height: 100% !important;
+            }
+            .mui-scroll{
+                padding-bottom:1.794444rem;
+            }
+            .mui-control-content{
+                background-color: rgb(239,239,244);
+            }
+            .mui-slider-indicator.mui-segmented-control{
+                padding-top: 0.791666rem;
+                background-color: #FFFFFF;
+            }
+            .mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{
+                border: none !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <!--<div class="list_ul">
+                <li><div class="dot"></div>少儿英语班</li>
+                <li>上课时间：2017年07月01日-07月31日</li>
+                <li>上课时长：24.0小时</li>
+                <li><span>报名情况：<span class="list_left_num">3</span>/5</span></li>
+                <li class="more_detail">查看已报课学生</li>
+            </div>-->
+            
+            
+            <div id="slider" class="mui-slider">
+                <div id="sliderSegmentedControl" class=" mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+                    <a class="mui-control-item" href="#item1mobile">
+                一对一
+            </a>
+                    <a class="mui-control-item" href="#item2mobile">
+                班课
+            </a>
+                </div>
+                <div id="sliderProgressBar"></div>
+                <div class="mui-slider-group" id="msg-content">
+                    <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+                        <div id="scroll1" class="mui-scroll-wrapper">
+                            <div class="mui-scroll">
+                                <!--<div v-for="item in faceMessage">   
+                                <div class="one_box" v-for="item1 in faceMessage.students">
+                                    <div class="box_head">
+                                        <div class="one_left">
+                                            <div class="left_avatar">
+                                                <img :src=" item1.courseId||'../images/main/teach_stu_head.png'"/>
+                                            </div>
+                                            <div class="left_text">
+                                                <div class="text_detail"><span>学生姓名：</span><span v-text="item1.studentName"></span></div>
+                                                <div class="text_detail"><span>学生年级：</span><span v-text="item1.className"></span></div>
+                                                <div class="text_detail"><span>报课时长：</span><span v-text="item.courseDuration || '未知'">分钟</span></div>
+                                                <div class="text_detail"><span>问题类型：</span><span v-text="item.courseTypeName" || '未知'></span></div>
+                                                <div class="text_detail"><span>上课方式：</span><span v-text="item.organizationId">教师上门</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="one_right">
+                                            <div class="right_time">9:30</div>
+                                            <div class="right_img">
+                                                <img src="../images/main/oder_phone.png" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box_footer">
+                                        <span class="confirmBtn">接受订单</span><span>返回订单</span>
+                                    </div>
+                                </div>
+                            </div>  -->
+                                <div class="one_box">
+                                    <div class="box_head">
+                                        <div class="one_left">
+                                            <div class="left_avatar">
+                                                <img src="../images/main/teach_stu_head.png"/>
+                                            </div>
+                                            <div class="left_text">
+                                                <div class="text_detail"><span>学生姓名：</span><span>王小明</span></div>
+                                                <div class="text_detail"><span>学生年级：</span><span>一年级</span></div>
+                                                <div class="text_detail"><span>报课时长：</span><span>1200分钟</span></div>
+                                                <div class="text_detail"><span>问题类型：</span><span>上课走神型</span></div>
+                                                <div class="text_detail"><span>上课方式：</span><span>教师上门</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="one_right">
+                                            <div class="right_time">9:30</div>
+                                            <div class="right_img">
+                                                <img src="../images/main/oder_phone.png" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box_footer">
+                                        <span class="confirmBtn">接受订单</span><span>返回订单</span>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div id="item2mobile" class="mui-slider-item mui-control-content">
+                        <div id="scroll2" class="mui-scroll-wrapper">
+                            <div class="mui-scroll">
+                                <!--<div class="mui-loading">
+                                    <div class="mui-spinner">
+                                    </div>
+                                </div>-->
+                                
+                                <div class="list_ul">
+                                    <li>少儿英语班</li>
+                                    <li>上课时间：2017年07月01日-07月31日</li>
+                                    <li>上课时长：24.0小时</li>
+                                    <li><span>报名情况：<span class="list_left_num">3</span>/5</span></li>
+                                    <li class="more_detail">查看已报课学生</li>
+                                </div>
+                                <div class="list_ul" v-for="item2 in classMessage">
+                                    <li v-text="item2.contentId"></li>
+                                    <li>上课时间：<span v-text="item2.courseStartTime"></span>-<span v-text="item2.courseEndTime"></span></li>
+                                    <li>上课时长：<span v-text="item2.courseDuration"></span>分钟</li>
+                                    <li><span>报名情况：<span class="list_left_num" v-text="item2.students.length"></span>/<span>5</span></span></li>
+                                    <li class="more_detail" @tap="open_detail(item2)">查看已报课学生</li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--取出加密值-->
+        <input type="text" style="visibility:hidden" id="getPassword" value="" />
+        <script src="../js/mui.min.js"></script>
+        <script type="text/javascript" src="../js/config.js" ></script>
+        <script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+        <script type="text/javascript" src="../js/login_config.js" ></script>
+        <script type="text/javascript" src="../js/vue.min.js" ></script>
+        <script type="text/javascript" src="../js/ajax.js" ></script>
+        <script type="text/javascript">
+            mui.init();
+            mui.plusReady(function () {
+                //监听返回
+                listenReturn();
+                //渲染
+                var ajaxData = {
+                    url:'restful1/course/getCoursesStudentByTeacherId',
+                    data: {},
+                    type:'post'
+                }
+                ajax(ajaxData, function(data){
+                    console.log(JSON.stringify(data))   
+                    if(data.code == 200){
+                        vm.faceMessage = data.data.face;
+                        vm.classMessage = data.data.class;
+                    }                               
+                },true);
+                
+            //拨打电话
+            mui('.one_right').on('tap','.right_img',function(){
+                var call = this.getAttribute('data-call');
+                plus.device.dial(call,true);
+            })
+            //接受订单
+            
+            //退回订单
+                       
+            })
+            
+            mui('.mui-scroll-wrapper').scroll({
+                indicators: true //是否显示滚动条
+            });
+            
+            //已经报课名单
+            function open_detail(data){
+                var datas = JSON.stringify(data);
+                openView.nativeView('class_stu.html', 'class_stu', '班课学生',{'datas':datas});
+            }
+//          var html2 = '<div class="list_ul"><li>少儿英语班</li><li>上课时间：2017年07月01日-07月31日</li><li>上课时长：24.0小时</li><li><span>报名情况：<span class="list_left_num">3</span>/5</span></li><li class="more_detail">查看已报课学生</li></div>';
+//          var item2 = document.getElementById('item2mobile');
+            var sliderProgressBar = document.getElementById("sliderProgressBar");
+            document.getElementById('slider').addEventListener('slide', function(e) {
+                if(e.detail.slideNumber === 0){
+                    sliderProgressBar.style.marginLeft='10%';
+                }else if(e.detail.slideNumber === 1) {
+                    sliderProgressBar.style.marginLeft='60%';
+//                  if (item2.querySelector('.mui-loading')) {
+//                      setTimeout(function() {
+//                          item2.querySelector('.mui-scroll').innerHTML = html2;
+//                      }, 500);
+//                  }
+                }
+            });
+            
+        var vm = new Vue({
+                el: '#msg-content',
+                data: {
+                    faceMessage:[],
+                    classMessage:[]
+                }           
+            })
+        </script>
+    </body>
 </html>

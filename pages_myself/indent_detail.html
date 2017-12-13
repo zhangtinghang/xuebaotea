@@ -73,16 +73,16 @@
 			</div>
 			<div class="pay_list">
 				<ul class="pay_list_ul">
-					<li><span>付款方式</span><span class="pay_list_right">余额</span></li>
+					<li><span>收款方式</span><span class="pay_list_right">余额</span></li>
 					<li><span>对方账户</span><span class="pay_list_right">王小明</span></li>
 				</ul>
 			</div>
 			<div class="pay_list course_detail">
 				<ul class="pay_list_ul">
-					<li><span>课程类型</span><span class="pay_list_right">一对一</span></li>
+					<li><span>课程类型</span><span class="pay_list_right" id="course_type"></span></li>
 					<li><span>课程科目</span><span class="pay_list_right">语文</span></li>
-					<li><span>问题类型</span><span class="pay_list_right">上课走神型</span></li>
-					<li><span>购买课程时间</span><span class="pay_list_right">3000min</span></li>
+					<li><span>问题类型</span><span class="pay_list_right" id="name_type"></span></li>
+					<li><span>课程时长</span><span class="pay_list_right">3000min</span></li>
 				</ul>
 			</div>
 			<div class="pay_list create_time">
@@ -101,6 +101,15 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    var self = plus.webview.currentWebview();
+			    var type = self.type;
+			    if(type == '1'){
+			    	document.getElementById("course_type").innerHTML = '一对一';
+			    	document.getElementById("name_type").innerHTML = '上课走神型';
+			    }else{
+			    	document.getElementById("course_type").innerHTML = '班课';
+			    	document.getElementById("name_type").innerHTML = '基础级';
+			    }
 			})
 		</script>
 	</body>

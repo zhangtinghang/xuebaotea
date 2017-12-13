@@ -361,28 +361,28 @@
 			</div>
 			<div class="body_list">
 				<ul class="body_list_ul">
-					<li><span class="class_name">班课名称</span><span class="list_right input_box"><input type="text" id="" value="" placeholder="请输入课程名" /></span></li>
+					<li><span class="class_name">班课名称</span><span class="list_right input_box"><input type="text" id="className" value="" placeholder="请输入课程名" /></span></li>
 					<li id="change_class"><span>开设年级</span><span class="list_right come_icon">五年级&nbsp;&nbsp;<img align="center" src="../images/main/js_grzl_youjiantou.png" /></span></li>
 					<li id="course_description"><span>课程介绍</span><span class="list_right come_icon">请填写课程介绍&nbsp;&nbsp;<img align="center" src="../images/main/js_grzl_youjiantou.png" /></span></li>				
 					<li><span>上课人数</span><span class="list_right right_btn">
 							<div class="mui-numbox" data-numbox-step='50' data-numbox-min='0' >
 								<div class="btn_box mui-btn-numbox-minus" type="button"><img class="substract_btn" src="../images/main/substract.png" /></div>
-								<input id="num" readonly="readonly" class="mui-input-numbox" type="number" />
+								<input id="courseStudents" readonly="readonly" class="mui-input-numbox" type="number" />
 								<div class="btn_box mui-btn-numbox-plus" type="button"><img class="add_btn" src="../images/main/add.png" /></div>
 							</div>
 						</span></li>
 					<li><span>课程节数</span><span class="list_right right_btn">
 							<div class="mui-numbox" data-numbox-step='50' data-numbox-min='0' >
 								<div class="btn_box mui-btn-numbox-minus" type="button"><img class="substract_btn" src="../images/main/substract.png" /></div>
-								<input readonly="readonly" class="mui-input-numbox" type="number" />
+								<input id="courseNums" readonly="readonly" class="mui-input-numbox" type="number" />
 								<div class="btn_box mui-btn-numbox-plus" type="button"><img class="add_btn" src="../images/main/add.png" /></div>
 							</div>
 						</span></li>
 					<li><span>班课类型</span><span class="list_right right_choose">
 						<div class="comment_btn" id="list_ul">
-							<span data-num="1" class="evaluate_btn">基础级</span>
-							<span data-num="2" class="evaluate_btn">培优级</span>
-							<span data-num="3" class="class_add_btn3 evaluate_btn">竞赛级</span>					
+							<span data-num="1" data-type = "12" class="evaluate_btn">基础级</span>
+							<span data-num="2" data-type = "13" class="evaluate_btn">培优级</span>
+							<span data-num="3" data-type = "14" class="class_add_btn3 evaluate_btn">竞赛级</span>					
 						</div>
 					</span></li>
 					<li><span>授课地址<span id="left_site" class="left_site">荣成国际培训机构</span></span><span class="list_right come_icon"><img align="center" src="../images/main/js_grzl_youjiantou.png" /></span></li>
@@ -423,152 +423,7 @@
 		<!--<script type="text/javascript" src="../js/mui.picker.min.js" ></script>-->
 		<script src="../js/mui.poppicker.js"></script>
 		<script type="text/javascript" src="../js/city.data-3.js" ></script>
-		<script type="text/javascript">
-			mui.init();
-			mui.plusReady(function () {
-			    //监听返回
-			    listenReturn();
-			    //完成处理
-			    listenReturnRight('完成');
-			    var ws = plus.webview.currentWebview();
-				var view = ws.getTitleNView();
-			    view.addEventListener("click", function(e) {
-				if(screen.width - e.clientX <= 60){
-						//事件逻辑处理
-						mui.back();
-					}
-				}, false);
-			    //监听值改变
-		     	var numBox=document.getElementById("num");
-				numBox.addEventListener('change',function(){
-					console.log(numBox.value);
-				});
-				//遮罩层
-				var pop = document.getElementById("popover");
-				var mask = mui.createMask(function() {
-					pop.classList.remove('mui-active');					
-				});
-				//课程介绍
-				document.getElementById("course_description").addEventListener('tap',function(){
-					openView.nativeView('course_introduce.html', 'course_introduce', '课程介绍');
-				});
-				//授课地址
-				document.getElementById("left_site").addEventListener('tap',function(){
-					openView.nativeView('../pages_student/location.html', 'location', '地址');
-				})
-				//开设年级
-				document.getElementById("change_class").addEventListener('tap',function(){
-					openView.nativeView('../pages_myself/study_class.html', 'study_class', '开设年级');
-				})
-				//新增排课
-				var addPicker = new mui.PopPicker({
-							layer: 3,
-							title:'选择日期',
-							buttons:['取消', '下一步']
-						});
-				var timePicker = new mui.PopPicker({
-							layer: 3,
-							title:'选择日期'
-						});
-				addPicker.setData(cityData3);
-				timePicker.setData(cityData3);
-				var addClass = document.getElementById('addClass');
-					addClass.addEventListener('tap', function(event) {
-					addPicker.show(function(items) {
-							console.log(JSON.stringify(items));
-							//返回 false 可以阻止选择框的关闭
-//							return false;
-						timePicker.show(function(items){
-							
-							console.log(items)
-						})
-						});
-					}, false);
-				
-				//快速排课
-				var fastPicker = new mui.PopPicker({
-						title:'快速添加'
-					});
-				fastPicker.setData([{
-					value: '0',
-					text: '每天时间重复'
-				}, {
-					value: '1',
-					text: '每周时间重复'
-				}, {
-					value: '2',
-					text: '自定义时间'
-				}]);
-				var fast_add = document.getElementById("fast_add");
-				var course_ul = document.getElementById("course_ul");
-				var course_li = document.getElementsByClassName('course_li');
-				fast_add.addEventListener('tap',function(){
-					if(course_li.length!=0){
-						fastPicker.show(function(items){					
-							console.log('快速排课',JSON.stringify(items))
-							if(items[0].value=='2'){
-								setTimeout(function(){
-									mask.show();
-									pop.classList.add('mui-active');
-								},50);
-							}
-						})
-					}else{
-						//直接打开自定义
-						setTimeout(function(){
-							mask.show();
-							pop.classList.add('mui-active');
-						},50);
-					}
-				})
-				
-				//点击确定
-			  	 var confirmBtn = document.getElementById("confirmBtn");
-			    confirmBtn.addEventListener('tap',function(){
-			    	pop.classList.remove('mui-active');
-			    	mask.close();
-			    })
-			    //点击取消
-			    var returnBtn = document.getElementById("returnBtn");
-			    returnBtn.addEventListener('tap',function(){
-			    	pop.classList.remove('mui-active');
-			    	mask.close();
-			    })
-			})
-			
-				 //单选框
-				   var list_ul = document.getElementById("list_ul");
-				   var list_li = document.getElementsByClassName('evaluate_btn');
-				   mui('.comment_btn').on('tap','.evaluate_btn',function(){
-					   	for(var i=0;i<list_li.length;i++){
-					   		var className = 'class_add_btn'+(i+1);
-					   		list_li[i].classList.remove(className);
-					   	}
-					   	var that = this;
-					   	var data_num = that.getAttribute('data-num');
-					   	that.classList.add('class_add_btn'+data_num);
-				   });
-			
-			  	//遮罩复选框
-			  	mui('.popover_list_ul').on('tap','li',function(){
-				   	var that = this;
-				   	var child = that.childNodes;
-				   	var span = child[0];
-				   	var img = child[1];
-				   	if(span.classList.contains('text_active')){
-						    span.classList.remove('text_active');
-						}else{
-							span.classList.add('text_active');
-						}
-				   	//lastIndexOf返回一个指定的字符串值最后出现的位置
-				   	var imgName = img.src.substr(img.src.lastIndexOf('/') + 1); 
-				   if(imgName =='kspk_no.png'){
-				   		img.src="../images/myself/kspk_yes.png"
-				   }else{
-				   		img.src="../images/myself/kspk_no.png"
-				   } 	
-			   })	
-		</script>
+		<script type="text/javascript" src="../js/newclass.js"></script>
 	</body>
 
 </html>

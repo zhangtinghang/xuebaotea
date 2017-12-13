@@ -5,7 +5,6 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<title>授课地址</title>
-		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<style>
@@ -27,26 +26,60 @@
 		</style>
 	</head>
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_list">
 				<ul class="content_list_ul">
-					<li>
-						金牛校区
-					</li>
-					<li>
+					<li v-for="item in address" v-if="item.organizationId>0" :data-type = "item.organizationId" :data-name="item.organizationArea" v-text="item.organizationArea"></li>
+					<!--<li>
 						东软校区
-					</li>
+					</li>-->
 				</ul>				
 			</div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script type="text/javascript" src="../js/mui.min.js" ></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script>
 			mui.init({});
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    //获取数据
+			    var ajaxData = {
+							url:'restful1/course/getCourseLocation',
+							data: {},
+							type:'post'
+					}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+					if(data.code == 200){
+						vm.address = data.data;
+					}
+				},true);
+			//点击
+				var new_classPage =  plus.webview.getWebviewById('new_class');
+				mui('.content_list_ul').on('tap','li',function(){
+					var organizationId = this.getAttribute('data-type');
+					var name = this.getAttribute('data-name');
+					mui.fire(new_classPage,'addressChange',{
+					    organizationId:organizationId,
+					    name:name
+				  	});
+				  	mui.back();
+				},false);
 			})
+			
+			var vm = new Vue({
+                el: '#msg-content',
+                data: {
+                    address:[]
+                }
+            })
 		</script>
 	</body>
 </html>
