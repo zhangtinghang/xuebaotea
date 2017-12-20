@@ -46,17 +46,20 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<ul class="list_ul">
 				<li>教师姓名 <input type="text" placeholder="" /></li>
 				<li>教师宣言<input type="text" /></li>
-				<li class="comeTo newView" data-type = "0"><span>教学科目</span><span class="list_li_right">语文&nbsp;&nbsp;<img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
-				<li class="comeTo newView" data-type = "1"><span>教学年级</span><span class="list_li_right">国学&nbsp;&nbsp;<img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
+				<li class="comeTo newView" data-type = "0"><span>教学科目</span><span class="list_li_right"><span v-text="subjectName"></span>&nbsp;&nbsp;<img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
+				<li class="comeTo newView" data-type = "1"><span>教学年级</span><span class="list_li_right"><span v-text="className"></span>&nbsp;&nbsp;<img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
 				<li class="comeTo newView" data-type = "2"><span>个人简历</span><span class="list_li_right"><img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
@@ -72,6 +75,48 @@
 						mui.back();
 					}
 				}, false);
+				
+				//监听subject传递过来的参数
+				window.addEventListener('subjectChange',function(event){
+				  //通过event.detail可获得传递过来的参数内容
+				  var subjectId = event.detail.subjectId;
+				  var subjectName = event.detail.subjectName;
+				  vm.subjectName = subjectName;
+				});
+				//监听class传递过来的参数
+				window.addEventListener('classChange',function(event){
+				  //通过event.detail可获得传递过来的参数内容
+				  var classArr = JSON.parse(event.detail.classArr);
+				  var classdata = event.detail.classdata;
+				  
+				  if(classArr.length >1){
+				  		vm.className = lookdata(classdata,classArr) + '等';
+				  }else if(classArr.length=1){
+				  		vm.className = lookdata(classdata,classArr);
+				  }else{
+				  		vm.className = '';
+				  }				  
+				});
+				
+				function lookdata(classdata,classArr){					
+					for(var i = 0;i<classdata.length;i++){
+				  	if(classdata[i].classId == classArr[0]){			  		
+				  		return classdata[i].className;
+				  	}
+				  }
+				}
+				
+				
+				//监听个人简历传递过来的参数
+				window.addEventListener('resumeChange',function(event){
+				  //通过event.detail可获得传递过来的参数内容
+				  var experience = event.detail.experience;
+				  var success = event.detail.success;
+				  var honor = event.detail.honor;
+				  var myImgfile = event.detail.myImgfile;
+				  var honorImgfile = event.detail.honorImgfile;
+				});
+				
 				mui('.list_ul').on('tap','.newView',function(){
 			    	var type = this.getAttribute('data-type');
 			    	switch(type)
@@ -79,7 +124,7 @@
 			    		openView.nativeView('../pages_student/subject_list.html', 'subject_list', '教学科目');
 			    		break;
 			    		case '1':
-			    		openView.nativeView('study_class.html', 'study_class', '教学年级');
+			    		openView.nativeView('study_class.html', 'study_class', '教学年级',{type:'lessons_data'});
 			    		break;
 			    		case '2':
 			    		//个人资料
@@ -89,6 +134,14 @@
 						  //异常处理
 					}
 			    })
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					subjectName:'',
+					className:''
+				}			
 			})
 		</script>
 	</body>

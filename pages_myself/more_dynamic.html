@@ -116,8 +116,9 @@
 	</head>
 
 	<body>
-		<div class="content">
-			<div class="dynamic_list">
+		<div class="content" id="msg-content">
+			
+			<div class="dynamic_list" v-for="item in teacherDetail">
 				<div class="avatar">
 					<div class="avatat_box">
 						<img src="../images/myself/teacher_dynamic_head.png" />
@@ -176,8 +177,14 @@
 			</div>
 			
 		</div>
-		<script src="../js/mui.min.js"></script>
-		<script type="text/javascript" src="../js/config.js" ></script>
+	<!--取出加密值-->
+	<input type="text" style="visibility:hidden" id="getPassword" value="" />
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
+	<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+	<script type="text/javascript" src="../js/login_config.js" ></script>
+	<script type="text/javascript" src="../js/vue.min.js" ></script>
+	<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
@@ -193,6 +200,9 @@
 				},function(e){
 					console.log('bmp1.png load failed! '+JSON.stringify(e));
 				});
+				
+				//请求数据
+				
 				//监听图片事件
 				view.addEventListener("click", function(e) {
 					if(screen.width - e.clientX <= 60) {
@@ -203,6 +213,14 @@
 			    mui('.content').on('tap','.footer_comm',function(){
 			    	openView.nativeView('../pages_index/comment.html', 'comment', '留言');
 			    })
+			})
+			
+			var vm = new Vue({
+				el: '#header_box',
+				data: {
+					teacherDetail:[],//教师动态数据
+					imgUrl:''
+				}			
 			})
 		</script>
 	</body>

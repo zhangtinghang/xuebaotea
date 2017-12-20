@@ -532,21 +532,43 @@
 				</div>
 			</div>
 		</div>
+		<!--取出加密值-->
+        <input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js"></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function() {
 				//监听返回
 				listenReturn();
+				var self = plus.webview.currentWebview();
+				var studentId = self.id;
+				//获取列表
+				 var ajaxData = {
+                    url:'restful1/teacher/getstudentinfo',
+                    data: {
+                    	studentId:studentId
+                    },
+                    type:'post'
+                }
+                ajax(ajaxData, function(data){
+                    console.log(JSON.stringify(data))   
+                    if(data.code == 200){
+                    	//得到学生信息
+                    }                        
+                },true);
 			})
 
 			//DIV局部滚动
 			mui('.mui-scroll-wrapper').scroll({
 				indicators: true //是否显示滚动条
 			});
-			var html2 = '<div class="list_item"><ul class="list_item_ul"><li><div class="list_item_num">100</div><div class="list_item_text">已消费/学币</div></li><li><div class="list_item_num">700</div><div class="list_item_text">待消费/学币</div></li><li><div class="list_item_num">686</div><div class="list_item_text">总缴费/学币</div></li></ul></div><div class="box_head"><div class="circle_icon"></div><div class="nav_title">报课记录</div></div><div class="class_list"><div class="class_list_left"><div class="list_left_box">语文<span class="rank">基础级</span></div><div class="left_location">报课时长：30小时</div></div><div class="tuition_list_right"><div class="right_time tuition_right_time">10月27号</div><div class="tuition_right_num">订单金额：<span>50000.0学币</span></div></div></div>';
-			var item2 = document.getElementById('item2mobile');
+//			var html2 = '<div class="list_item"><ul class="list_item_ul"><li><div class="list_item_num">100</div><div class="list_item_text">已消费/学币</div></li><li><div class="list_item_num">700</div><div class="list_item_text">待消费/学币</div></li><li><div class="list_item_num">686</div><div class="list_item_text">总缴费/学币</div></li></ul></div><div class="box_head"><div class="circle_icon"></div><div class="nav_title">报课记录</div></div><div class="class_list"><div class="class_list_left"><div class="list_left_box">语文<span class="rank">基础级</span></div><div class="left_location">报课时长：30小时</div></div><div class="tuition_list_right"><div class="right_time tuition_right_time">10月27号</div><div class="tuition_right_num">订单金额：<span>50000.0学币</span></div></div></div>';
+//			var item2 = document.getElementById('item2mobile');
 
 			document.getElementById('slider').addEventListener('slide', function(e) {
 				if(e.detail.slideNumber === 0) {

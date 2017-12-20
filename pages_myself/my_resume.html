@@ -99,14 +99,14 @@
 		</style>
 	</head>
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<ul id="mui-table-view" class="mui-table-view">
 				
 				<li class="mui-table-view-cell mui-collapse mui-active">
 					<a class="mui-navigate-right" data-type = "0" href="#"><div class="title_icon classRotate"><img align="center" src="../images/main/teach_experience.png"/></div><div class="title_text">个人照片</div></a>
 					<div class="mui-collapse-content">
 						<div class="img_box">
-							<span></span><img src="../images/main/js_grzx_fk.png" />
+							<span><img v-for="(val, key, index) in teach_img" :src="val.path" /></span><img id="my_picture" src="../images/main/js_grzx_fk.png" />
 						</div>
 					</div>
 					
@@ -115,14 +115,14 @@
 					<div class="line_box"></div>
 					<a class="mui-navigate-right" data-type="1" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">教学经历</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box"  placeholder="请填写你的教学目标..."></textarea>
+						<textarea name="" id="teach_target" class="textarea_box"  placeholder="请填写你的教学目标..."></textarea>
 					</div>
 				</li>
 				<li class="mui-table-view-cell mui-collapse">
 					<div class="line_box"></div>
 					<a class="mui-navigate-right" data-type="2" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">成功案例</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box" placeholder="请填写你的成功案例..."></textarea>
+						<textarea name="" id="succ_case" class="textarea_box" placeholder="请填写你的成功案例..."></textarea>
 					</div>
 				</li>
 				
@@ -131,9 +131,9 @@
 					<div class="line_box"></div>
 					<a class="mui-navigate-right" data-type="3" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">荣誉</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box" placeholder="请填写你的荣誉..."></textarea>
+						<textarea name="" id="in_honor" class="textarea_box" placeholder="请填写你的荣誉..."></textarea>
 						<div class="img_box">
-							<span></span><img src="../images/main/js_grzx_fk.png" />
+							<span><img v-for="(val, key, index) in honor_img" :src="val.path" /></span><img id="my_honor" src="../images/main/js_grzx_fk.png" />
 						</div>
 					</div>
 				</li>
@@ -142,6 +142,7 @@
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
@@ -151,12 +152,121 @@
 			    listenReturnRight('完成');
 			    var ws = plus.webview.currentWebview();
 				var view = ws.getTitleNView();
+				
+				var teach_target = document.getElementById("teach_target");
+				var succ_case = document.getElementById("succ_case");
+				var in_honor = document.getElementById("in_honor");
+				var new_classPage =  plus.webview.getWebviewById('lessons_data');
 			    view.addEventListener("click", function(e) {
 				if(screen.width - e.clientX <= 60){
 						//事件逻辑处理
+						mui.fire(new_classPage,'resumeChange',{
+						    experience:teach_target.value,
+						    success:succ_case.value,
+						    honor:in_honor.value,
+						    myImgfile:imgfile,
+						    honorImgfile:honorImgfile
+					  });						
+						clearForm();
 						mui.back();
 					}
 				}, false);
+				
+				 //存放图片地址
+			    var imgfile=[];
+				//获取照片信息
+				document.getElementById("my_picture").addEventListener('tap',function(){
+					var btnArray = [{
+						title: "拍照"
+					}, {
+						title: "从相册选择"
+					}];
+					plus.nativeUI.actionSheet({
+						title: "选择照片",
+						cancel: "取消",
+						buttons: btnArray
+					}, function(e) {
+						var index = e.index;
+						switch (index) {
+							case 0:
+								break;
+							case 1:
+								var cmr = plus.camera.getCamera();
+								cmr.captureImage(function(path) {
+									var lfs = "file://" + plus.io.convertLocalFileSystemURL(path);
+									addFile(lfs);
+								}, function(err) {});
+							break;
+							case 2:
+								plus.gallery.pick(function(path) {					
+									for(var i in path.files){
+											lfs=path.files[i];
+									    	addFile(lfs);
+								    	}
+								}, function(err) {}, {filter:"image",multiple:true,maximum:3,system:false});
+							break;
+						}
+					});
+				})
+				
+				var addFile = function(path) {
+					imgfile.push({path:path});
+					//渲染图片
+					vm.teach_img = imgfile;
+				}
+				
+				
+				 //存放图片地址
+			    var honorImgfile=[];
+				//获取照片信息
+				document.getElementById("my_honor").addEventListener('tap',function(){
+					var btnArray = [{
+						title: "拍照"
+					}, {
+						title: "从相册选择"
+					}];
+					plus.nativeUI.actionSheet({
+						title: "选择照片",
+						cancel: "取消",
+						buttons: btnArray
+					}, function(e) {
+						var index = e.index;
+						switch (index) {
+							case 0:
+								break;
+							case 1:
+								var cmr = plus.camera.getCamera();
+								cmr.captureImage(function(path) {
+									var lfs = "file://" + plus.io.convertLocalFileSystemURL(path);
+									honorAddFile(lfs);
+								}, function(err) {});
+							break;
+							case 2:
+								plus.gallery.pick(function(path) {					
+									for(var i in path.files){
+											lfs=path.files[i];
+									    	honorAddFile(lfs);
+								    	}
+								}, function(err) {}, {filter:"image",multiple:true,maximum:3,system:false});
+							break;
+						}
+					});
+				})
+				
+				var honorAddFile = function(path) {
+					honorImgfile.push({path:path});
+					//渲染图片
+					vm.honor_img = honorImgfile;
+				}
+				
+				var clearForm = function(){
+					teach_target.innerHTML='';
+					succ_case.innerHTML='';
+					in_honor.innerHTML='';
+					imgfile=[];
+					honorImgfile=[];
+				}
+				
 			})
 			//遍历li
 			var mui_table_view =document.getElementById("mui-table-view");
@@ -173,7 +283,13 @@
 					title_icon[type].classList.add('classRotate');
 				}
 			})
-			
+			var vm = new Vue({
+                el: '#msg-content',
+                data: {
+                    teach_img:[],
+                    honor_img:[]
+                }
+            })
 		</script>
 	</body>
 </html>

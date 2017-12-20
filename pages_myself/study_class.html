@@ -74,15 +74,15 @@
 				//获得列表页面
 				if(flagView=='newclass'){
 					selfDetail = plus.webview.getWebviewById('new_class');
-				}else{
-					selfDetail = plus.webview.getWebviewById('selfDetail');
+				}else if(flagView=='lessons_data'){
+					selfDetail = plus.webview.getWebviewById('lessons_data');
 				}
 				
 			    view.addEventListener("click", function(e) {
 				if(screen.width - e.clientX <= 60){
 						//事件逻辑处理
 						var classArr = localStorage.getItem('changeClass');
-						console.log(classArr,classdata)
+//						console.log(classArr,classdata)
 						mui.fire(selfDetail,'classChange',{
 				    		classArr:classArr,
 				    		classdata:classdata

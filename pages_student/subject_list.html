@@ -24,13 +24,16 @@
 			.content_list_ul li:active{
 				background-color: rgb(240,240,240);
 			}
+			.list_active{
+				background-color: rgb(240,240,240);
+			}
 		</style>
 	</head>
 	<body>
 		<div class="content" id="msg-content">
 			<div class="content_list">
 				<ul class="content_list_ul">
-					<li v-for="item in subjectList" v-text="item.subjectName"></li>				
+					<li v-for="item in subjectList" :class="item.subjectName == subjectData?'list_active':''"  :data-type="item.subjectId" :data-name="item.subjectName" v-text="item.subjectName"></li>				
 				</ul>				
 			</div>
 		</div>
@@ -47,6 +50,9 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    var self = plus.webview.currentWebview();
+			    
+			    vm.subjectData = self.subject;
 			    
 			    var ajaxData = {
 						url:'restful1/subject/getAllSubject',
@@ -61,12 +67,26 @@
 							plus.nativeUI.toast(data.msg);
 						}
 				},true);
+				
+				//点击跳转
+				//获得列表页面
+				var lessons_data = plus.webview.getWebviewById('lessons_data');
+				mui('.content_list_ul').on('tap','li',function(){
+					var subjectId = this.getAttribute('data-type');
+					var subjectName =this.getAttribute('data-name');
+					mui.fire(lessons_data,'subjectChange',{
+				    		subjectId:subjectId,
+				    		subjectName:subjectName
+				  	});
+			    	mui.back();
+				})
 			})
 			
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					subjectList:[]
+					subjectList:[],
+					subjectData:''
 				}			
 			})
 		</script>

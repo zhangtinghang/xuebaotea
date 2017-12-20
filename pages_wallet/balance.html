@@ -114,10 +114,10 @@
 
 	<body>
 		<div class="explain"><a id="come_popover" href="javascript:;">余额说明</a></div>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_show">
 				<div class="remaining_sum balance">可用余额</div>
-				<div class="money balance">800.50</div>
+				<div class="money balance"><span v-text="moneyDetail.account || '暂无'"></span>学币</div>
 			</div>
 			<div class="balance_btn">
 				<button type="button" id="withdraw_deposit" class="mui-btn mui-btn-block">提现</button>
@@ -141,12 +141,32 @@
 		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 				//事件监听
 				listenReturn();
 				listenNext('明细','touchBalance.html','touchBalance','余额明细');	
+				//请求数据
+				var ajaxData = {
+					url:'restful1/account/getAccount',
+					data: {},
+					type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log('请求数据',JSON.stringify(data))
+					if(data.code == 401){
+						plus.nativeUI.toast('您还未登录哟！');
+					}else if(data.code == 200){
+						vm.moneyDetail = data.data;						
+					}else{
+						plus.nativeUI.toast('请求超时！');
+					}
+				},true); 
 				//提现
 				document.getElementById("withdraw_deposit").addEventListener('tap',function(){
 					openView.nativeView('withdraw_deposit.html', 'withdraw_deposit', '提现');
@@ -171,7 +191,13 @@
 			    })
 			});
 			
-				
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					moneyDetail:{},//教师动态数据
+					imgUrl:''
+				}			
+			})
 		</script>
 	</body>
 

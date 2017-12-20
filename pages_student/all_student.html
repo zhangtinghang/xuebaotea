@@ -220,15 +220,15 @@
 			<div class="list_item" id="list_item">
 				<ul class="list_item_ul">
 					<li>
-						<div class="list_item_num">10</div>
+						<div class="list_item_num" id="rank">10</div>
 						<div class="list_item_text">等级</div>
 					</li>
 					<li>
-						<div class="list_item_num">5468</div>
+						<div class="list_item_num" id="teacher_time">200</div>
 						<div class="list_item_text">授课时长/分</div>
 					</li>
 					<li>
-						<div class="list_item_num">686</div>
+						<div class="list_item_num" id="student_num">686</div>
 						<div class="list_item_text">学生数/人</div>
 					</li>
 				</ul>
@@ -249,21 +249,21 @@
 				<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 					<div id="scroll1" class="mui-scroll-wrapper">
 						<div class="mui-scroll">		
-							<div class="one_box">
+			
+							<div class="one_box" :data-id = "item.stuent.id" v-if="item.learning==true" v-for="item in stuList">
 								<div class="box_head">
 									<div class="one_left">
 										<div class="left_avatar">
-											<img src="../images/main/teach_stu_head.png" />
+											<img :src="imgUrl+item.student.studentImage" />
 										</div>
 										<div class="left_text">
-											<div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span></div>
-											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span>
-											</div>
+											<div class="text_detail"><span class="gender_icon"><span v-text="item.student.name"></span><img :src="item.student.gender=='女'?'../images/student/female.png':'../images/student/male.png'" /></span></div>
+											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time"><span v-text="item.waitCourse"></span>分钟</span></span><span>总缴费 <span class="text_detail_num_money"><span v-text="item.orderCourse"></span>学币</span></span></div>
 										</div>
 									</div>
 								</div>
 							</div>
-			
+							
 							<div class="one_box">
 								<div class="box_head">
 									<div class="one_left">
@@ -272,143 +272,7 @@
 										</div>
 										<div class="left_text">
 											<div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span></div>
-											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-			
-							<div class="one_box">
-								<div class="box_head">
-									<div class="one_left">
-										<div class="left_avatar">
-											<img src="../images/main/teach_stu_head.png" />
-										</div>
-										<div class="left_text">
-											<div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span></div>
-											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-			
-							<div class="one_box">
-								<div class="box_head">
-									<div class="one_left">
-										<div class="left_avatar">
-											<img src="../images/main/teach_stu_head.png" />
-										</div>
-										<div class="left_text">
-											<div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span></div>
-											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-			
-							<div class="one_box">
-								<div class="box_head">
-									<div class="one_left">
-										<div class="left_avatar">
-											<img src="../images/main/teach_stu_head.png" />
-										</div>
-										<div class="left_text">
-											<div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span></div>
-											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-			
-							<div class="one_box">
-								<div class="box_head">
-									<div class="one_left">
-										<div class="left_avatar">
-											<img src="../images/main/teach_stu_head.png" />
-										</div>
-										<div class="left_text">
-											<div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span></div>
-											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-			
-							<div class="one_box">
-								<div class="box_head">
-									<div class="one_left">
-										<div class="left_avatar">
-											<img src="../images/main/teach_stu_head.png" />
-										</div>
-										<div class="left_text">
-											<div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span></div>
-											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-			
-							<div class="one_box">
-								<div class="box_head">
-									<div class="one_left">
-										<div class="left_avatar">
-											<img src="../images/main/teach_stu_head.png" />
-										</div>
-										<div class="left_text">
-											<div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span></div>
-											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-			
-							<div class="one_box">
-								<div class="box_head">
-									<div class="one_left">
-										<div class="left_avatar">
-											<img src="../images/main/teach_stu_head.png" />
-										</div>
-										<div class="left_text">
-											<div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span></div>
-											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-			
-							<div class="one_box">
-								<div class="box_head">
-									<div class="one_left">
-										<div class="left_avatar">
-											<img src="../images/main/teach_stu_head.png" />
-										</div>
-										<div class="left_text">
-											<div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span></div>
-											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-			
-							<div class="one_box">
-								<div class="box_head">
-									<div class="one_left">
-										<div class="left_avatar">
-											<img src="../images/main/teach_stu_head.png" />
-										</div>
-										<div class="left_text">
-											<div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span></div>
-											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span>
-											</div>
+											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span></div>
 										</div>
 									</div>
 								</div>
@@ -417,53 +281,146 @@
 						</div>
 					</div>
 				</div>
+				
 				<div id="item2mobile" class="mui-slider-item mui-control-content">
 					<div id="scroll2" class="mui-scroll-wrapper">
 						<div class="mui-scroll">
-							<div class="mui-loading">
+							<!--<div class="mui-loading">
 								<div class="mui-spinner"></div>
+							</div>-->
+							<div class="one_box" v-for="item in stuList">
+								<div class="box_head">
+									<div class="one_left">
+										<div class="left_avatar">
+											<img :src="imgUrl+item.student.studentImage"/>
+										</div>
+										<div class="left_text">
+											<div class="text_detail">
+												<span class="gender_icon"><span v-text="item.student.name"></span><img :src="item.student.gender=='女'?'../images/student/female.png':'../images/student/male.png'" /></span>
+												<span class="class_state" v-text="item.learning==true?'上课中':'未上课'"></span>
+											</div>
+											<div class="text_detail text_detail_num">
+												<div class="text_detail"><span class="gender_icon"><span v-text="item.student.name"></span><img :src="item.student.gender=='女'?'../images/student/female.png':'../images/student/male.png'" /></span></div>
+												<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time"><span v-text="item.waitCourse"></span>分钟</span></span><span>总缴费 <span class="text_detail_num_money"><span v-text="item.orderCourse"></span>学币</span></span></div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
+							
+							<div class="one_box">
+								<div class="box_head">
+									<div class="one_left">
+										<div class="left_avatar">
+											<img src="../images/main/teach_stu_head.png"/>
+										</div>
+										<div class="left_text">
+											<div class="text_detail">
+												<span class="gender_icon">王小明<img src="../images/student/female.png" /></span>
+												<span class="class_state">上课中</span>
+											</div>
+											<div class="text_detail text_detail_num">
+												<span>待上课时长 <span class="class_time">3600分钟</span></span>
+												<span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</div>
+		<!--取出加密值-->
+        <input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<!--沉浸式状态栏-->
 		<script type="text/javascript" src="../js/immersed.js" ></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 //			silderwrapperFrame();
 			mui.plusReady(function () {
-				
+				//获取学生信息
+				//渲染学生数据
+                var ajaxData = {
+                    url:'restful1/teacher/getallstudents',
+                    data: {},
+                    type:'post'
+                }
+                ajax(ajaxData, function(data){
+                    console.log(JSON.stringify(data))   
+                    if(data.code == 200){
+                        vm.stuList = data.data;
+                        vm.imgUrl = ajaxUrl;
+                    }else if(data.code==401){
+                    	//未登录
+                    }
+                },true);
+                
+                //渲染老师数据
+                var rank = document.getElementById("rank");
+                var teacher_time = document.getElementById("teacher_time");
+                var student_num = document.getElementById("student_num");
+                //初始化
+                rank.innerText='0';
+                teacher_time.innerText='0';
+                student_num.innerText='0';
+                var ajaxData = {
+                    url:'restful1/teacher/getteachercourseinfo',
+                    data: {},
+                    type:'post'
+                }
+                ajax(ajaxData, function(data){
+                    console.log(JSON.stringify(data))   
+                    if(data.code == 200){
+                    	//更新教师信息
+                    }                        
+                },true);
+                //点击事件
+				mui('.mui-scroll').on('tap','.one_box',function(){
+					var id = this.getAttribute('data-id');
+					//传递学生id
+					openView.nativeView('student_detail.html', 'student_detail', '学生详情',{id:id},'none');
+				})
 			})
 			
-			var html2 = '<div class="one_box"><div class="box_head"><div class="one_left"><div class="left_avatar"><img src="../images/main/teach_stu_head.png"/></div><div class="left_text"><div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span><span class="class_state">上课中</span></div><div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span></div></div></div></div></div>';
-			var item2 = document.getElementById('item2mobile');			
+//			var html2 = '<div class="one_box"><div class="box_head"><div class="one_left"><div class="left_avatar"><img src="../images/main/teach_stu_head.png"/></div><div class="left_text"><div class="text_detail"><span class="gender_icon">王小明<img src="../images/student/female.png" /></span><span class="class_state">上课中</span></div><div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time">3600分钟</span></span><span>总缴费 <span class="text_detail_num_money">6000.0学币</span></span></div></div></div></div></div>';
+//			var item2 = document.getElementById('item2mobile');			
 			document.getElementById('slider').addEventListener('slide', function(e) {
 				if(e.detail.slideNumber === 0){
 					sliderProgressBar.style.marginLeft='10%';
 				}else if(e.detail.slideNumber === 1) {
 					sliderProgressBar.style.marginLeft='60%';
-					if (item2.querySelector('.mui-loading')) {
-						setTimeout(function(){
-							item2.querySelector('.mui-scroll').innerHTML = html2;
-						}, 500);
-					}
+//					if (item2.querySelector('.mui-loading')) {
+//						setTimeout(function(){
+//							item2.querySelector('.mui-scroll').innerHTML = html2;
+//						}, 500);
+//					}
 				}
 			});
-			
-			//点击事件
-			mui('.mui-scroll').on('tap','.one_box',function(){
-				openView.nativeView('student_detail.html', 'student_detail', '学生详情','','none');
-			})
 			
 			//DIV局部滚动
 			mui('.mui-scroll-wrapper').scroll({
 				indicators: true //是否显示滚动条
 			});
+			
+			var vm = new Vue({
+                el: '#mui-slider-group',
+                data: {
+                    stuList:[],
+                    imgUrl:'',
+                    msg_tea:''
+                }           
+            })
 		</script>
 	</body>
 </html>
