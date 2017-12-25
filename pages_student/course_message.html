@@ -89,30 +89,47 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_course">课程信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">年级</span><span>初一</span></div>
-				<div class="list"><span class="list_left">学生</span><span>王小明</span></div>
-				<div class="list"><span class="list_left">课程类型</span><span>一对一</span></div>
-				<div class="list"><span class="list_left">问题类型</span><span>上课走神型</span></div>
+				<div class="list"><span class="list_left">年级</span><span v-text="student.className"></span></div>
+				<div class="list"><span class="list_left">学生</span><span v-text="student.name"></span></div>
+				<div class="list"><span class="list_left">课程类型</span><span v-text="course.courseTypeName">一对一</span></div>
+				<div class="list"><span class="list_left">问题类型</span><span v-text="student.className">上课走神型</span></div>
 			</div>
 			
 			<div class="content_course course_remind">其他信息</div>
 			<ul class="content_body_ul">
-				<li class="list_li"><span class="list_left">上课日期<span class="course_message">2017年11月11日</span></span></li>
-				<li class="list_li"><span class="list_left">上课时间<span class="course_message message_time">9:20-11:20</span></span></li>
-				<li class="list_li"><span class="list_left">上课地点<span class="course_message">东软店</span></span><!--<span class="right_icon"><img src="../images/main/edit_arrange.png" /></span>--></li>
+				<li class="list_li"><span class="list_left">上课日期<span class="course_message">{{course.courseStartTime | dateTime}}</span></span></li>
+				<li class="list_li"><span class="list_left">上课时间<span class="course_message message_time">{{course.courseStartTime | courseTime}}-{{course.courseEndTime | | courseTime}}</span></span></li>
+				<li class="list_li"><span class="list_left">上课地点<span class="course_message">{{course.organizationId | origaniztion}}</span></span><!--<span class="right_icon"><img src="../images/main/edit_arrange.png" /></span>--></li>
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
+			    //获取参数
+			    var self = plus.webview.currentWebview();
+			    var courseData = self.courseData;
+			    var data = self.data;
+			    courseData = JSON.parse(courseData);
+			    data = JSON.parse(data);
+			    vm.student = data.student;
+			    vm.course = courseData;
 			})
+			
+			var vm = new Vue({
+                el: '#msg-content',
+                data: {
+                    student:{},
+                    course:{}
+                }           
+           })
 		</script>
 	</body>
 

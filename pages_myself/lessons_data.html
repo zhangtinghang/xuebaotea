@@ -48,21 +48,41 @@
 	<body>
 		<div class="content" id="msg-content">
 			<ul class="list_ul">
-				<li>教师姓名 <input type="text" placeholder="" /></li>
-				<li>教师宣言<input type="text" /></li>
+				<li>教师姓名 <input id="teacherName" type="text" placeholder="" value="" /></li>
+				<li>教师宣言<input id="teacherWorld" type="text" value="" /></li>
 				<li class="comeTo newView" data-type = "0"><span>教学科目</span><span class="list_li_right"><span v-text="subjectName"></span>&nbsp;&nbsp;<img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
 				<li class="comeTo newView" data-type = "1"><span>教学年级</span><span class="list_li_right"><span v-text="className"></span>&nbsp;&nbsp;<img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
 				<li class="comeTo newView" data-type = "2"><span>个人简历</span><span class="list_li_right"><img class="next_content" align="center" src="../images/myself/next_content.png" /></span></li>
 			</ul>
 		</div>
+		<!--取出加密值-->
+        <input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/update-form-data.js" ></script>
 		<script type="text/javascript">
 			mui.init();
+			var dataObj = {
+				teacherName:'',
+				teacherWorld:'',
+				subject:'',
+				teaClassJson:'',
+				experience:'',
+				success:'',
+				honor:''
+			};
+			var fileArr = {};
+			
+			var state = app.getState();
 			mui.plusReady(function () {
+				var doc = {
+					teacherName:document.getElementById('teacherName'),
+					teacherWorld:document.getElementById('teacherWorld')
+				}
 			    //监听返回
 			    listenReturn();
 			    //渲染
@@ -71,8 +91,15 @@
 				var view = ws.getTitleNView();
 			    view.addEventListener("click", function(e) {
 				if(screen.width - e.clientX <= 60){
-						//事件逻辑处理
-						mui.back();
+					console.log(doc.teacherName.value)
+					dataObj.teacherName = doc.teacherName.value;
+					dataObj.teacherWorld = doc.teacherWorld.value;
+					dataObj.teacherId = state.data.id;
+					if(doc.teacherName.value == ''||doc.teacherWorld.value == ''){
+						return plus.nativeUI.toast('请输入完整信息！');
+					}else{
+						sendFormData(dataObj,fileArr);
+					}
 					}
 				}, false);
 				
@@ -82,13 +109,14 @@
 				  var subjectId = event.detail.subjectId;
 				  var subjectName = event.detail.subjectName;
 				  vm.subjectName = subjectName;
+				  dataObj.subject = subjectId;
 				});
 				//监听class传递过来的参数
 				window.addEventListener('classChange',function(event){
 				  //通过event.detail可获得传递过来的参数内容
 				  var classArr = JSON.parse(event.detail.classArr);
 				  var classdata = event.detail.classdata;
-				  
+				  dataObj.teaClassJson = classArr;
 				  if(classArr.length >1){
 				  		vm.className = lookdata(classdata,classArr) + '等';
 				  }else if(classArr.length=1){
@@ -98,7 +126,7 @@
 				  }				  
 				});
 				
-				function lookdata(classdata,classArr){					
+				function lookdata(classdata,classArr){			
 					for(var i = 0;i<classdata.length;i++){
 				  	if(classdata[i].classId == classArr[0]){			  		
 				  		return classdata[i].className;
@@ -115,6 +143,12 @@
 				  var honor = event.detail.honor;
 				  var myImgfile = event.detail.myImgfile;
 				  var honorImgfile = event.detail.honorImgfile;
+				  
+				  dataObj.experience = experience;
+				  dataObj.success = success;
+				  dataObj.honor = honor;
+				  fileArr.teacherImage = myImgfile;
+				  fileArr.resumefile = honorImgfile;
 				});
 				
 				mui('.list_ul').on('tap','.newView',function(){

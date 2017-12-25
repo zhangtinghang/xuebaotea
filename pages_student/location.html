@@ -51,7 +51,7 @@
 			    listenReturn();
 			    //获取页面信息
 			    var self = plus.webview.currentWebview();
-			    var type = self.type;
+			    var types = self.type;
 			    //获取数据
 			    var ajaxData = {
 							url:'restful1/course/getCourseLocation',
@@ -66,8 +66,10 @@
 				},true);
 			//点击
 				var new_classPage = null;
-				if(type || type = 'selfDetail'){
-					new_classPage =  plus.webview.getWebviewById('selfDetail');
+				if(types){
+					if(types = 'selfDetail'){
+						new_classPage =  plus.webview.getWebviewById('global_earch');
+					}			
 				}else{
 					plus.webview.getWebviewById('new_class');
 				}

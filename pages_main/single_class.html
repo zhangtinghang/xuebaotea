@@ -191,33 +191,33 @@
                     <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
                         <div id="scroll1" class="mui-scroll-wrapper">
                             <div class="mui-scroll">
-                                <!--<div v-for="item in faceMessage">   
+                                <div v-for="item in faceMessage">   
                                 <div class="one_box" v-for="item1 in faceMessage.students">
                                     <div class="box_head">
                                         <div class="one_left">
                                             <div class="left_avatar">
-                                                <img :src=" item1.courseId||'../images/main/teach_stu_head.png'"/>
+                                                <img :src="imgUrl+item1.studentImage||'../images/main/teach_stu_head.png'"/>
                                             </div>
                                             <div class="left_text">
                                                 <div class="text_detail"><span>学生姓名：</span><span v-text="item1.studentName"></span></div>
                                                 <div class="text_detail"><span>学生年级：</span><span v-text="item1.className"></span></div>
                                                 <div class="text_detail"><span>报课时长：</span><span v-text="item.courseDuration || '未知'">分钟</span></div>
                                                 <div class="text_detail"><span>问题类型：</span><span v-text="item.courseTypeName" || '未知'></span></div>
-                                                <div class="text_detail"><span>上课方式：</span><span v-text="item.organizationId">教师上门</span></div>
+                                                <div class="text_detail"><span>上课方式：</span><span>{{item.organizationId | organization}}</span></div>
                                             </div>
                                         </div>
                                         <div class="one_right">
-                                            <div class="right_time">9:30</div>
+                                            <div class="right_time">{{item.courseStartTime | orderTime}}</div>
                                             <div class="right_img">
                                                 <img src="../images/main/oder_phone.png" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="box_footer">
-                                        <span class="confirmBtn">接受订单</span><span>返回订单</span>
+                                        <span class="confirmBtn" :data-studentId="item1.studentId">接受订单</span><span class="returnBtn" :data-studentId="item1.studentId">返回订单</span>
                                     </div>
                                 </div>
-                            </div>  -->
+                            </div>
                                 <div class="one_box">
                                     <div class="box_head">
                                         <div class="one_left">
@@ -240,7 +240,7 @@
                                         </div>
                                     </div>
                                     <div class="box_footer">
-                                        <span class="confirmBtn">接受订单</span><span>返回订单</span>
+                                        <span class="confirmBtn">接受订单</span><span class="returnBtn">返回订单</span>
                                     </div>
                                 </div>
                                 
@@ -266,7 +266,7 @@
                                     <li v-text="item2.contentId"></li>
                                     <li>上课时间：<span v-text="item2.courseStartTime"></span>-<span v-text="item2.courseEndTime"></span></li>
                                     <li>上课时长：<span v-text="item2.courseDuration"></span>分钟</li>
-                                    <li><span>报名情况：<span class="list_left_num" v-text="item2.students.length"></span>/<span>5</span></span></li>
+                                    <li><span>报名情况：<span class="list_left_num" v-text="item2.incourse"></span>/<span v-text="item2.peopleLimit"></span></span></li>
                                     <li class="more_detail" @tap="open_detail(item2)">查看已报课学生</li>
                                 </div>
                             </div>
@@ -289,18 +289,23 @@
                 //监听返回
                 listenReturn();
                 //渲染
-                var ajaxData = {
-                    url:'restful1/course/getCoursesStudentByTeacherId',
-                    data: {},
-                    type:'post'
+                render();
+                function render(){
+	                var ajaxData = {
+	                    url:'restful1/course/getCoursesStudentByTeacherId',
+	                    data: {},
+	                    type:'post'
+	                }
+	                ajax(ajaxData, function(data){
+	                    console.log('11',JSON.stringify(data))   
+	                    if(data.code == 200){
+	                        vm.faceMessage = data.data.face;
+	                        vm.classMessage = data.data.class;
+	                        vm.imgUrl = ajaxUrl;
+	                    }                               
+	                },true);
                 }
-                ajax(ajaxData, function(data){
-                    console.log(JSON.stringify(data))   
-                    if(data.code == 200){
-                        vm.faceMessage = data.data.face;
-                        vm.classMessage = data.data.class;
-                    }                               
-                },true);
+                
                 
             //拨打电话
             mui('.one_right').on('tap','.right_img',function(){
@@ -308,10 +313,41 @@
                 plus.device.dial(call,true);
             })
             //接受订单
-            
-            //退回订单
-                       
+            mui('.box_footer').on('tap','.confirmBtn',function(){
+            	var studentId = this.getAttribute('data-studentId');
+            	var status=1;
+            	orderStatus(status,teacherId,studentId);
+            	
             })
+            //退回订单
+            mui('.box_footer').on('tap','.returnBtn',function(){
+            	var studentId = this.getAttribute('data-studentId');
+            	var status=0;
+            	orderStatus(status,teacherId,studentId);
+            })
+            
+            //订单更新处理函数
+            function orderStatus(status,teacherId,studentId){
+            	 var ajaxData = {
+                    url:'restful1/course/updateCoursesOrder',
+                    data: {
+                    	studentId:studentId,
+                    	status:status
+                    },
+                    type:'post'
+                }
+                ajax(ajaxData, function(data){
+                    console.log('更新订单');
+                    if(data.code == 200){
+                    	plus.nativeUI.toast('订单更新成功');
+                    	//更新订单装填
+                    	render();
+                    }else{
+                    	plus.nativeUI.toast('未知错误，请稍后再试！');
+                    }
+                },true,true);
+            }
+        })
             
             mui('.mui-scroll-wrapper').scroll({
                 indicators: true //是否显示滚动条
@@ -338,6 +374,14 @@
                 }
             });
             
+            //上课方式处理
+            Vue.filter('organization',function(num){
+            	console.log('传递的organization值==',num)
+            })
+            
+            Vue.filter('orderTime',function(time){
+            	console.log('传递的time值===',time)
+            })
         var vm = new Vue({
                 el: '#msg-content',
                 data: {

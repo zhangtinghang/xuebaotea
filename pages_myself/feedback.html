@@ -86,11 +86,13 @@
 	<body>
 		<div class="content">
 			<textarea class="write_text" id="feedback_text" placeholder="请简单描述遇到的问题"></textarea>
-			<div class="addImg">
-				<div class="addImg_box">
-					<img src="../images/myself/icon_tptj.png" />
+			<div class="addImg" id="msg-content">
+				<div class="addImg_box" v-for="imgItem in feedback_img">
+					<img :src="imgItem.path" />
 				</div>
-				<div class="addImg_text" id="feedback_Img">添加图片说明</div>				
+				<div class="addImg_box" id="feedback_Img">
+					<img src="../images/myself/icon_tptj.png" />
+				</div>	
 			</div>
 			<div class="link_me">
 				<label>联系电话</label>
@@ -102,7 +104,8 @@
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
-		<script type="text/javascript" src="../js/upLoadFile.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/upToFeedback.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {

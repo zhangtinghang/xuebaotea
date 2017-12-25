@@ -64,7 +64,6 @@
 					<li><span>电话</span><span class="right_btn" v-text="teacherDetail.mobilephone"></span></li>
 					<li data-type = "1"><span>学校</span><span class="right_btn"><span v-text="teacherDetail.teacherSchool"></span> <img src="../images/myself/next_content.png" /></span></li>
 					<li data-type = "2"><span>区域</span><span class="right_btn"><span v-text="teacherDetail.teacherArea"></span> <img src="../images/myself/next_content.png" /></span></li>
-					<li data-type = "3"><span>地址</span><span class="right_btn"><span v-text="teacherDetail.teacherAddress"></span><img src="../images/myself/next_content.png" /></span></li>
 				</ul>
 			</div>
 		</div>
@@ -112,13 +111,6 @@
 		    		vm.teacherDetail.teacherArea = value;
 				});
 				
-				//接收地址参数
-				window.addEventListener('addressChange',function(event){
-					var organizationId = event.detail.organizationId;
-					var name = event.detail.name;
-					teacherData.data.teacherAddress = name;
-		    		vm.teacherDetail.teacherAddress = name;
-				});
 			    			    
 			    //存放头像图片地址
 			    var imgfile=[];
@@ -167,14 +159,11 @@
 			    	var type = this.getAttribute('data-type');
 			    	switch (type){
 			    		case '1':
-			    			openView.nativeView('self_change.html', 'self_change', '学校',{'eg':'青城一中'});
+			    			openView.nativeView('self_change.html', 'self_change', '学校',{'eg':vm.teacherDetail.teacherSchool});
 			    			break;
 			    		case '2':
 			    			openView.nativeView('localtion.html', 'localtionArea', '区域',{'eg':vm.teacherDetail.teacherArea,'type':type});
 			    			break;
-		    			case '3':
-		    				openView.nativeView('../pages_student/location.html', 'location', '地址',{type:'selfDetail'});
-		    				break;
 			    		default:
 			    			break;
 			    	}
@@ -185,7 +174,7 @@
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					teacherDetail:{},//教师动态数据
+					teacherDetail:{},
 					imgUrl:''
 				}			
 			})

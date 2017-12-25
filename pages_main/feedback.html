@@ -107,26 +107,114 @@
 
 	<body>
 		<div class="content">
-			<div class="heade_title">
-				标题 <input type="text" name="" id="" value="" placeholder="请输入你的标题" />
+			<div id="msg-content">
+				<div class="heade_title">
+					标题 <input type="text" name="" id="newsTitle" value="" placeholder="请输入你的标题" />
+				</div>
+				<textarea class="write_text" id="newsContent" placeholder="说点什么吧..."></textarea>
+				<div class="addImg">
+					<div class="addImg_box" v-if="isPicture">
+						<img :src="newsImgfile" />
+					</div>	
+					<div class="addImg_box">
+						<img id="imgBtn" src="../images/main/icon_tptj.png" />
+					</div>			
+				</div>
 			</div>
-			<textarea class="write_text" placeholder="说点什么吧..."></textarea>
-			<div class="addImg">
-				<div class="addImg_box">
-					<img src="../images/main/icon_tptj.png" />
-				</div>			
-			</div>
+			
 		</div>
-		<button type="button" class="mui-btn mui-btn-block">发布动态</button>
+		<button type="button" id="issueBtn" class="mui-btn mui-btn-block">发布动态</button>
+		<!--取出加密值-->
+        <input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/newDynamic.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
-			listenReturn();
+				listenReturn();
+				//获取节点
+				var doc = {
+					newsTitle:document.getElementById('newsTitle'),
+					newsContent:document.getElementById('newsContent'),
+					imgBtn:document.getElementById('imgBtn'),
+					issueBtn:document.getElementById('issueBtn')
+				}
+				var fileArr = {
+					file:''
+				}
+				var dataObj = {
+						title:'',
+						content:''
+					}
+				 //存放图片地址
+			    var newsImgfile=[];
+				//照片
+				doc.imgBtn.addEventListener('tap',function(){
+					var btnArray = [{
+						title: "拍照"
+					}, {
+						title: "从相册选择"
+					}];
+					plus.nativeUI.actionSheet({
+						title: "选择照片",
+						cancel: "取消",
+						buttons: btnArray
+					}, function(e) {
+						var index = e.index;
+						switch (index) {
+							case 0:
+								break;
+							case 1:
+								var cmr = plus.camera.getCamera();
+								cmr.captureImage(function(path) {
+									var lfs = "file://" + plus.io.convertLocalFileSystemURL(path);
+									honorAddFile(lfs);
+								}, function(err) {});
+							break;
+							case 2:
+								plus.gallery.pick(function(path) {				
+									for(var i in path.files){
+											lfs=path.files[i];
+									    	honorAddFile(lfs);
+								    	}
+								}, function(err) {}, {filter:"image",multiple:true,maximum:3,system:false});
+							break;
+						}
+					});
+				})
+				
+				var honorAddFile = function(path) {
+					newsImgfile[0] = {path:path}
+					//渲染图片
+					vm.isPicture = true;
+					vm.newsImgfile = path;
+				}
+				
+				//发布动态
+				doc.issueBtn.addEventListener('tap',function(){
+					if(doc.newsTitle.value == '' || doc.newsContent.value ==''){
+						return plus.nativeUI.toast('请完整填写标题和内容！');
+					}else{
+						dataObj.title = doc.newsTitle.value;
+						dataObj.content = doc.newsContent.value;
+						fileArr.file = newsImgfile;
+						sendFormData(dataObj,fileArr);
+					}
+				})
 			})
-			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					newsImgfile:'',
+					isPicture:false
+				}			
+			})
 		</script>
 	</body>
 

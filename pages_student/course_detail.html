@@ -62,37 +62,50 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_course">课程信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">年级</span><span>初一</span></div>
-				<div class="list"><span class="list_left">学生</span><span>王小明</span></div>
-				<div class="list"><span class="list_left">课程类型</span><span>一对一</span></div>
-				<div class="list"><span class="list_left">问题类型</span><span>上课走神型</span></div>
+				<div class="list"><span class="list_left">年级</span><span v-text="student.className"></span></div>
+				<div class="list"><span class="list_left">学生</span><span v-text="student.name"></span></div>
+				<div class="list"><span class="list_left">课程类型</span><span v-text="student.courseTypeName"></span></div>
+				<div class="list"><span class="list_left">问题类型</span><span v-text="student.className"></span></div>
 			</div>
 			
 			<div class="content_course course_remind">消费信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">上课日期</span><span>2017-10-10</span></div>
-				<div class="list"><span class="list_left">时间区间</span><span>09:20-10:20</span></div>
-				<div class="list"><span class="list_left">教学时间</span><span>59min</span></div>
-				<div class="list"><span class="list_left">教学收入</span><span>180.5学保币</span></div>
+				<div class="list"><span class="list_left">上课日期</span><span>{{course.courseStartTime | dateTime}}</span></div>
+				<div class="list"><span class="list_left">时间区间</span><span>{{course.courseStartTime | courseTime}}-{{course.courseEndTime | | courseTime}}</span></div>
+				<div class="list"><span class="list_left">教学时间</span><span><span v-text="course.courseDuration"></span>min</span></div>
+				<div class="list"><span class="list_left">教学收入</span><span><span v-text="orderCourse.marketPrize"></span>学币</span></div>
 			</div>
-			
-			<div id="courseFeedback" class="content_course course_remind">课堂反馈<span class="feedback">已反馈</span></div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
-				//课堂反馈
-			    document.getElementById("courseFeedback").addEventListener('tap',function(){
-			    	openView.nativeView('../pages_index/classroom_detail.html','classroom_detail','课堂反馈详情');
-			    })
+			    var self = plus.webview.currentWebview();
+			    var datas = self.data;
+			    var courseData = self.courseData;
+			    datas = JSON.parse(datas);
+			    courseData = JSON.parse(courseData);
+			    
+			     vm.student = courseData.student;
+			    vm.course = datas;
+			    vm.orderCourse = datas.orderCourse;
 			})
+			
+			var vm = new Vue({
+                el: '#msg-content',
+                data: {
+                    student:{},
+                    course:{},
+                    orderCourse:{}
+                }           
+           })
 		</script>
 	</body>
 

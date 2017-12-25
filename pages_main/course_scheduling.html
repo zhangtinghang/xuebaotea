@@ -349,11 +349,11 @@
 			</div>
 			<div class="body_list">
 				<ul class="body_list_ul">
-					<li><span>剩余排课时间</span><span class="list_right come_icon">600分钟</span></li>
+					<li><span>剩余排课时间</span><span class="list_right come_icon" id="waitTime">0分钟</span></li>
 					<li><span>课程节数</span><span class="list_right right_btn">
-							<div class="mui-numbox" data-numbox-step='50' data-numbox-min='0' >
+							<div class="mui-numbox" data-numbox-step='1' data-numbox-min='0' >
 								<div class="btn_box mui-btn-numbox-minus" type="button"><img class="substract_btn" src="../images/main/substract.png" /></div>
-								<input id="num" readonly="readonly" class="mui-input-numbox" type="number" />
+								<input id="courseNum" readonly="readonly" class="mui-input-numbox" type="number" />
 								<div class="btn_box mui-btn-numbox-plus" type="button"><img class="add_btn" src="../images/main/add.png" /></div>
 							</div>
 					</span></li>
@@ -367,8 +367,8 @@
 		</div>
 		
 		<ul class="course_ul" id="course_ul">
-			<li class="course_li"><span>1</span><span>10月29日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><img src="../images/main/edit_arrange.png" /></span><span><img src="../images/main/delete.png"/></span></span></li>
-			<li class="course_li"><span>2</span><span>10月30日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><img src="../images/main/edit_arrange.png" /></span><span><img src="../images/main/delete.png"/></span></span></li>
+			<li class="course_li"><span>1</span><span>10月29日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span></span><span><img src="../images/main/delete.png"/></span></span></li>
+			<li class="course_li"><span>2</span><span>10月30日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><!--<img src="../images/main/edit_arrange.png" />--></span><span><img src="../images/main/delete.png"/></span></span></li>
 			<li><span class="fast_add" id="fast_add">快速排课<img src="../images/main/fast_add.png" /></span></li>
 		</ul>
 		</div>
@@ -393,9 +393,10 @@
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script src="../js/mui.picker.js"></script>
-		<!--<script type="text/javascript" src="../js/mui.picker.min.js" ></script>-->
 		<script src="../js/mui.poppicker.js"></script>
 		<script type="text/javascript" src="../js/city.data-3.js" ></script>
+		<script type="text/javascript" src="../js/timeData.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
@@ -405,6 +406,10 @@
 			    listenReturnRight('完成');
 			    var ws = plus.webview.currentWebview();
 				var view = ws.getTitleNView();
+				var waitTime = ws.waitTime || '60';
+				var courseflag = 1;
+				var courseArr = [];
+				document.getElementById("waitTime").innerText = waitTime +'分钟';
 			    view.addEventListener("click", function(e) {
 				if(screen.width - e.clientX <= 60){
 						//事件逻辑处理
@@ -416,15 +421,9 @@
 					openView.nativeView('../pages_student/location.html','location','地址');
 				})
 			    //监听值改变
-		     	var numBox=document.getElementById("num");
-				numBox.addEventListener('change',function(){
-					console.log(numBox.value);
-				});
-				
-				//遮罩层
-				var pop = document.getElementById("popover");
-				var mask = mui.createMask(function() {
-					pop.classList.remove('mui-active');					
+		     	var courseNum=document.getElementById("courseNum");
+				courseNum.addEventListener('change',function(){
+					courseflag = courseNum.value;
 				});
 				
 				//遮罩层
@@ -434,6 +433,16 @@
 				});
 				
 				//新增排课
+				/**
+				 * 获取对象属性的值
+				 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+				 * @param {Object} obj 对象
+				 * @param {String} param 属性名
+				 */
+				var _getParam = function(obj, param) {
+					return obj[param] || '';
+				};
+				
 				var addPicker = new mui.PopPicker({
 							layer: 3,
 							title:'选择日期',
@@ -441,22 +450,62 @@
 						});
 				var timePicker = new mui.PopPicker({
 							layer: 3,
-							title:'选择日期'
+							title:'选择时间'
 						});
 				addPicker.setData(cityData3);
-				timePicker.setData(cityData3);
+				timePicker.setData(timeData); 
 				var addClass = document.getElementById('addClass');
 						addClass.addEventListener('tap', function(event) {
-						addPicker.show(function(items) {
-								console.log(JSON.stringify(items));
-								//返回 false 可以阻止选择框的关闭
-	//							return false;
-							timePicker.show(function(items){
-								
-								console.log(items)
-							})
+							if(courseflag == 0){
+								return plus.nativeUI.toast('所选课程节数为0，不可排课！');
+							}
+							addPicker.show(function(date) {
+								timePicker.show(function(items){
+									//判断能否选课
+									waitTime = parseInt(waitTime);
+									if(waitTime < courseDurtion){
+										return plus.nativeUI.toast('排课时间不足,无法排课！');
+									}
+									//构造日期时间
+									var courseStartDate = todu(_getParam(date[0], 'value'))+'/'+todu(_getParam(date[1], 'value'))+'/'+todu(_getParam(date[2], 'value'));
+									var courseStartTime = todu(_getParam(items[0],'value'))+':'+todu(_getParam(items[1],'value'))+':'+'00';
+									var courseDurtion = _getParam(items[2], 'value');
+									var courseTime = courseStartDate +' '+courseStartTime;
+									//获取时间戳
+									var courseTimestamp = new Date(courseTime).getTime();
+									//将分钟转为毫秒，加上排课时间
+									var courseEndTimestamp = courseTimestamp + 1000*60*courseDurtion;
+									//转为正常时间
+									var courseEndTime = new Date(courseEndTimestamp);
+									var getYear = todu(courseEndTime.getFullYear(),true);
+									var getMonth = todu(courseEndTime.getMonth()+1,true);
+									var getDate = todu(courseEndTime.getDate(),true);
+									var hours = todu(courseEndTime.getHours(),true);
+									var minu = todu(courseEndTime.getMinutes(),true);
+									//本地生成排课信息
+									var startDate = todu(_getParam(date[0], 'value'))+'-'+todu(_getParam(date[1], 'value'))+'-'+todu(_getParam(date[2], 'value'));
+									var startTime = todu(_getParam(items[0],'value'))+':'+todu(_getParam(items[1],'value'))+':'+'00';
+									courseStartDate = startDate+' '+startTime;
+									var courseEndDate = getYear+'-'+getMonth+'-'+getDate+' '+hours+':'+minu+':'+'00';
+									console.log(courseStartDate,courseEndDate)
+//									courseArr.push({courseStartDate:courseStartDate,courseEndDate:courseEndDate})
+								})
 							});
 						}, false);
+						
+						//将单位数前加0
+						function todu(value,dispose) {
+							var dispose = dispose || false;
+							if(!dispose){
+								var value = value.substr(value.lastIndexOf('-') + 1);
+							}
+							
+							if(value < 10) {
+								return '0' + value;
+							} else {
+								return '' + value;
+							}
+						}
 				//快速排课
 				var fastPicker = new mui.PopPicker({
 						title:'快速添加'
@@ -476,7 +525,7 @@
 				var course_li = document.getElementsByClassName('course_li');
 				fast_add.addEventListener('tap',function(){
 					if(course_li.length!=0){
-						fastPicker.show(function(items){					
+						fastPicker.show(function(items){	
 							console.log('快速排课',JSON.stringify(items))
 							if(items[0].value=='2'){
 								setTimeout(function(){

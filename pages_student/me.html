@@ -336,7 +336,7 @@
 					}else{
 						plus.nativeUI.toast('请求超时！');
 					}
-			},true); 
+			},true,true); 
 		
 			//控制全局搜索显示
 			var search_status = document.getElementById("search_status");
@@ -374,6 +374,7 @@
 		    		break;
 		    		case '8':
 		    		//拨打电话
+		    		plus.device.dial(114,true);
 		    		break;
 		    		case '9':
 		    		openView.nativeView('../pages_myself/all_class.html', 'all_class', '班课记录');

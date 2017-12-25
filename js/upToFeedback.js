@@ -23,6 +23,12 @@
 		}
 	});
 	
+		var vm = new Vue({
+            el: '#msg-content',
+            data: {
+                feedback_img:[]
+            }
+       })
 	/**
 	 *提交成功之后，恢复表单项 
 	 */
@@ -34,9 +40,10 @@
 	
 	feedback.addFile = function(path) {
 		feedback.files.push({path:path});
+		vm.feedback_img = feedback.files;
 	};
 	
-	feedback.Img.addEventListener('tap', function(event) {
+	document.getElementById('feedback_Img').addEventListener('tap', function(event) {
 		var btnArray = [{
 			title: "拍照"
 		}, {
@@ -141,5 +148,6 @@
 //			mui.back();
 //		});
 //		plus.nativeUI.showWaiting();
-	};
+};
+
 })();

@@ -121,29 +121,32 @@
 			<div class="dynamic_list" v-for="item in teacherDetail">
 				<div class="avatar">
 					<div class="avatat_box">
-						<img src="../images/myself/teacher_dynamic_head.png" />
+						<img :src="imgUrl+item.teacherImage" />
 					</div>
 				</div>
 				<div class="more_text">
-					<div class="list_name">王老师<img align="center" src="../images/myself/dynamic.png" /></div>
-					<div class="list_signature">趁我们还没有老，多去走走看看!</div>
+					<div class="list_name"><span v-text="item.userName"></span><img align="center" src="../images/myself/dynamic.png" /></div>
+					<div class="list_signature" v-text="item.title"></div>
 					<div class="list_cover">
-						<img src="../images/myself/pensonnel.png" />
+						<img :src="imgUrl+item.images" />
 					</div>
-					<div class="list_title">
-						上月去香港看了看，发现偌大的世界真美妙！
-					</div>
-					<div class="list_content mui-ellipsis-1">
-						在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。
-					</div>
+					<div class="list_title" v-text="item.title"></div>
+					<div class="list_content mui-ellipsis-1" v-text="item.content"></div>
+					<div class="show_more">全文</div>
 					<div class="list_footer">
-						<div class="footer_time">2016年10月21日</div>
-						<div class="footer_comm"><img align="center" src="../images/myself/chat_num.png" /> 102</div>
+						<div class="footer_time">{{item.newscreateTime | timeData}}</div>
+						<div class="footer_comm"><img align="center" src="../images/myself/chat_num.png" /> <span v-text="item.comments.length"></span></div>
+					</div>
+					
+					<div class="list_commit" v-if="item.comments.length>0">
+						<ul class="list_commit_ul">
+							<li v-for="commentItem in item.comments"><span v-text="commentItem.sourceUserName"></span> 回复 <span ><span v-text="commentItem.targetUserName"></span>：</span><span v-text="commentItem.comment"></span></li>
+						</ul>
 					</div>
 				</div>
 			</div>
 			
-			<div class="dynamic_list">
+			<!--<div class="dynamic_list">
 				<div class="avatar">
 					<div class="avatat_box">
 						<img src="../images/myself/teacher_dynamic_head.png" />
@@ -152,9 +155,9 @@
 				<div class="more_text">
 					<div class="list_name">周老师<img align="center" src="../images/myself/dynamic.png" /></div>
 					<div class="list_signature">没有更好，只有最好！</div>
-					<!--<div class="list_cover">
+					<div class="list_cover">
 						<img src="../images/myself/pensonnel.png" />
-					</div>-->
+					</div>
 					<div class="list_title">
 						上月去香港看了看，发现偌大的世界真美妙！
 					</div>
@@ -174,7 +177,7 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div>-->
 			
 		</div>
 	<!--取出加密值-->
@@ -202,7 +205,22 @@
 				});
 				
 				//请求数据
-				
+				var ajaxData = {
+						url:'restful1/teacher/teachernews/getteachernews',
+						data: {},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log('请求数据',JSON.stringify(data))
+						if(data.code == 401){
+							plus.nativeUI.toast('您还未登录哟！');
+						}else if(data.code == 200){
+							vm.teacherDetail = data.data;
+							vm.imgUrl = ajaxUrl;						
+						}else{
+							plus.nativeUI.toast('请求超时！');
+						}
+				},true,true);
 				//监听图片事件
 				view.addEventListener("click", function(e) {
 					if(screen.width - e.clientX <= 60) {
@@ -216,7 +234,7 @@
 			})
 			
 			var vm = new Vue({
-				el: '#header_box',
+				el: '#msg-content',
 				data: {
 					teacherDetail:[],//教师动态数据
 					imgUrl:''

@@ -46,7 +46,7 @@
 				<li data-type="6">我的邀请码</li>
 				<li data-type="7">分享</li>
 			</ul>
-			<button type="button" class="mui-btn mui-btn-block">退出登录</button>
+			<button type="button" id="return_btn" class="mui-btn mui-btn-block">退出登录</button>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
@@ -84,6 +84,10 @@
 			    		default:
 						  //异常处理
 					}
+			    })
+			    document.getElementById("return_btn").addEventListener('tap',function(){
+			    	console.log('12')
+			    	openView.incView('../login/login.html', 'login', '欢迎登陆');
 			    })
 			})
 		</script>

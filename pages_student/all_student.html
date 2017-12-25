@@ -380,11 +380,13 @@
                     type:'post'
                 }
                 ajax(ajaxData, function(data){
-                    console.log(JSON.stringify(data))   
                     if(data.code == 200){
                     	//更新教师信息
-                    }                        
-                },true);
+                    	rank.innerText = data.data.rank;
+                    	teacher_time.innerText=data.data.teachedcourse;
+                		student_num.innerText=data.data.students;
+                    }              
+                },true,true);
                 //点击事件
 				mui('.mui-scroll').on('tap','.one_box',function(){
 					var id = this.getAttribute('data-id');

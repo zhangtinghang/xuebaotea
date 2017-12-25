@@ -369,7 +369,7 @@
 				//登录状态检测 
 				var state = app.getState();
 				if(state.data){
-					if(!state || !state.data.key || !state.IM_token){
+					if(!state || !state.data || !state.IM_token){
 						openView.incView('login/login.html', 'login', '欢迎登陆');
 					}
 				}else{
