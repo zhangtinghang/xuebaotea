@@ -48,11 +48,13 @@
 			}
 			.list_cover{
 				width: 90%;
-				border-radius:10px;
+				max-height: 4.166666rem;
 				overflow: hidden;
 			}
 			.list_cover img{
 				width: 100%;
+				height: 100%;
+				border-radius:10px;
 			}
 			.list_title{
 				width: 90%;
@@ -138,7 +140,7 @@
 						<div class="footer_comm"><img align="center" src="../images/myself/chat_num.png" /> <span v-text="item.comments.length"></span></div>
 					</div>
 					
-					<div class="list_commit" v-if="item.comments.length>0">
+					<div class="list_commit" v-if="item.comments.length >0">
 						<ul class="list_commit_ul">
 							<li v-for="commentItem in item.comments"><span v-text="commentItem.sourceUserName"></span> 回复 <span ><span v-text="commentItem.targetUserName"></span>：</span><span v-text="commentItem.comment"></span></li>
 						</ul>
@@ -215,8 +217,9 @@
 						if(data.code == 401){
 							plus.nativeUI.toast('您还未登录哟！');
 						}else if(data.code == 200){
-							vm.teacherDetail = data.data;
-							vm.imgUrl = ajaxUrl;						
+							vm.teacherDetail = data.data.news;
+							vm.imgUrl = ajaxUrl;	
+							vm.teacher = data.data.teacher;
 						}else{
 							plus.nativeUI.toast('请求超时！');
 						}
@@ -237,7 +240,8 @@
 				el: '#msg-content',
 				data: {
 					teacherDetail:[],//教师动态数据
-					imgUrl:''
+					imgUrl:'',
+					teacher:''
 				}			
 			})
 		</script>

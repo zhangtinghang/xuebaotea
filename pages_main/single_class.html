@@ -218,7 +218,7 @@
                                     </div>
                                 </div>
                             </div>
-                                <div class="one_box">
+                                <!--<div class="one_box">
                                     <div class="box_head">
                                         <div class="one_left">
                                             <div class="left_avatar">
@@ -242,7 +242,7 @@
                                     <div class="box_footer">
                                         <span class="confirmBtn">接受订单</span><span class="returnBtn">返回订单</span>
                                     </div>
-                                </div>
+                                </div>-->
                                 
                             </div>
                         </div>
@@ -255,13 +255,13 @@
                                     </div>
                                 </div>-->
                                 
-                                <div class="list_ul">
+                                <!--<div class="list_ul">
                                     <li>少儿英语班</li>
                                     <li>上课时间：2017年07月01日-07月31日</li>
                                     <li>上课时长：24.0小时</li>
                                     <li><span>报名情况：<span class="list_left_num">3</span>/5</span></li>
                                     <li class="more_detail">查看已报课学生</li>
-                                </div>
+                                </div>-->
                                 <div class="list_ul" v-for="item2 in classMessage">
                                     <li v-text="item2.contentId"></li>
                                     <li>上课时间：<span v-text="item2.courseStartTime"></span>-<span v-text="item2.courseEndTime"></span></li>
@@ -303,7 +303,7 @@
 	                        vm.classMessage = data.data.class;
 	                        vm.imgUrl = ajaxUrl;
 	                    }                               
-	                },true);
+	                },true,true);
                 }
                 
                 
@@ -349,6 +349,23 @@
             }
         })
             
+                        
+            //上课方式处理
+            Vue.filter('organization',function(num){
+            	console.log('传递的organization值==',num)
+            })
+            
+            Vue.filter('orderTime',function(time){
+            	console.log('传递的time值===',time)
+            })
+        var vm = new Vue({
+                el: '#msg-content',
+                data: {
+                    faceMessage:[],
+                    classMessage:[]
+                }           
+            })
+            
             mui('.mui-scroll-wrapper').scroll({
                 indicators: true //是否显示滚动条
             });
@@ -356,6 +373,7 @@
             //已经报课名单
             function open_detail(data){
                 var datas = JSON.stringify(data);
+                console.log(datas)
                 openView.nativeView('class_stu.html', 'class_stu', '班课学生',{'datas':datas});
             }
 //          var html2 = '<div class="list_ul"><li>少儿英语班</li><li>上课时间：2017年07月01日-07月31日</li><li>上课时长：24.0小时</li><li><span>报名情况：<span class="list_left_num">3</span>/5</span></li><li class="more_detail">查看已报课学生</li></div>';
@@ -373,22 +391,7 @@
 //                  }
                 }
             });
-            
-            //上课方式处理
-            Vue.filter('organization',function(num){
-            	console.log('传递的organization值==',num)
-            })
-            
-            Vue.filter('orderTime',function(time){
-            	console.log('传递的time值===',time)
-            })
-        var vm = new Vue({
-                el: '#msg-content',
-                data: {
-                    faceMessage:[],
-                    classMessage:[]
-                }           
-            })
+
         </script>
     </body>
 </html>

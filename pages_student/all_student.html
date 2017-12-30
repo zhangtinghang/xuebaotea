@@ -264,7 +264,7 @@
 								</div>
 							</div>
 							
-							<div class="one_box">
+							<!--<div class="one_box">
 								<div class="box_head">
 									<div class="one_left">
 										<div class="left_avatar">
@@ -276,7 +276,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>-->
 			
 						</div>
 					</div>
@@ -300,15 +300,15 @@
 												<span class="class_state" v-text="item.learning==true?'上课中':'未上课'"></span>
 											</div>
 											<div class="text_detail text_detail_num">
-												<div class="text_detail"><span class="gender_icon"><span v-text="item.student.name"></span><img :src="item.student.gender=='女'?'../images/student/female.png':'../images/student/male.png'" /></span></div>
-												<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time"><span v-text="item.waitCourse"></span>分钟</span></span><span>总缴费 <span class="text_detail_num_money"><span v-text="item.orderCourse"></span>学币</span></span></div>
+												<span>待上课时长 <span class="class_time"><span v-text="item.waitCourse"></span>分钟</span></span>
+												<span>总缴费 <span class="text_detail_num_money"><span v-text="item.orderCourse"></span>学币</span></span>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 							
-							<div class="one_box">
+							<!--<div class="one_box">
 								<div class="box_head">
 									<div class="one_left">
 										<div class="left_avatar">
@@ -326,7 +326,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>-->
 							
 						</div>
 					</div>
@@ -364,7 +364,7 @@
                     }else if(data.code==401){
                     	//未登录
                     }
-                },true);
+                },true,true);
                 
                 //渲染老师数据
                 var rank = document.getElementById("rank");

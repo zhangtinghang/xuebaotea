@@ -123,7 +123,6 @@
 				height: 0.444444rem;
 				margin-bottom: 0.09444rem;
 			}
-			
 			.btn_box:active {
 				background-color: rgb(240, 240, 240);
 			}
@@ -172,7 +171,7 @@
 				border:1px solid #fc8455 !important;
 			}
 			.left_site{
-				padding-left:0.388888rem;
+				padding-right:0.188888rem;
 				color: #555555;
 			}
 			.nav_title_2{
@@ -362,17 +361,17 @@
 			<div class="body_list">
 				<ul class="body_list_ul">
 					<li><span class="class_name">班课名称</span><span class="list_right input_box"><input type="text" id="className" value="" placeholder="请输入课程名" /></span></li>
-					<li id="change_class"><span>开设年级</span><span class="list_right come_icon">五年级&nbsp;&nbsp;<img align="center" src="../images/main/js_grzl_youjiantou.png" /></span></li>
+					<li id="change_class"><span>开设年级</span><span class="list_right come_icon"><span id="showGrade"></span>&nbsp;&nbsp;<img align="center" src="../images/main/js_grzl_youjiantou.png" /></span></li>
 					<li id="course_description"><span>课程介绍</span><span class="list_right come_icon">请填写课程介绍&nbsp;&nbsp;<img align="center" src="../images/main/js_grzl_youjiantou.png" /></span></li>				
 					<li><span>上课人数</span><span class="list_right right_btn">
-							<div class="mui-numbox" data-numbox-step='50' data-numbox-min='0' >
+							<div class="mui-numbox" data-numbox-step='1' data-numbox-min='0' >
 								<div class="btn_box mui-btn-numbox-minus" type="button"><img class="substract_btn" src="../images/main/substract.png" /></div>
 								<input id="courseStudents" readonly="readonly" class="mui-input-numbox" type="number" />
 								<div class="btn_box mui-btn-numbox-plus" type="button"><img class="add_btn" src="../images/main/add.png" /></div>
 							</div>
 						</span></li>
 					<li><span>课程节数</span><span class="list_right right_btn">
-							<div class="mui-numbox" data-numbox-step='50' data-numbox-min='0' >
+							<div class="mui-numbox" data-numbox-step='1' data-numbox-min='0' >
 								<div class="btn_box mui-btn-numbox-minus" type="button"><img class="substract_btn" src="../images/main/substract.png" /></div>
 								<input id="courseNums" readonly="readonly" class="mui-input-numbox" type="number" />
 								<div class="btn_box mui-btn-numbox-plus" type="button"><img class="add_btn" src="../images/main/add.png" /></div>
@@ -385,7 +384,7 @@
 							<span data-num="3" data-type = "14" class="class_add_btn3 evaluate_btn">竞赛级</span>					
 						</div>
 					</span></li>
-					<li><span>授课地址<span id="left_site" class="left_site">荣成国际培训机构</span></span><span class="list_right come_icon"><img align="center" src="../images/main/js_grzl_youjiantou.png" /></span></li>
+					<li id="left_site"><span>授课地址</span><span class="list_right come_icon"><span class="left_site" id="address_img_text"></span><img align="center" src="../images/main/js_grzl_youjiantou.png" /></span></li>
 				</ul>
 			</div>
 		<div class="nav_title nav_title_2">
@@ -394,9 +393,8 @@
 			<sapn class="nav_add_class" id="addClass">新增</sapn>
 		</div>
 		
-		<ul class="course_ul" id="course_ul">
-			<li class="course_li"><span>1</span><span>10月29日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><img src="../images/main/edit_arrange.png" /></span><span><img src="../images/main/delete.png"/></span></span></li>
-			<li class="course_li"><span>2</span><span>10月30日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><img src="../images/main/edit_arrange.png" /></span><span><img src="../images/main/delete.png"/></span></span></li>
+		<ul class="course_ul" id="course_ul">			
+			<li v-for="(ListItem, index) in arrangement" class="course_li"><span v-text="index+1"></span><span>{{ListItem.courseStartDate | dateData}}</span><span class="course_time">{{ListItem.courseStartDate | timeData}}-{{ListItem.courseEndDate | timeData}}</span><span class="course_place"><span></span><span class="del_img_btn" :data-index = "index"><img src="../images/main/delete.png"/></span></span></li>
 			<li><span class="fast_add" id="fast_add">快速排课<img src="../images/main/fast_add.png" /></span></li>
 		</ul>
 		</div>
@@ -417,13 +415,42 @@
 					<div  class="popover_btn"><span id="returnBtn">取消</span><span class="confirmBtn" id="confirmBtn">确定</span></div>
 				</div>
 		</div>
+		 <!--取出加密值-->
+        <input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script src="../js/mui.picker.js"></script>
 		<!--<script type="text/javascript" src="../js/mui.picker.min.js" ></script>-->
 		<script src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/city.data-3.js" ></script>
+		<script type="text/javascript" src="../js/timeData.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/newclass_update.js" ></script>
 		<script type="text/javascript" src="../js/newclass.js"></script>
+		<script>
+		Vue.filter('dateData',function(value){
+			value = value.replace(/-/g,"/");
+			var date = new Date(value);
+			var getYear = date.getFullYear();
+			var getMonth = date.getMonth()+1;
+			var getDate = date.getDate();
+			var dates = getYear+'年'+getMonth+'月'+getDate+'日';
+			return dates;
+		})
+		Vue.filter('timeData',function(value){
+			var time = value.substr(value.lastIndexOf(' ')+1);
+			return time;
+		})
+		var vm = new Vue({
+            el: '#course_ul',
+            data: {
+                arrangement:[]
+            }           
+       })
+		</script>
 	</body>
 
 </html>

@@ -26,6 +26,7 @@ var ajax = function(ajaxData,callback,encrypt,userid) {
 			dataJSON.userId = state.data.id;
 		}else{
 			dataJSON.teacherId = state.data.id;
+			dataJSON.userId = state.data.id;
 		}
 		dataJSON.timestamp = Date.parse(new Date());
 		//取出key相加后返回

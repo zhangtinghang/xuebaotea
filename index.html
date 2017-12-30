@@ -304,7 +304,18 @@
 			mui.plusReady(function () {
 			    // 创建子webview窗口 并初始化
 				util.initSubpage(aniShow);
-
+				
+				getPushInfo();
+				function getPushInfo(){
+				    var info = plus.push.getClientInfo();
+				    console.log( "获取客户端推送标识信息：" );
+				    console.log( "token: "+info.token );
+				    console.log( "clientid: "+info.clientid );
+				    console.log( "appid: "+info.appid );
+				    console.log( "appkey: "+info.appkey );
+				}
+				
+				
 				var nview = plus.nativeObj.View.getViewById('tabBar'),
 					activePage = plus.webview.currentWebview(),
 					targetPage,

@@ -58,13 +58,22 @@
 		<div class="content" id="msg-content">
 			<div class="list_box">
 				<ul class="list_ul">
-					<li id="my_picture" id="changeImg"><span>头像</span><div class="right_box"><span class="avatar_box"><img :src="teacherDetail.teacherImage?'imgUrl+teacherDetail.teacherImage':'../images/myself/head.png'" /></span></div></li>
+					<li id="my_picture"><span>头像</span><div class="right_box"><span class="avatar_box"><img :src="teacherDetail.teacherImage?'imgUrl+teacherDetail.teacherImage':'../images/myself/head.png'" /></span></div></li>
 					<li><span>姓名</span><span class="right_btn" v-text="teacherDetail.name"></span></li>
 					<li><span>性别</span><span class="right_btn" v-text="teacherDetail.gender"></span></li>
 					<li><span>电话</span><span class="right_btn" v-text="teacherDetail.mobilephone"></span></li>
 					<li data-type = "1"><span>学校</span><span class="right_btn"><span v-text="teacherDetail.teacherSchool"></span> <img src="../images/myself/next_content.png" /></span></li>
-					<li data-type = "2"><span>区域</span><span class="right_btn"><span v-text="teacherDetail.teacherArea"></span> <img src="../images/myself/next_content.png" /></span></li>
+					<li data-type = "2"><span>区域</span><span class="right_btn"><span>{{teacherDetail.teacherArea | teacherArea}}</span> <img src="../images/myself/next_content.png" /></span></li>
 				</ul>
+			</div>
+		</div>
+		<div class="mui-cropper-modal mui-modal">
+			<div class="cropper-image-container">
+				<img id="image" src="" />
+			</div>
+			<div class="cropper-btn-group">
+				<span class="cropper-cancel">取消</span>
+				<span class="cropper-ok">裁剪</span>
 			</div>
 		</div>
 		<!--取出加密值-->
@@ -73,6 +82,8 @@
 		<script type="text/javascript" src="../js/config.js"></script>
 		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/cropper.min.js" ></script>
+		<script type="text/javascript" src="../js/mui.cropper.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
@@ -115,44 +126,43 @@
 			    //存放头像图片地址
 			    var imgfile=[];
 				//获取照片信息
-				document.getElementById("my_picture").addEventListener('tap',function(){
-					var btnArray = [{
-						title: "拍照"
-					}, {
-						title: "从相册选择"
-					}];
-					plus.nativeUI.actionSheet({
-						title: "选择照片",
-						cancel: "取消",
-						buttons: btnArray
-					}, function(e) {
-						var index = e.index;
-						switch (index) {
-							case 0:
-								break;
-							case 1:
-								var cmr = plus.camera.getCamera();
-								cmr.captureImage(function(path) {
-									var lfs = "file://" + plus.io.convertLocalFileSystemURL(path);
-									addFile(lfs);
-								}, function(err) {});
-							break;
-							case 2:
-								plus.gallery.pick(function(path) {					
-									for(var i in path.files){
-											lfs=path.files[i];
-									    	addFile(lfs);
-								    	}
-								}, function(err) {}, {filter:"image",multiple:true,maximum:3,system:false});
-							break;
-						}
-					});
-				})
+//				document.getElementById("my_picture").addEventListener('tap',function(){
+//					var btnArray = [{
+//						title: "拍照"
+//					}, {
+//						title: "从相册选择"
+//					}];
+//					plus.nativeUI.actionSheet({
+//						title: "选择照片",
+//						cancel: "取消",
+//						buttons: btnArray
+//					}, function(e) {
+//						var index = e.index;
+//						switch (index) {
+//							case 0:
+//								break;
+//							case 1:
+//								var cmr = plus.camera.getCamera();
+//								cmr.captureImage(function(path) {
+//									var lfs = "file://" + plus.io.convertLocalFileSystemURL(path);
+//									addFile(lfs);
+//								}, function(err) {});
+//							break;
+//							case 2:
+//								plus.gallery.pick(function(path) {
+//									addFile(path);
+//								}, function(err) {}, {filter:"image",system:false});
+//							break;
+//						}
+//					});
+//				})
 				
 				var addFile = function(path) {
 					imgfile.push({path:path});
+					console.log(JSON.stringify(imgfile))
 					//渲染图片
-					vm.teach_img = imgfile;
+					console.log(imgfile[0].path)
+					vm.teacherDetail.teacherImage = imgfile[0].path;
 				}
 			    
 			    mui('.list_ul').on('tap','li',function(){
@@ -171,6 +181,22 @@
 			    
 			})
 			
+			Vue.filter('teacherArea',function(value){ 
+				if(value){
+					switch (value){
+						case 1:
+							return '成都市';
+							break;
+						case 2:
+							return '新增城市';
+							break;
+						default:
+							break;
+					}
+				}else{
+					return '';
+				}
+			})
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {

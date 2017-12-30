@@ -63,7 +63,7 @@
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
-		<script type="text/javascript" src="../js/update-form-data.js" ></script>
+		<script type="text/javascript" src="../js/teacher_update.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			var dataObj = {
@@ -116,7 +116,8 @@
 				  //通过event.detail可获得传递过来的参数内容
 				  var classArr = JSON.parse(event.detail.classArr);
 				  var classdata = event.detail.classdata;
-				  dataObj.teaClassJson = classArr;
+				  var teaClassJson = JSON.stringify(classArr);
+				  dataObj.teaClassJson = teaClassJson;
 				  if(classArr.length >1){
 				  		vm.className = lookdata(classdata,classArr) + '等';
 				  }else if(classArr.length=1){

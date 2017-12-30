@@ -26,7 +26,6 @@
 			.avatar_box{
 				height: 2.5rem;
 				width: 2.5rem;
-				background-color:#0DAD95;
 				border-radius: 90px;
 				margin: 0 auto;
 				overflow: hidden;
@@ -90,7 +89,9 @@
 	<body>
 		<div class="content">
 			<div class="avatar">
-				<div class="avatar_box"></div>
+				<div class="avatar_box">
+					<img src="../images/login/LOGO.png" />
+				</div>
 			</div>
 			<div class="input phone">
 				<label class="login_img"><img src="../images/login/username.png" /></label>
@@ -182,11 +183,11 @@
 				doc.register.addEventListener('tap',function(){
 					openView.incView('register.html','register','注册');
 				},false)
-				//忘记密码
 				
-				doc.forget.addEventListener('tap',function(){
-					openView.incView('register.html','register','忘记密码');
-				},false)
+				//忘记密码
+//				doc.forget.addEventListener('tap',function(){
+//					openView.incView('register.html','register','忘记密码');
+//				},false)
 			})
 			
 				

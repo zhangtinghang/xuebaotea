@@ -116,6 +116,10 @@
 				padding: 0.0328888rem 0 !important;
 				color: #0dad95 !important;
 			}
+			.come_icon {
+				display: flex;
+				align-items: center;
+			}
 			.come_icon img{
 				width: 0.25rem;
 				height: 0.444444rem;
@@ -144,20 +148,14 @@
 			.comment_btn span{
 				padding-bottom: 0.067777rem;
 			}
-			.evaluate_btn{
-				color: rgb(190,190,190);
-				border: 1px solid rgb(190,190,190);
-				padding: 0.111111rem 0.222222rem;
-				border-radius: 18px;
-				margin: 0 0.5%;
-			}
+
 			.class_add_btn{
 				color: #FFFFFF !important;
 				background-color: #fc8455;
 				border:1px solid #fc8455 !important;
 			}
 			.left_site{
-				padding-left:0.388888rem;
+				margin-right:0.188888rem;
 				color: #555555;
 			}
 			.nav_title_2{
@@ -283,9 +281,10 @@
 				display: none;
 			}
 			#popover{
-				bottom:0 !important;
+				position: absolute !important;
+				top:0% !important; 
 				width: 100%;
-				border-radius:0 ;
+				border-radius:0;
 			}
 			.mui-popover{
 				background-color: #FFFFFF;
@@ -318,7 +317,7 @@
 			.popover_list_ul li:last-child{
 				border: none;
 			}
-			.popover_btn{
+			.popover_btn{ 
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
@@ -342,37 +341,7 @@
 	</head>
 
 	<body>
-		<div class="content">
-			<div class="nav_title">
-				<div class="nav_line"></div>
-				<span class="nav_serve">课程信息</span>
-			</div>
-			<div class="body_list">
-				<ul class="body_list_ul">
-					<li><span>剩余排课时间</span><span class="list_right come_icon" id="waitTime">0分钟</span></li>
-					<li><span>课程节数</span><span class="list_right right_btn">
-							<div class="mui-numbox" data-numbox-step='1' data-numbox-min='0' >
-								<div class="btn_box mui-btn-numbox-minus" type="button"><img class="substract_btn" src="../images/main/substract.png" /></div>
-								<input id="courseNum" readonly="readonly" class="mui-input-numbox" type="number" />
-								<div class="btn_box mui-btn-numbox-plus" type="button"><img class="add_btn" src="../images/main/add.png" /></div>
-							</div>
-					</span></li>
-					<li id="left_site"><span>授课地址<span class="left_site">荣成国际培训机构</span></span><span class="list_right come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></span></li>
-				</ul>
-			</div>
-		<div class="nav_title nav_title_2">
-			<div class="nav_line"></div>
-			<span class="nav_serve">课程安排</span>
-			<sapn class="nav_add_class" id="addClass">新增</sapn>
-		</div>
-		
-		<ul class="course_ul" id="course_ul">
-			<li class="course_li"><span>1</span><span>10月29日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span></span><span><img src="../images/main/delete.png"/></span></span></li>
-			<li class="course_li"><span>2</span><span>10月30日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><!--<img src="../images/main/edit_arrange.png" />--></span><span><img src="../images/main/delete.png"/></span></span></li>
-			<li><span class="fast_add" id="fast_add">快速排课<img src="../images/main/fast_add.png" /></span></li>
-		</ul>
-		</div>
-		
+				
 		<div id="popover" class="mui-popover">
 				<div class="popover-box">
 					<div class="popover_title">自定义时间重复</div>
@@ -389,6 +358,36 @@
 					</div>
 					<div  class="popover_btn"><span id="returnBtn">取消</span><span class="confirmBtn" id="confirmBtn">确定</span></div>
 				</div>
+		</div>
+		<div class="content" >
+			<div class="nav_title">
+				<div class="nav_line"></div>
+				<span class="nav_serve">课程信息</span>
+			</div>
+			<div class="body_list">
+				<ul class="body_list_ul">
+					<li><span>剩余排课时间</span><span class="list_right come_icon" id="waitTime">0分钟</span></li>
+					<li><span>课程节数</span><span class="list_right right_btn">
+							<div class="mui-numbox" data-numbox-step='1' data-numbox-min='0' >
+								<div class="btn_box mui-btn-numbox-minus" type="button"><img class="substract_btn" src="../images/main/substract.png" /></div>
+								<input id="courseNum" readonly="readonly" class="mui-input-numbox" type="number" />
+								<div class="btn_box mui-btn-numbox-plus" type="button"><img class="add_btn" src="../images/main/add.png" /></div>
+							</div>
+					</span></li>
+					<li id="left_site"><span>授课地址</span><span class="list_right come_icon"><span class="left_site" id="right_address_text"></span><img src="../images/main/js_grzl_youjiantou.png" /></span></li>
+				</ul>
+			</div>
+		<div class="nav_title nav_title_2">
+			<div class="nav_line"></div>
+			<span class="nav_serve">课程安排</span>
+			<sapn class="nav_add_class" id="addClass">新增</sapn>
+		</div>
+		
+		<ul class="course_ul" id="course_ul">
+			<li v-for="(ListItem, index) in arrangement" class="course_li"><span v-text="index+1"></span><span>{{ListItem.courseStartDate | dateData}}</span><span class="course_time">{{ListItem.courseStartDate | timeData}}-{{ListItem.courseEndDate | timeData}}</span><span class="course_place"><span></span><span class="del_img_btn" :data-index = "index"><img src="../images/main/delete.png"/></span></span></li>
+			<!--<li class="course_li"><span>2</span><span>10月30日</span><span class="course_time">09:30-11:30</span><span class="course_place"><span><img src="../images/main/edit_arrange.png" /></span><span><img src="../images/main/delete.png"/></span></span></li>-->
+			<li><span class="fast_add" id="fast_add">快速排课<img src="../images/main/fast_add.png" /></span></li>
+		</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
@@ -409,6 +408,7 @@
 				var waitTime = ws.waitTime || '60';
 				var courseflag = 1;
 				var courseArr = [];
+				var right_address_text  = document.getElementById("right_address_text");
 				document.getElementById("waitTime").innerText = waitTime +'分钟';
 			    view.addEventListener("click", function(e) {
 				if(screen.width - e.clientX <= 60){
@@ -418,19 +418,37 @@
 				}, false);
 				//授课地址监听
 				document.getElementById("left_site").addEventListener('tap',function(){
-					openView.nativeView('../pages_student/location.html','location','地址');
+					openView.nativeView('../pages_student/location.html','location','地址',{type:'one_class'});
 				})
+				//监听删除课程
+				mui('#course_ul').on('tap','.del_img_btn',function(){
+					var index = this.getAttribute('data-index');
+					courseArr.splice(index,1);
+					vm.arrangement = courseArr;
+				})
+				
+				//接收授课地址
+				window.addEventListener('addressChange',function(event){
+					var organizationId = event.detail.organizationId;
+					var name = event.detail.name;
+					console.log(organizationId,name)
+					right_address_text.innerText = name;
+//					dataArr.organizationId=organizationId;
+			//		var imgfile = event.detail.imgfile;
+			//		var courseObj = {
+			//		    teach_goal:teach_goal.value,
+			//		    teach_content:teach_content.value,
+			//		    imgfile:imgfile
+			//	  	}
+					
+				});	
 			    //监听值改变
 		     	var courseNum=document.getElementById("courseNum");
 				courseNum.addEventListener('change',function(){
 					courseflag = courseNum.value;
 				});
 				
-				//遮罩层
-				var pop = document.getElementById("popover");
-				var mask = mui.createMask(function() {
-					pop.classList.remove('mui-active');					
-				});
+				
 				
 				//新增排课
 				/**
@@ -487,25 +505,14 @@
 									var startTime = todu(_getParam(items[0],'value'))+':'+todu(_getParam(items[1],'value'))+':'+'00';
 									courseStartDate = startDate+' '+startTime;
 									var courseEndDate = getYear+'-'+getMonth+'-'+getDate+' '+hours+':'+minu+':'+'00';
-									console.log(courseStartDate,courseEndDate)
-//									courseArr.push({courseStartDate:courseStartDate,courseEndDate:courseEndDate})
+//									console.log(courseStartDate,courseEndDate)
+									courseArr.push({courseStartDate:courseStartDate,courseEndDate:courseEndDate});
+									vm.arrangement = courseArr;
 								})
 							});
 						}, false);
 						
-						//将单位数前加0
-						function todu(value,dispose) {
-							var dispose = dispose || false;
-							if(!dispose){
-								var value = value.substr(value.lastIndexOf('-') + 1);
-							}
-							
-							if(value < 10) {
-								return '0' + value;
-							} else {
-								return '' + value;
-							}
-						}
+
 				//快速排课
 				var fastPicker = new mui.PopPicker({
 						title:'快速添加'
@@ -516,33 +523,134 @@
 				}, {
 					value: '1',
 					text: '每周时间重复'
-				}, {
-					value: '2',
-					text: '自定义时间'
-				}]);
+				}
+//				, {
+//					value: '2',
+//					text: '自定义时间'
+//				}
+				]);
 				var fast_add = document.getElementById("fast_add");
 				var course_ul = document.getElementById("course_ul");
 				var course_li = document.getElementsByClassName('course_li');
+				var pop = document.getElementById("popover");
 				fast_add.addEventListener('tap',function(){
 					if(course_li.length!=0){
-						fastPicker.show(function(items){	
-							console.log('快速排课',JSON.stringify(items))
+						fastPicker.show(function(items){
+							var lastTime = courseArr[courseArr.length-1];
+							//计算出排课时间数
+							var lastCourseStartTime = lastTime.courseStartDate;
+							var lastCourseEndTime = lastTime.courseEndDate;
+							//转成时间戳
+							lastCourseStartTime = lastCourseStartTime.replace(/-/g,"/");
+							lastCourseEndTime = lastCourseEndTime.replace(/-/g,"/");
+							
+							var lastStartTimestamp = Date.parse(new Date(lastCourseStartTime));
+							var lastEndTimestamp = Date.parse(new Date(lastCourseEndTime));
+							var courseDurtion = lastEndTimestamp - lastStartTimestamp;
+							console.log('这是课程时间',lastStartTimestamp,lastEndTimestamp)
+							//得到持续时间数
+							var DurtionTime = (courseDurtion/1000)/60;
+							//根据开始时间往后推n天（根据剩余课程节数）
+							if(items[0].value!='2'){
+							for(var i=1;i<courseflag;i++){
+								//加一天
+								if(items[0].value=='0'){
+									var startTimestamp = lastStartTimestamp+(1000*60*60*24)*i; 
+								}else if(items[0].value=='1'){
+									var startTimestamp = lastStartTimestamp+(1000*60*60*24*7)*i; 
+								}								
+								var endTimeStamp = startTimestamp + courseDurtion;
+								//将时间撮转为日期，存入数组
+								var coursestartTime = new Date(startTimestamp);
+								
+								var startgetYear = todu(coursestartTime.getFullYear(),true);
+								var startgetMonth = todu(coursestartTime.getMonth()+1,true);
+								var startgetDate = todu(coursestartTime.getDate(),true);
+								var starthours = todu(coursestartTime.getHours(),true);
+								var startminu = todu(coursestartTime.getMinutes(),true);
+								//结束时间
+								var endcourseEndTime = new Date(endTimeStamp);
+								var endgetYear = todu(endcourseEndTime.getFullYear(),true);
+								var endgetMonth = todu(endcourseEndTime.getMonth()+1,true);
+								var endgetDate = todu(endcourseEndTime.getDate(),true);
+								var endhours = todu(endcourseEndTime.getHours(),true);
+								var endminu = todu(endcourseEndTime.getMinutes(),true);
+								
+								//本地生成排课信息
+								var courseStartDate = startgetYear+'-'+startgetMonth+'-'+startgetDate+' '+starthours+':'+startminu+':'+'00';
+								var courseEndDate = endgetYear+'-'+endgetMonth+'-'+endgetDate+' '+endhours+':'+endminu+':'+'00';
+								courseArr.push({courseStartDate:courseStartDate,courseEndDate:courseEndDate});
+								vm.arrangement = courseArr;
+							}
+							}
+							//将排好的数据存入数组
+							//渲染
+							//自定义
 							if(items[0].value=='2'){
-								setTimeout(function(){
-									mask.show();
-									pop.classList.add('mui-active');
-								},50);
+//								console.log(getClientHeight() + getScrollTop())
+//								pop.style.bottom = getClientHeight() + getScrollTop() +'px';
+//								setTimeout(function(){
+//									mask.show();
+//									pop.classList.add('mui-active');
+//								},50);
 							}
 						})
 					}else{
+						plus.nativeUI.toast('请先增加一节课程！') 
 						//直接打开自定义
-						setTimeout(function(){
-							mask.show();
-							pop.classList.add('mui-active');
-						},50);
+//						setTimeout(function(){
+//							mask.show();
+//							pop.classList.add('mui-active');
+//						},50);
 					}
 				})	
 				
+				/*
+				 取窗口可视范围的高度 
+				*/
+				function getClientHeight()
+				{
+				    var clientHeight=0;
+				    if(document.body.clientHeight&&document.documentElement.clientHeight)
+				    {
+				        var clientHeight = (document.body.clientHeight<document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;        
+				    }
+				    else
+				    {
+				        var clientHeight = (document.body.clientHeight>document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;    
+				    }
+				    return clientHeight;
+				}
+				
+				/*
+				    取窗口滚动条高度 
+				*/
+				function getScrollTop()
+				{
+				    var scrollTop=0;
+				    if(document.documentElement&&document.documentElement.scrollTop)
+				    {
+				        scrollTop=document.documentElement.scrollTop;
+				    }
+				    else if(document.body)
+				    {
+				        scrollTop=document.body.scrollTop;
+				    }
+				    return scrollTop;
+				}
+				//将单位数前加0
+				function todu(value,dispose) {
+					var dispose = dispose || false;
+					if(!dispose){
+						var value = value.substr(value.lastIndexOf('-') + 1);
+					}
+					
+					if(value < 10) {
+						return '0' + value;
+					} else {
+						return '' + value;
+					}
+				}
 				//点击确定
 			  	 var confirmBtn = document.getElementById("confirmBtn");
 			    confirmBtn.addEventListener('tap',function(){
@@ -570,7 +678,10 @@
 				   		that.classList.add('add_btn');
 				   	}	
 			   });
-			   
+			   //遮罩层
+				var mask = mui.createMask(function() {
+					pop.classList.remove('mui-active');					
+				});
 			   //遮罩复选框
 			  	mui('.popover_list_ul').on('tap','li',function(){
 				   	var that = this;
@@ -591,6 +702,26 @@
 				   } 	
 			   });
 			})
+				
+			Vue.filter('dateData',function(value){
+					value = value.replace(/-/g,"/");
+					var date = new Date(value);
+					var getYear = date.getFullYear();
+					var getMonth = date.getMonth()+1;
+					var getDate = date.getDate();
+					var dates = getYear+'年'+getMonth+'月'+getDate+'日';
+					return dates;
+			})
+			Vue.filter('timeData',function(value){
+				var time = value.substr(value.lastIndexOf(' ')+1);
+				return time;
+			})
+			var vm = new Vue({
+                el: '#course_ul',
+                data: {
+                    arrangement:[]
+                }           
+           })
 		</script>
 	</body>
 

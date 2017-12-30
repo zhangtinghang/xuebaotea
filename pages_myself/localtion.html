@@ -65,14 +65,14 @@
 				当前所在城市
 			</div>
 			<div class="list_box">
-				<div class="list_detail" v-text="nowCity"></div>
+				<div class="list_detail">{{nowCity | teacherArea}}</div>
 			</div>
 			<div class="nav_list_2">
 				所有开通城市
 			</div>
 			<div class="list_box">
-				<div class="list_detail_2" v-for="(value, key, index) in listCity" :data-type="value.cityName" :class="value.cityName == nowCity?'add_btn':''" v-text="value.cityName"></div>
-				<div class="list_detail_2" data-type="上海市">上海市</div>				
+				<div class="list_detail_2" v-for="(value, key, index) in listCity" :data-type="value.cityName" :class="value.cityId == nowCity?'add_btn':''" v-text="value.cityName"></div>
+				<!--<div class="list_detail_2" data-type="上海市">上海市</div>	-->			
 				<!--<div class="list_detail_2">成都市</div>-->
 			</div>
 		</div>
@@ -117,7 +117,6 @@
 						type:'post'
 				}
 				ajax(ajaxData, function(data) {
-					console.log(JSON.stringify(data))
 						if(data.code == 200){
 							vm.listCity = data.data;
 						}else{
@@ -140,7 +139,23 @@
 					   	flagAddress = this.getAttribute('data-type');
 				   })
 			})
-			
+			Vue.filter('teacherArea',function(value){ 
+				if(value){
+					switch (value){
+						case 1:
+							return '成都市';
+							break;
+						case 2:
+							return '新增城市';
+							break;
+						default:
+							return '新增城市';
+							break;
+					}
+				}else{
+					return '';
+				}
+			})
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {

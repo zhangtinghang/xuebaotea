@@ -52,6 +52,7 @@
 			    //获取页面信息
 			    var self = plus.webview.currentWebview();
 			    var types = self.type;
+			    console.log('传递过来的参数',types)
 			    //获取数据
 			    var ajaxData = {
 							url:'restful1/course/getCourseLocation',
@@ -64,14 +65,16 @@
 						vm.address = data.data;
 					}
 				},true);
-			//点击
+				//点击
 				var new_classPage = null;
 				if(types){
-					if(types = 'selfDetail'){
+					if(types == 'selfDetail'){
 						new_classPage =  plus.webview.getWebviewById('global_earch');
-					}			
-				}else{
-					plus.webview.getWebviewById('new_class');
+					}else if(types == 'one_class'){
+						new_classPage =  plus.webview.getWebviewById('course_scheduling');
+					}else if(types == 'new_class'){
+						new_classPage = plus.webview.getWebviewById('new_class');
+					}
 				}
 				
 				mui('.content_list_ul').on('tap','li',function(){

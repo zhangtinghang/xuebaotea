@@ -523,12 +523,14 @@
                     	vm.imgUrl = ajaxUrl;
                     	courseData = data;
                     }              
-                },true);
+                },true,true);
                 
                 //拨打电话
                 document.getElementById("callPhone").addEventListener('tap',function(){
-                	
-                })
+                	var phone = this.getAttribute('data-phone');
+                	//拨打电话
+		    		plus.device.dial(phone,true);
+                });
                 
                	courseData = JSON.stringify(courseData);
                 //待排课跳转

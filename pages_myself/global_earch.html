@@ -138,10 +138,11 @@
 				teacher_text:document.getElementById('teacher_text'),
 				kilometer_text:document.getElementById('kilometer_text')
 			}
-			
-			var dataObj = {
-				
-			};
+			var courseId = '';
+			var organizationId = '';
+			var oneToOneType = '';
+			var distance = '';
+			var isSearch = '';
 			mui.plusReady(function () {
 				//事件监听
 				listenReturn();
@@ -151,8 +152,27 @@
 			    var view = self.getTitleNView();
 			    view.addEventListener("click", function(e) {
 					if(screen.width - e.clientX <= 60){				 	
-						//事件逻辑处理
-						mui.back();
+						//提交数据
+						console.log('13222',oneToOneType,distance,isSearch)
+						var ajaxData = {
+							url:'restful1/course/updateOneToOneCourse',
+							data: {
+								courseId:courseId,
+								oneToOneType:oneToOneType,
+								organizationId:organizationId,
+								distance:distance,
+								isSearch:isSearch
+							},
+							type:'post'
+						}
+						ajax(ajaxData, function(data) {
+							if(data.code == 200){
+								mui.back();
+							}else{
+								plus.nativeUI.toast('修改出错，请稍后再试！');
+							}
+						},true,true);
+						
 					}
 				}, false);
 				
@@ -166,6 +186,12 @@
 					console.log(JSON.stringify(data))
 					if(data.code == 200){
 						//初始化全局搜索
+						courseId = data.data.courseId;
+						organizationId = data.data.organizationId;
+						oneToOneType = data.data.oneToOneType || 0;
+						distance = data.data.distance;
+						isSearch = data.data.search;
+						
 						if(data.data.search == 1){
 							if(!doc.global_btn.classList.contains('mui-active')){
 						    	doc.global_btn.classList.add('mui-active');
@@ -177,7 +203,8 @@
 						}
 						
 						//初始化上课地址
-						doc.course_address_text.innerText=data.data.organizationName;					
+						doc.course_address_text.innerText=data.data.organizationName;
+						
 						//初始化上课方式,上课距离
 						if(data.data.onetoonetype ==1){
 							doc.teacher_text.innerText = '学生上门';
@@ -186,8 +213,9 @@
 						}else{
 							doc.teacher_text.innerText = '教师上门';
 							doc.showKilPicker.style.visibility="visible";
-							doc.kilometer_text.innerText = data.data.distance;
-						}					
+							doc.kilometer_text.innerText = data.data.distance+'km';
+						}
+						
 					}else{
 						plus.nativeUI.toast('获取数据失败，请稍后再试！');
 					}
@@ -197,18 +225,17 @@
 			    var global_btn = document.getElementById("global_btn");
 				global_btn.addEventListener("toggle",function(event){
 				  if(event.detail.isActive){
-				    console.log("你启动了开关");
+				  	isSearch = 1;
 				  }else{
-				    console.log("你关闭了开关");  
+				  	isSearch = 0;
 				  }
 				});
 				
 				//接收地址参数
-				var address_text = document.getElementById("address_text");
 				window.addEventListener('addressChange',function(event){
-					var organizationId = event.detail.organizationId;
+					organizationId = event.detail.organizationId;
 					var name = event.detail.name;
-					doc.address_text.innerText=name;
+					doc.course_address_text.innerText=name;
 				});
 				
 				//修改上课地址
@@ -240,10 +267,12 @@
 								case 'teacher':
 									doc.teacher_text.innerHTML='教师上门';
 									doc.showKilPicker.style.visibility="visible";
+									oneToOneType = 0;
 									break;
 								case 'student':
 									doc.teacher_text.innerHTML='学生上门';
 									doc.showKilPicker.style.visibility="hidden";
+									oneToOneType = 1;
 									break;
 								default:
 									break;
@@ -273,12 +302,15 @@
 							switch (type){
 								case '3':
 									doc.kilometer_text.innerHTML='3km';
+									distance = 3;
 									break;
 								case '5':
 									doc.kilometer_text.innerHTML='5km';
+									distance = 5;
 									break;
 								case '0':
 									doc.kilometer_text.innerHTML='不限距离';
+									distance = 0;
 									break;
 								default:
 									break;

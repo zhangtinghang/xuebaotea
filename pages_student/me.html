@@ -196,7 +196,7 @@
 				<i class="header_box_i"></i>
 				<div class="avatar_box">
 					<div class="header_avatar">
-						<img :src="imgUrl+teacherDetail.teacherImage || '../images/status/not_login_head.png'" />
+						<img :src="imgUrl+teacherDetail.teacherImage | imgValue" />
 					</div>
 					<div class="header_name">
 						<span v-text="teacherDetail.name || '未登录'"></span>
@@ -206,7 +206,7 @@
 						<span v-text="teacherDetail.teacherWorld||'精勤博学，学以致用'"></span>
 					</div>
 					<div class="header_age" id="teacher_detail">
-						<span v-text="teacherDetail.teacherArea||'城市'"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span v-text="teacherDetail.teacherSchool||'学校'"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span><span v-text="teacherDetail.teacherRank||'一'"></span>星教师</span>
+						<span>{{teacherDetail.teacherArea | teacherArea}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span v-text="teacherDetail.teacherSchool||'学校'"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span><span>{{teacherDetail.teacherRank | teacherRank}}</span>星教师</span>
 					</div>
 				</div>
 			</div>
@@ -326,7 +326,6 @@
 					type:'post'
 			}
 			ajax(ajaxData, function(data) {
-				console.log('请求数据',JSON.stringify(data))
 					if(data.code == 401){
 						plus.nativeUI.toast('您还未登录哟！');
 					}else if(data.code == 200){
@@ -388,7 +387,82 @@
 			mui('.mui-scroll-wrapper').scroll({
 				indicators: true //是否显示滚动条
 			});
-		
+			Vue.filter('imgValue',function(value){
+				
+				if(value){
+					console.log(typeof value)
+					//				value = value.Substring(0,value.Length - 1);
+					console.log('12',value)
+				}
+
+				
+			})
+			Vue.filter('teacherArea',function(value){
+				if(value){
+					switch (value){
+						case 1:
+							return '成都市';
+							break;
+						case 2:
+							return '新增城市';
+							break;
+						default:
+							return '新增城市';
+							break;
+					}
+				}else{
+					return '新增城市';
+				}
+			})
+			
+			Vue.filter('teacherRank',function(value){
+				if(value){
+					switch (value){
+						case 1:
+							value = '一';
+							return value;
+							break;
+						case 2:
+						value = '二';
+							return value;	
+							break;
+						case 3:
+						value = '三';
+							return value;
+							break;
+						case 4:
+						value = '四';
+							return value;
+							break;
+						case 5:
+						value = '五';
+							return value;
+							break;
+						case 6:
+						value = '六';
+							return value;
+							break;
+						case 7:
+						value = '七';
+							return value;
+							break;
+						case 8:
+						value = '八';
+							return value;
+							break;
+						case 9:
+						value = '九';
+							return value;
+							break;
+						case 10:
+						value = '十';
+							return value;
+							break;
+						default:
+							break;
+					}
+				}
+			})
 			var vm = new Vue({
 				el: '#header_box',
 				data: {
