@@ -222,6 +222,10 @@
 					openView.nativeView('linkman_contacts.html', 'linkman_contacts', '联系人');
 				})
 				
+				//监听登录刷新
+				window.addEventListener('showView',function(event){
+				  console.log('消息刷新')
+				});
 				mui('.content_ul').on('tap','li',function(){
 					openView.nativeView('chat.html', 'chat', '聊天','','none');
 				})

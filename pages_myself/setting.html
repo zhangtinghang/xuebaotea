@@ -40,7 +40,7 @@
 			<ul class="list_ul">
 				<li data-type="1">反馈</li>
 				<li data-type="2">功能介绍</li>
-				<li data-type="3">关于学保</li>
+				<li data-type="3">关于易学宝</li>
 				<li data-type="4">修改密码</li>
 				<li data-type="5">服务协议</li>
 				<li data-type="6">我的邀请码</li>
@@ -63,28 +63,33 @@
 			    		openView.nativeView('feedback.html', 'feedback', '反馈');
 			    		break;
 			    		case '2':
-			    		//个人资料
+			    		plus.nativeUI.toast('此功能暂未开通！');
+			    		//功能介绍
 	//		    		openView.nativeView('selfDetail.html', 'selfDetail', '个人资料');
 			    		break;
 			    		case '3':
-			    		//拨打电话
+			    		//关于学保
+			    		openView.nativeView('in_regard_to.html', 'in_regard_to', '关于易学宝');
 			    		break;
 			    		case '4':
-			    		openView.nativeView('../login/changePassword.html', 'changePassword', '修改密码');
+			    		plus.nativeUI.toast('此功能暂未开通！');
+//			    		openView.nativeView('../login/changePassword.html', 'changePassword', '修改密码');
 			    		break;
 			    		case '5':
-//			    		openView.nativeView('../pages_setting/setting.html', 'setting', '设置');
+			    		//服务协议
+			    		openView.nativeView('service_agreement.html', 'service_agreement', '用户注册用户协议');
 			    		break;
 			    		case '6':
 			    		openView.nativeView('Invitation_code.html', 'Invitation_code', '邀请码');
 			    		break;
 			    		case '7':
-//			    		openView.nativeView('../pages_setting/setting.html', 'setting', '设置');
+			    		plus.nativeUI.toast('此功能暂未开通！');
+			    		//分享
 						break;
 			    		default:
 						  //异常处理
 					}
-			    })
+			    });
 			    document.getElementById("return_btn").addEventListener('tap',function(){
 			    	openView.incView('../login/login.html', 'login', '欢迎登陆');
 			    })

@@ -192,29 +192,29 @@
                         <div id="scroll1" class="mui-scroll-wrapper">
                             <div class="mui-scroll">
                                 <div v-for="item in faceMessage">   
-                                <div class="one_box" v-for="item1 in faceMessage.students">
+                                <div class="one_box" v-for="item1 in item.students" v-if="item1.applystatus == 2">
                                     <div class="box_head">
                                         <div class="one_left">
                                             <div class="left_avatar">
-                                                <img :src="imgUrl+item1.studentImage||'../images/main/teach_stu_head.png'"/>
+                                                <img src="" v-lazy="imgUrl+item1.studentImage"/>
                                             </div>
                                             <div class="left_text">
                                                 <div class="text_detail"><span>学生姓名：</span><span v-text="item1.studentName"></span></div>
                                                 <div class="text_detail"><span>学生年级：</span><span v-text="item1.className"></span></div>
-                                                <div class="text_detail"><span>报课时长：</span><span v-text="item.courseDuration || '未知'">分钟</span></div>
-                                                <div class="text_detail"><span>问题类型：</span><span v-text="item.courseTypeName" || '未知'></span></div>
+                                                <div class="text_detail"><span>报课时长：</span><span v-text="item.courseDuration || '未知'"></span> 分钟</div>
+                                                <div class="text_detail"><span>问题类型：</span><span v-text="item.courseTypeName || '未知'"></span></div>
                                                 <div class="text_detail"><span>上课方式：</span><span>{{item.organizationId | organization}}</span></div>
                                             </div>
                                         </div>
                                         <div class="one_right">
                                             <div class="right_time">{{item.courseStartTime | orderTime}}</div>
-                                            <div class="right_img">
+                                            <div class="right_img" :data-call="item1.mobilephone">
                                                 <img src="../images/main/oder_phone.png" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="box_footer">
-                                        <span class="confirmBtn" :data-studentId="item1.studentId">接受订单</span><span class="returnBtn" :data-studentId="item1.studentId">返回订单</span>
+                                        <span class="confirmBtn" :data-studentId="item1.studentId" :data-courseId="item1.courseId">接受订单</span><span class="returnBtn" :data-studentId="item1.studentId" :data-courseId="item1.courseId">返回订单</span>
                                     </div>
                                 </div>
                             </div>
@@ -264,7 +264,7 @@
                                 </div>-->
                                 <div class="list_ul" v-for="item2 in classMessage">
                                     <li v-text="item2.contentId"></li>
-                                    <li>上课时间：<span v-text="item2.courseStartTime"></span>-<span v-text="item2.courseEndTime"></span></li>
+                                    <li>上课时间：<span>{{item2.courseStartTime | startDate}}</span>-<span>{{item2.courseEndTime | endDate}}</span></li>
                                     <li>上课时长：<span v-text="item2.courseDuration"></span>分钟</li>
                                     <li><span>报名情况：<span class="list_left_num" v-text="item2.incourse"></span>/<span v-text="item2.peopleLimit"></span></span></li>
                                     <li class="more_detail" @tap="open_detail(item2)">查看已报课学生</li>
@@ -282,6 +282,7 @@
         <script type="text/javascript" src="../js/hmac-sha1.js" ></script>
         <script type="text/javascript" src="../js/login_config.js" ></script>
         <script type="text/javascript" src="../js/vue.min.js" ></script>
+        <script type="text/javascript" src="../js/vue-lazyload.js" ></script>
         <script type="text/javascript" src="../js/ajax.js" ></script>
         <script type="text/javascript">
             mui.init();
@@ -308,38 +309,44 @@
                 
                 
             //拨打电话
-            mui('.one_right').on('tap','.right_img',function(){
+            mui('.mui-scroll').on('tap','.right_img',function(){
                 var call = this.getAttribute('data-call');
+                console.log(call)
                 plus.device.dial(call,true);
-            })
+            });
             //接受订单
-            mui('.box_footer').on('tap','.confirmBtn',function(){
+            mui('.mui-scroll').on('tap','.confirmBtn',function(){
+            	console.log('点击接受订单')
             	var studentId = this.getAttribute('data-studentId');
+            	var courseId = this.getAttribute('data-courseId');
             	var status=1;
-            	orderStatus(status,teacherId,studentId);
+            	orderStatus(status,courseId,studentId);
             	
-            })
+            });
             //退回订单
-            mui('.box_footer').on('tap','.returnBtn',function(){
+            mui('.mui-scroll').on('tap','.returnBtn',function(){
+            	console.log('点击退回订单')
             	var studentId = this.getAttribute('data-studentId');
+            	var courseId = this.getAttribute('data-courseId');
             	var status=0;
-            	orderStatus(status,teacherId,studentId);
+            	orderStatus(status,courseId,studentId);
             })
             
             //订单更新处理函数
-            function orderStatus(status,teacherId,studentId){
+            function orderStatus(status,courseId,studentId){
             	 var ajaxData = {
                     url:'restful1/course/updateCoursesOrder',
                     data: {
                     	studentId:studentId,
-                    	status:status
+                    	status:status,
+                    	courseId:courseId
                     },
                     type:'post'
                 }
                 ajax(ajaxData, function(data){
-                    console.log('更新订单');
+                    console.log(JSON.stringify(data))
                     if(data.code == 200){
-                    	plus.nativeUI.toast('订单更新成功');
+                    	plus.nativeUI.toast(data.msg);
                     	//更新订单装填
                     	render();
                     }else{
@@ -352,12 +359,42 @@
                         
             //上课方式处理
             Vue.filter('organization',function(num){
-            	console.log('传递的organization值==',num)
+            	return originid(num);
             })
-            
-            Vue.filter('orderTime',function(time){
-            	console.log('传递的time值===',time)
-            })
+            //上课时间
+	         Vue.filter('orderTime',function(value){
+				if(value){
+					var value = value.split(" ");
+					var time = value[1].split(":");
+					return time[0]+':'+time[1];
+				}			
+			})
+	         //班课时间
+	         Vue.filter('startDate',function(value){
+	         	if(value){
+					var time = value.replace(/-/g,"/");
+					time = new Date(time);
+					var getYear = time.getFullYear();
+					var getMonth = time.getMonth()+1;
+					var getHour = time.getDate();
+					return getYear+'年'+getMonth +'月'+getHour+'日';
+				}
+	         })
+	          Vue.filter('endDate',function(value){
+	         	if(value){
+					var time = value.replace(/-/g,"/");
+					time = new Date(time);
+					var getMonth = time.getMonth()+1;
+					var getHour = time.getDate();
+					return getMonth +'月'+getHour+'日';
+				}
+	         })
+		Vue.use(VueLazyload, {
+		  preLoad: 1.3,  
+		  error: '../images/status/failed_trend.png',  
+		  loading: '../images/status/failed_trend.png',  
+		  attempt: 3  
+		});
         var vm = new Vue({
                 el: '#msg-content',
                 data: {

@@ -85,20 +85,30 @@
 				}
 			    //监听返回
 			    listenReturn();
+			    //获取参数
+			    var self = plus.webview.currentWebview();
+			    var teacherData = self.teacherData ||{};
+			    dataObj.teacherName = teacherData.name;
+			    dataObj.teacherWorld = teacherData.teacherWorld;
+			    doc.teacherName.value = teacherData.name;
+			    doc.teacherWorld.value = teacherData.teacherWorld;
 			    //渲染
 			    listenReturnRight('提交审核','60px');
 			    var ws = plus.webview.currentWebview();
 				var view = ws.getTitleNView();
 			    view.addEventListener("click", function(e) {
 				if(screen.width - e.clientX <= 60){
-					console.log(doc.teacherName.value)
-					dataObj.teacherName = doc.teacherName.value;
-					dataObj.teacherWorld = doc.teacherWorld.value;
+					dataObj.teacherName = doc.teacherName.value || '';
+					dataObj.teacherWorld = doc.teacherWorld.value || '';
 					dataObj.teacherId = state.data.id;
 					if(doc.teacherName.value == ''||doc.teacherWorld.value == ''){
-						return plus.nativeUI.toast('请输入完整信息！');
+						return plus.nativeUI.toast('请输填写完整信息！');
 					}else{
-						sendFormData(dataObj,fileArr);
+						if(dataObj.teacherName==''||dataObj.teacherWorld==''||dataObj.subject==''||dataObj.teaClassJson==''||dataObj.experience==''||dataObj.success==''||dataObj.honor==''){
+							return plus.nativeUI.toast('请输填写完整信息！');
+						}else{
+							sendFormData(dataObj,fileArr);
+						}			
 					}
 					}
 				}, false);

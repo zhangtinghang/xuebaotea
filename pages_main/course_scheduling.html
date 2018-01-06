@@ -125,7 +125,7 @@
 				height: 0.444444rem;
 			}
 			.btn_box:active {
-				background-color: rgb(240, 240, 240);
+				opacity: .2;
 			}
 			
 			.substract_btn {
@@ -389,6 +389,8 @@
 			<li><span class="fast_add" id="fast_add">快速排课<img src="../images/main/fast_add.png" /></span></li>
 		</ul>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script src="../js/mui.picker.js"></script>
@@ -396,6 +398,10 @@
 		<script type="text/javascript" src="../js/city.data-3.js" ></script>
 		<script type="text/javascript" src="../js/timeData.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
@@ -405,21 +411,56 @@
 			    listenReturnRight('完成');
 			    var ws = plus.webview.currentWebview();
 				var view = ws.getTitleNView();
-				var waitTime = ws.waitTime || '60';
-				var courseflag = 1;
+				var waitTime = ws.waitTime || '0';
+				var courseflag = 0;
 				var courseArr = [];
+				var courseId = null;
+				var organizationName = null;
 				var right_address_text  = document.getElementById("right_address_text");
 				document.getElementById("waitTime").innerText = waitTime +'分钟';
 			    view.addEventListener("click", function(e) {
 				if(screen.width - e.clientX <= 60){
 						//事件逻辑处理
-						mui.back();
+						if(!courseId){
+							plus.nativeUI.toast('发生未知错误,请检查网络！');
+						}else{
+							//上传排课信息
+							if(courseArr.length==0){
+								return plus.nativeUI.toast('请先安排课程');
+							}
+							var courseJsons = JSON.stringify(courseArr);
+							
+							var ajaxData = {
+								url:'restful1/course/addcourseplans',
+								data: {
+									courseId:courseId,
+									courseJsons:courseJsons
+								},
+								type:'post'
+							}
+							ajax(ajaxData, function(data) {
+								console.log(JSON.stringify(data))
+								if(data.code == 200){
+									plus.nativeUI.toast('排课成功');
+//									mui.back();
+								}
+							},true,true);
+						}
+//						mui.back();
 					}
 				}, false);
-				//授课地址监听
-				document.getElementById("left_site").addEventListener('tap',function(){
-					openView.nativeView('../pages_student/location.html','location','地址',{type:'one_class'});
-				})
+				//获取全局搜索信息
+			    var ajaxData = {
+							url:'restful1/course/getOneToOneCourse',
+							data: {},
+							type:'post'
+					}
+				ajax(ajaxData, function(data) {
+					courseId = data.data.courseId;
+					right_address_text.innerText = data.data.organizationName;
+					console.log(JSON.stringify(data)) 
+				},true,true);
+
 				//监听删除课程
 				mui('#course_ul').on('tap','.del_img_btn',function(){
 					var index = this.getAttribute('data-index');
@@ -427,21 +468,6 @@
 					vm.arrangement = courseArr;
 				})
 				
-				//接收授课地址
-				window.addEventListener('addressChange',function(event){
-					var organizationId = event.detail.organizationId;
-					var name = event.detail.name;
-					console.log(organizationId,name)
-					right_address_text.innerText = name;
-//					dataArr.organizationId=organizationId;
-			//		var imgfile = event.detail.imgfile;
-			//		var courseObj = {
-			//		    teach_goal:teach_goal.value,
-			//		    teach_content:teach_content.value,
-			//		    imgfile:imgfile
-			//	  	}
-					
-				});	
 			    //监听值改变
 		     	var courseNum=document.getElementById("courseNum");
 				courseNum.addEventListener('change',function(){
@@ -479,15 +505,15 @@
 							}
 							addPicker.show(function(date) {
 								timePicker.show(function(items){
+									//构造日期时间
+									var courseStartDate = todu(_getParam(date[0], 'value'))+'/'+todu(_getParam(date[1], 'value'))+'/'+todu(_getParam(date[2], 'value'));
+									var courseStartTime = todu(_getParam(items[0],'value'))+':'+todu(_getParam(items[1],'value'))+':'+'00';
+									var courseDurtion = _getParam(items[2], 'value');
 									//判断能否选课
 									waitTime = parseInt(waitTime);
 									if(waitTime < courseDurtion){
 										return plus.nativeUI.toast('排课时间不足,无法排课！');
 									}
-									//构造日期时间
-									var courseStartDate = todu(_getParam(date[0], 'value'))+'/'+todu(_getParam(date[1], 'value'))+'/'+todu(_getParam(date[2], 'value'));
-									var courseStartTime = todu(_getParam(items[0],'value'))+':'+todu(_getParam(items[1],'value'))+':'+'00';
-									var courseDurtion = _getParam(items[2], 'value');
 									var courseTime = courseStartDate +' '+courseStartTime;
 									//获取时间戳
 									var courseTimestamp = new Date(courseTime).getTime();

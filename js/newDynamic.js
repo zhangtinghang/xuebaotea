@@ -5,7 +5,8 @@ var sendFormData = function (dataObj,fileArr){
 	var state = app.getState();
 	var key = state.data.key;
 	dataObj.teacherId = state.data.id;
-	dataObj.timestamp = Date.parse(new Date());
+	dataObj.userId = state.data.id;
+	dataObj.timestamp = JSON.stringify(Date.parse(new Date()));
 	console.log(JSON.stringify(dataObj))
 	//取出key相加后返回
 	var hashStr = encryptAdd(dataObj);
@@ -27,6 +28,8 @@ var sendFormData = function (dataObj,fileArr){
 				var data = JSON.parse(upload.responseText);
 				if (data.code === 200) {
 					console.log('提交成功！');
+					plus.nativeUI.toast('提交成功');
+					mui.back();
 				}
 			}else{
 				console.log("upload fail");

@@ -118,7 +118,26 @@
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({
+				beforeback: function(){
+					//获得列表界面的webview
+					var message = plus.webview.getWebviewById('im/msg_list.html');
+					var student = plus.webview.getWebviewById('pages_student/all_student.html');
+					var me = plus.webview.getWebviewById('pages_student/me.html');
+					//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+					mui.fire(message,'showView',{
+						id:"刷新"
+					});
+					mui.fire(student,'showView',{
+						id:"刷新"
+					});
+					mui.fire(me,'showView',{
+						id:"刷新"
+					});
+					//返回true，继续页面关闭逻辑
+					return true;
+				}
+			})
 			mui.plusReady(function () {
 				//清空缓存
 				app.removeState();
@@ -137,6 +156,7 @@
 						if(data){
 							plus.nativeUI.toast(data);
 						}else{
+							mui(doc.login).button('loading');
 							var ajaxData = {
 							url:'public/users/login',
 							data: {
@@ -164,6 +184,7 @@
 							};
 							
 							ajax(ajaxData, function(data) {
+								mui(doc.login).button('reset');
 								console.log(JSON.stringify(data))
 								if(data.code == 200){
 									plus.nativeUI.toast(data.msg);

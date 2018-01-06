@@ -1,592 +1,607 @@
 {
-  "pages_main/feedback.html": {
-    "href": "pages_main/feedback.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/main/icon_tptj.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_myself/more_dynamic.html": {
-    "href": "pages_myself/more_dynamic.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/myself/edit.png",
-      "images/myself/teacher_dynamic_head.png",
-      "images/myself/dynamic.png",
-      "images/myself/pensonnel.png",
-      "images/myself/chat_num.png"
-    ],
-    "refer": [
-      "pages_main/feedback.html"
-    ],
-    "priority": 0
-  },
-  "pages_myself/self_change.html": {
-    "href": "pages_myself/self_change.html",
-    "resources": [
-      "css/mui.min.css",
-      "js/zoom/flexible.js",
-      "js/mui.min.js",
-      "js/config.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_myself/selfDetail.html": {
-    "href": "pages_myself/selfDetail.html",
-    "resources": [
-      "css/mui.min.css",
-      "js/zoom/flexible.js",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/myself/next_content.png",
-      "images/myself/head.png"
-    ],
-    "refer": [
-      "pages_myself/self_change.html"
-    ],
-    "priority": 0
-  },
-  "pages_myself/study_class.html": {
-    "href": "pages_myself/study_class.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/myself/kspk_yes.png",
-      "images/myself/kspk_no.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_myself/my_resume.html": {
-    "href": "pages_myself/my_resume.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/main/teach_experience.png",
-      "images/main/js_grzx_fk.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_myself/lessons_data.html": {
-    "href": "pages_myself/lessons_data.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/myself/next_content.png",
-      "images/myself/upload_photo.png"
-    ],
-    "refer": [
-      "pages_myself/study_class.html",
-      "pages_myself/my_resume.html"
-    ],
-    "priority": 0
-  },
-  "pages_myself/platform_list.html": {
-    "href": "pages_myself/platform_list.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_wallet/withdraw_deposit.html": {
-    "href": "pages_wallet/withdraw_deposit.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_wallet/touchBalance.html": {
-    "href": "pages_wallet/touchBalance.html",
-    "resources": [
-      "js/mui.min.js",
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/config.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_wallet/balance.html": {
-    "href": "pages_wallet/balance.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js"
-    ],
-    "refer": [
-      "pages_wallet/withdraw_deposit.html",
-      "pages_wallet/touchBalance.html"
-    ],
-    "priority": 0
-  },
-  "pages_myself/global_earch.html": {
-    "href": "pages_myself/global_earch.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "css/mui.picker.css",
-      "css/mui.poppicker.css",
-      "js/mui.min.js",
-      "js/mui.picker.js",
-      "js/mui.poppicker.js",
-      "js/config.js",
-      "images/myself/chos_way.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_myself/feedback.html": {
-    "href": "pages_myself/feedback.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/myself/icon_tptj.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "login/changePassword.html": {
-    "href": "login/changePassword.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_myself/Invitation_code.html": {
-    "href": "pages_myself/Invitation_code.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_myself/setting.html": {
-    "href": "pages_myself/setting.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js"
-    ],
-    "refer": [
-      "pages_myself/feedback.html",
-      "login/changePassword.html",
-      "pages_myself/Invitation_code.html"
-    ],
-    "priority": 0
-  },
-  "pages_student/me.html": {
-    "href": "pages_student/me.html",
-    "resources": [
-      "js/mui.min.js",
-      "js/config.js",
-      "images/index/return.png",
-      "css/mui.min.css",
-      "js/zoom/flexible.js",
-      "images/myself/self_bg.png",
-      "images/myself/head.png",
-      "images/myself/my_walnut.png",
-      "images/myself/next_content.png",
-      "images/myself/all_serch.png",
-      "images/myself/teach_material.png",
-      "images/myself/self_data.png",
-      "images/myself/plateform_data.png",
-      "images/myself/set_some.png"
-    ],
-    "refer": [
-      "pages_myself/more_dynamic.html",
-      "pages_myself/selfDetail.html",
-      "pages_myself/lessons_data.html",
-      "pages_myself/platform_list.html",
-      "pages_wallet/balance.html",
-      "pages_myself/global_earch.html",
-      "pages_myself/setting.html",
-      "pages_myself/all_class.html"
-    ],
-    "priority": 0
-  },
-  "im/group_list.html": {
-    "href": "im/group_list.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/im/create_list.png",
-      "images/im/list.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "im/im_search.html": {
-    "href": "im/im_search.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/immersed.js",
-      "images/im/message_list.png",
-      "images/im/avatar_2.png",
-      "images/im/avatar_1.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "im/linkman_contacts.html": {
-    "href": "im/linkman_contacts.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/im/create_list.png",
-      "images/im/list.png",
-      "images/im/message_list.png",
-      "images/im/avatar_2.png",
-      "images/im/avatar_1.png"
-    ],
-    "refer": [
-      "im/group_list.html",
-      "im/im_search.html"
-    ],
-    "priority": 0
-  },
-  "im/msg_list.html": {
-    "href": "im/msg_list.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/immersed.js",
-      "js/mui.min.js",
-      "js/util.js",
-      "js/config.js",
-      "images/im/list.png",
-      "images/im/message_list.png",
-      "images/im/avatar_2.png"
-    ],
-    "refer": [
-      "im/linkman_contacts.html"
-    ],
-    "priority": 0
-  },
-  "pages_main/course_scheduling.html": {
-    "href": "pages_main/course_scheduling.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "css/mui.picker.css",
-      "css/mui.poppicker.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "js/mui.picker.js",
-      "js/mui.poppicker.js",
-      "js/city.data-3.js",
-      "images/myself/kspk_yes.png",
-      "images/myself/kspk_no.png",
-      "images/main/fast_add.png",
-      "images/main/js_grzl_youjiantou.png",
-      "images/main/edit_arrange.png",
-      "images/main/delete.png",
-      "images/main/substract.png",
-      "images/main/add.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_student/course_message.html": {
-    "href": "pages_student/course_message.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/main/edit_arrange.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_student/course_record.html": {
-    "href": "pages_student/course_record.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/main/js_grzl_youjiantou.png"
-    ],
-    "refer": [
-      "pages_student/course_message.html"
-    ],
-    "priority": 0
-  },
-  "pages_student/student_detail.html": {
-    "href": "pages_student/student_detail.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/main/teach_stu_head.png",
-      "images/student/female.png",
-      "images/student/call_student.png",
-      "images/main/js_grzl_youjiantou.png"
-    ],
-    "refer": [
-      "pages_main/course_scheduling.html",
-      "pages_student/course_record.html",
-      "pages_student/course_message.html"
-    ],
-    "priority": 0
-  },
-  "pages_student/all_student.html": {
-    "href": "pages_student/all_student.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/immersed.js",
-      "js/config.js",
-      "images/main/teach_stu_head.png",
-      "images/student/female.png"
-    ],
-    "refer": [
-      "pages_student/student_detail.html"
-    ],
-    "priority": 0
-  },
-  "pages_main/course_introduce.html": {
-    "href": "pages_main/course_introduce.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/main/teach_experience.png",
-      "images/main/js_grzx_fk.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_main/new_class.html": {
-    "href": "pages_main/new_class.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "css/mui.picker.css",
-      "css/mui.poppicker.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "js/mui.picker.js",
-      "js/mui.poppicker.js",
-      "js/city.data-3.js",
-      "images/myself/kspk_yes.png",
-      "images/myself/kspk_no.png",
-      "images/main/fast_add.png",
-      "images/main/js_grzl_youjiantou.png",
-      "images/main/edit_arrange.png",
-      "images/main/delete.png",
-      "images/main/substract.png",
-      "images/main/add.png"
-    ],
-    "refer": [
-      "pages_main/course_introduce.html"
-    ],
-    "priority": 0
-  },
-  "pages_main/fill_feedback.html": {
-    "href": "pages_main/fill_feedback.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/main/teach_experience.png",
-      "images/main/js_grzx_fk.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_main/calendar.html": {
-    "href": "pages_main/calendar.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js"
-    ],
-    "refer": [
-      "pages_main/new_class.html",
-      "pages_main/fill_feedback.html"
-    ],
-    "priority": 0
-  },
-  "pages_main/classroom_detail.html": {
-    "href": "pages_main/classroom_detail.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/wallet/icon_wx.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_wallet/Withdrawal_success.html": {
-    "href": "pages_wallet/Withdrawal_success.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_main/course_remind.html": {
-    "href": "pages_main/course_remind.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_main/in_class.html": {
-    "href": "pages_main/in_class.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_main/server_list.html": {
-    "href": "pages_main/server_list.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/main/icon_schooltime.png",
-      "images/main/look_detail_icon.png",
-      "images/main/icon_ktfk.png",
-      "images/main/icon_txcg.png",
-      "images/main/icon_sktx.png"
-    ],
-    "refer": [
-      "pages_main/classroom_detail.html",
-      "pages_wallet/Withdrawal_success.html",
-      "pages_main/course_remind.html",
-      "pages_main/fill_feedback.html",
-      "pages_main/in_class.html"
-    ],
-    "priority": 0
-  },
-  "pages_main/class_stu.html": {
-    "href": "pages_main/class_stu.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/util.js",
-      "js/config.js",
-      "images/main/teach_stu_head.png"
-    ],
-    "refer": [],
-    "priority": 0
-  },
-  "pages_main/single_class.html": {
-    "href": "pages_main/single_class.html",
-    "resources": [
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/config.js",
-      "images/main/teach_stu_head.png",
-      "images/main/oder_phone.png"
-    ],
-    "refer": [
-      "pages_main/class_stu.html"
-    ],
-    "priority": 0
-  },
-  "index.html": {
-    "href": "index.html",
-    "resources": [
-      "js/mui.min.js",
-      "js/zoom/flexible.js",
-      "css/mui.min.css",
-      "images/main/baner_picture.png",
-      "js/immersed.js",
-      "js/util.js",
-      "images/index/my_hover.png",
-      "images/index/man_page_hover.png",
-      "images/index/information.png",
-      "images/index/my.png",
-      "images/index/students.png",
-      "images/index/information_hover.png",
-      "images/index/students_hover.png",
-      "images/index/man_page.png",
-      "js/config.js",
-      "images/main/order_arrange.png",
-      "images/main/class_arrange.png",
-      "images/main/in_class_icon.png",
-      "images/main/look_detail_icon.png",
-      "images/main/recharge_record_icon.png",
-      "images/main/class_feedback_icon.png",
-      "im/msg_list.html"
-    ],
-    "refer": [
-      "pages_student/me.html",
-      "im/msg_list.html",
-      "pages_student/all_student.html",
-      "pages_main/calendar.html",
-      "pages_main/server_list.html",
-      "pages_main/course_remind.html",
-      "pages_wallet/Withdrawal_success.html",
-      "pages_main/in_class.html",
-      "pages_main/fill_feedback.html",
-      "pages_main/single_class.html"
-    ],
-    "priority": 0
-  }
+	"pages_main/feedback.html": {
+		"href": "pages_main/feedback.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/main/icon_tptj.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_myself/more_dynamic.html": {
+		"href": "pages_myself/more_dynamic.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/myself/edit.png",
+			"images/myself/teacher_dynamic_head.png",
+			"images/myself/dynamic.png",
+			"images/myself/pensonnel.png",
+			"images/myself/chat_num.png"
+		],
+		"refer": [
+			"pages_main/feedback.html"
+		],
+		"priority": 0
+	},
+	"pages_myself/self_change.html": {
+		"href": "pages_myself/self_change.html",
+		"resources": [
+			"css/mui.min.css",
+			"js/zoom/flexible.js",
+			"js/mui.min.js",
+			"js/config.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_myself/selfDetail.html": {
+		"href": "pages_myself/selfDetail.html",
+		"resources": [
+			"css/mui.min.css",
+			"js/zoom/flexible.js",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/myself/next_content.png",
+			"images/myself/head.png"
+		],
+		"refer": [
+			"pages_myself/self_change.html",
+			"pages_myself/localtion.html"
+		],
+		"priority": 0
+	},
+	"pages_myself/study_class.html": {
+		"href": "pages_myself/study_class.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/myself/kspk_yes.png",
+			"images/myself/kspk_no.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_myself/my_resume.html": {
+		"href": "pages_myself/my_resume.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/main/teach_experience.png",
+			"images/main/js_grzx_fk.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_myself/lessons_data.html": {
+		"href": "pages_myself/lessons_data.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/myself/next_content.png",
+			"images/myself/upload_photo.png"
+		],
+		"refer": [
+			"pages_myself/study_class.html",
+			"pages_myself/my_resume.html",
+			"pages_student/subject_list.html"
+		],
+		"priority": 0
+	},
+	"pages_myself/platform_list.html": {
+		"href": "pages_myself/platform_list.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_wallet/withdraw_deposit.html": {
+		"href": "pages_wallet/withdraw_deposit.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_wallet/touchBalance.html": {
+		"href": "pages_wallet/touchBalance.html",
+		"resources": [
+			"js/mui.min.js",
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/config.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_wallet/balance.html": {
+		"href": "pages_wallet/balance.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js"
+		],
+		"refer": [
+			"pages_wallet/withdraw_deposit.html",
+			"pages_wallet/touchBalance.html"
+		],
+		"priority": 0
+	},
+	"pages_myself/global_earch.html": {
+		"href": "pages_myself/global_earch.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"css/mui.picker.css",
+			"css/mui.poppicker.css",
+			"js/mui.min.js",
+			"js/mui.picker.js",
+			"js/mui.poppicker.js",
+			"js/config.js",
+			"images/myself/chos_way.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_myself/feedback.html": {
+		"href": "pages_myself/feedback.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/myself/icon_tptj.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"login/changePassword.html": {
+		"href": "login/changePassword.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_myself/Invitation_code.html": {
+		"href": "pages_myself/Invitation_code.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_myself/setting.html": {
+		"href": "pages_myself/setting.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js"
+		],
+		"refer": [
+			"pages_myself/feedback.html",
+			"login/changePassword.html",
+			"pages_myself/Invitation_code.html",
+			"login/login.html",
+			"pages_myself/in_regard_to.html",
+			"pages_myself/service_agreement.html"
+		],
+		"priority": 0
+	},
+	"pages_student/me.html": {
+		"href": "pages_student/me.html",
+		"resources": [
+			"js/mui.min.js",
+			"js/config.js",
+			"images/index/return.png",
+			"css/mui.min.css",
+			"js/zoom/flexible.js",
+			"images/myself/self_bg.png",
+			"images/myself/head.png",
+			"images/myself/my_walnut.png",
+			"images/myself/next_content.png",
+			"images/myself/all_serch.png",
+			"images/myself/teach_material.png",
+			"images/myself/self_data.png",
+			"images/myself/plateform_data.png",
+			"images/myself/set_some.png"
+		],
+		"refer": [
+			"pages_myself/more_dynamic.html",
+			"pages_myself/selfDetail.html",
+			"pages_myself/lessons_data.html",
+			"pages_myself/platform_list.html",
+			"pages_wallet/balance.html",
+			"pages_myself/global_earch.html",
+			"pages_myself/setting.html",
+			"pages_myself/all_class.html"
+		],
+		"priority": 0
+	},
+	"im/group_list.html": {
+		"href": "im/group_list.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/im/create_list.png",
+			"images/im/list.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"im/im_search.html": {
+		"href": "im/im_search.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/immersed.js",
+			"images/im/message_list.png",
+			"images/im/avatar_2.png",
+			"images/im/avatar_1.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"im/linkman_contacts.html": {
+		"href": "im/linkman_contacts.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/im/create_list.png",
+			"images/im/list.png",
+			"images/im/message_list.png",
+			"images/im/avatar_2.png",
+			"images/im/avatar_1.png"
+		],
+		"refer": [
+			"im/group_list.html",
+			"im/im_search.html"
+		],
+		"priority": 0
+	},
+	"im/msg_list.html": {
+		"href": "im/msg_list.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/immersed.js",
+			"js/mui.min.js",
+			"js/util.js",
+			"js/config.js",
+			"images/im/list.png",
+			"images/im/message_list.png",
+			"images/im/avatar_2.png"
+		],
+		"refer": [
+			"im/linkman_contacts.html",
+			"im/chat.html"
+		],
+		"priority": 0
+	},
+	"pages_main/course_scheduling.html": {
+		"href": "pages_main/course_scheduling.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"css/mui.picker.css",
+			"css/mui.poppicker.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"js/mui.picker.js",
+			"js/mui.poppicker.js",
+			"js/city.data-3.js",
+			"images/myself/kspk_yes.png",
+			"images/myself/kspk_no.png",
+			"images/main/fast_add.png",
+			"images/main/js_grzl_youjiantou.png",
+			"images/main/edit_arrange.png",
+			"images/main/delete.png",
+			"images/main/substract.png",
+			"images/main/add.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_student/course_message.html": {
+		"href": "pages_student/course_message.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/main/edit_arrange.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_student/course_record.html": {
+		"href": "pages_student/course_record.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/main/js_grzl_youjiantou.png"
+		],
+		"refer": [
+			"pages_student/course_message.html"
+		],
+		"priority": 0
+	},
+	"pages_student/student_detail.html": {
+		"href": "pages_student/student_detail.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/main/teach_stu_head.png",
+			"images/student/female.png",
+			"images/student/call_student.png",
+			"images/main/js_grzl_youjiantou.png"
+		],
+		"refer": [
+			"pages_main/course_scheduling.html",
+			"pages_student/course_record.html",
+			"pages_student/course_message.html",
+			"pages_student/course_detail.html"
+		],
+		"priority": 0
+	},
+	"pages_student/all_student.html": {
+		"href": "pages_student/all_student.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/immersed.js",
+			"js/config.js",
+			"images/main/teach_stu_head.png",
+			"images/student/female.png"
+		],
+		"refer": [
+			"pages_student/student_detail.html"
+		],
+		"priority": 0
+	},
+	"pages_main/course_introduce.html": {
+		"href": "pages_main/course_introduce.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/main/teach_experience.png",
+			"images/main/js_grzx_fk.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_main/new_class.html": {
+		"href": "pages_main/new_class.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"css/mui.picker.css",
+			"css/mui.poppicker.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"js/mui.picker.js",
+			"js/mui.poppicker.js",
+			"js/city.data-3.js",
+			"images/myself/kspk_yes.png",
+			"images/myself/kspk_no.png",
+			"images/main/fast_add.png",
+			"images/main/js_grzl_youjiantou.png",
+			"images/main/edit_arrange.png",
+			"images/main/delete.png",
+			"images/main/substract.png",
+			"images/main/add.png"
+		],
+		"refer": [
+			"pages_main/course_introduce.html",
+			"pages_myself/study_class_radio.html",
+			"pages_student/location.html"
+		],
+		"priority": 0
+	},
+	"pages_main/fill_feedback.html": {
+		"href": "pages_main/fill_feedback.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/main/teach_experience.png",
+			"images/main/js_grzx_fk.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_main/calendar.html": {
+		"href": "pages_main/calendar.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js"
+		],
+		"refer": [
+			"pages_main/new_class.html",
+			"pages_main/fill_feedback.html"
+		],
+		"priority": 0
+	},
+	"pages_main/classroom_detail.html": {
+		"href": "pages_main/classroom_detail.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/wallet/icon_wx.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_wallet/Withdrawal_success.html": {
+		"href": "pages_wallet/Withdrawal_success.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_main/course_remind.html": {
+		"href": "pages_main/course_remind.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_main/in_class.html": {
+		"href": "pages_main/in_class.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_main/server_list.html": {
+		"href": "pages_main/server_list.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/main/icon_schooltime.png",
+			"images/main/look_detail_icon.png",
+			"images/main/icon_ktfk.png",
+			"images/main/icon_txcg.png",
+			"images/main/icon_sktx.png"
+		],
+		"refer": [
+			"pages_main/classroom_detail.html",
+			"pages_wallet/Withdrawal_success.html",
+			"pages_main/course_remind.html",
+			"pages_main/fill_feedback.html",
+			"pages_main/in_class.html"
+		],
+		"priority": 0
+	},
+	"pages_main/class_stu.html": {
+		"href": "pages_main/class_stu.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/util.js",
+			"js/config.js",
+			"images/main/teach_stu_head.png"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"pages_main/single_class.html": {
+		"href": "pages_main/single_class.html",
+		"resources": [
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/config.js",
+			"images/main/teach_stu_head.png",
+			"images/main/oder_phone.png"
+		],
+		"refer": [
+			"pages_main/class_stu.html"
+		],
+		"priority": 0
+	},
+	"index.html": {
+		"href": "index.html",
+		"resources": [
+			"js/mui.min.js",
+			"js/zoom/flexible.js",
+			"css/mui.min.css",
+			"images/main/baner_picture.png",
+			"js/immersed.js",
+			"js/util.js",
+			"images/index/my_hover.png",
+			"images/index/man_page_hover.png",
+			"images/index/information.png",
+			"images/index/my.png",
+			"images/index/students.png",
+			"images/index/information_hover.png",
+			"images/index/students_hover.png",
+			"images/index/man_page.png",
+			"js/config.js",
+			"images/main/order_arrange.png",
+			"images/main/class_arrange.png",
+			"images/main/in_class_icon.png",
+			"images/main/look_detail_icon.png",
+			"images/main/recharge_record_icon.png",
+			"images/main/class_feedback_icon.png",
+			"im/msg_list.html"
+		],
+		"refer": [
+			"pages_student/me.html",
+			"im/msg_list.html",
+			"pages_student/all_student.html",
+			"pages_main/calendar.html",
+			"pages_main/server_list.html",
+			"pages_main/course_remind.html",
+			"pages_wallet/Withdrawal_success.html",
+			"pages_main/in_class.html",
+			"pages_main/fill_feedback.html",
+			"pages_main/single_class.html",
+			"login/login.html"
+		],
+		"priority": 0
+	},
+	"pages_myself/in_regard_to.html": {
+		"refer": [
+			"pages_myself/service_agreement.html"
+		]
+	}
 }

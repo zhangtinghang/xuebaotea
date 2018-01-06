@@ -43,7 +43,9 @@ mui.plusReady(function () {
 			dataArr.courseStudents = courseStudents;
 			dataArr.courseNums = courseNums;
 			dataArr.className = doc.className.value;
-			console.log(JSON.stringify(dataArr))
+			if(dataArr.classType==""||dataArr.classGrade==""||dataArr.courseSectionJson==""||dataArr.courseStudents==""||dataArr.courseNums==""||dataArr.className==""){
+				return plus.nativeUI.toast('请填写完整信息！');
+			}
 			sendFormData(dataArr,fileArr);
 		}
 	}, false);

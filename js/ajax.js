@@ -17,7 +17,7 @@ var ajax = function(ajaxData,callback,encrypt,userid) {
 		//需要加密 此时需要将传递过来的obj加密后再发起请求
 		var getPassword = document.getElementById("getPassword");
 		if(!state.data){
-//			plus.nativeUI.toast('亲，请登录哟！');
+			plus.nativeUI.toast('亲，请登录哟！');
 			return false;
 		}
 		var key = state.data.key;
@@ -39,7 +39,7 @@ var ajax = function(ajaxData,callback,encrypt,userid) {
 		dataJSON.token=getPassword.value;
 	}
 	var types = ajaxData.type || 'get'; 
-	var url = ajaxData.url || ''; 
+	var url = ajaxData.url || '';
 		mui.ajax(commurl+url,{
 		data: dataJSON,
 		dataType: 'json', //服务器返回json格式数据
@@ -122,3 +122,44 @@ var dateUtils = {
 		return new Date(a[0], a[1] - 1, a[2], a[3], a[4], a[5]);
 	}
 };
+
+// 地点转化
+var originid = function(value){
+	switch (value){
+		case -1:
+			value='学生上门';
+			break;
+		case 0:
+			value='教师上门';
+			break;
+		case 1:
+			value='金牛区';
+			break;
+		case 2:
+			value='锦江区';
+			break;
+		default:
+			break;
+	}
+	return value;
+}
+
+//时间
+//Vue.filter('courseTime',function(value){
+//	if(value){
+//		var value = value.split(" ");
+//		var time = value[1].split(":");
+//		return time[0]+':'+time[1];
+//	}
+//	
+//})
+////日期
+//Vue.filter('dateTime',function(value){
+//	if(value){
+//		var time = value.replace(/-/g,"/");
+//		time = new Date(time);
+//		var getMonth = time.getMonth()+1;
+//		var getHour = time.getDate();
+//		return getMonth +'月'+getHour+'日';
+//	}
+//})

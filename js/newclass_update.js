@@ -33,8 +33,11 @@ var sendFormData = function (dataObj,fileArr,fileObj){
 				if (data.code === 200) {
 					plus.nativeUI.toast('提交成功！');
 					mui.back();
+				}else{
+					plus.nativeUI.toast(data.msg);
 				}
 			}else{
+				plus.nativeUI.toast(status);
 				console.log("upload fail");
 				console.log(status);
 				console.log(JSON.stringify(upload))

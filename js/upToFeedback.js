@@ -85,7 +85,7 @@
 	feedback.questionBtn.addEventListener('tap', function(event) {
 		//事件逻辑处理					
 		if (feedback.text.value == '') {
-			return mui.toast('信息填写不符合规范');
+			return mui.toast('问题反馈不能为空');
 		}
 		if (feedback.text.value.length > 200) {
 			return mui.toast('信息超长,请重新填写~')
@@ -94,11 +94,14 @@
 		if(plus.networkinfo.getCurrentType()==plus.networkinfo.CONNECTION_NONE){
 			return mui.toast("连接网络失败，请稍后再试");
 		}
+		if(feedback.phone.value == ''||feedback.phone.value == null){
+			feedback.phone.value = '12345678910';
+		}
 		feedback.send(mui.extend({}, {}, {
 			feedbackDesc: feedback.text.value,
 			contact: feedback.phone.value,
 			device: JSON.stringify(feedback.deviceInfo),
-//			file: feedback.files
+			file: 'file'
 		}));
 //		mui.back();	
 	})

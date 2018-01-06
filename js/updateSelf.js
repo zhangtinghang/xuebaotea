@@ -21,7 +21,7 @@ var sendFormData = function (dataObj,fileArr){
 	
 	var teacherImage = fileArr.teacherImage || [];
 	var resumefile = fileArr.resumefile || [];
-	var url =ajaxUrl+'/restful1/teacher/teachercoursedata';
+	var url =ajaxUrl+'/restful1/users/updateTeacherInfo';
 		uploader = plus.uploader.createUpload(url, {
 			method: 'POST'
 		}, function(upload, status) {
@@ -38,6 +38,7 @@ var sendFormData = function (dataObj,fileArr){
 				console.log("upload fail");
 				console.log(status);
 				console.log(JSON.stringify(upload))
+				plus.nativeUI.toast(JSON.stringify(upload));
 			}
 			
 		});

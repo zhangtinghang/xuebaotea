@@ -67,16 +67,16 @@
 			<div class="content_body">
 				<div class="list"><span class="list_left">年级</span><span v-text="student.className"></span></div>
 				<div class="list"><span class="list_left">学生</span><span v-text="student.name"></span></div>
-				<div class="list"><span class="list_left">课程类型</span><span v-text="student.courseTypeName"></span></div>
-				<div class="list"><span class="list_left">问题类型</span><span v-text="student.className"></span></div>
+				<div class="list"><span class="list_left">课程类型</span><span v-text="course.courseTypeName"></span></div>
+				<div class="list"><span class="list_left">课程内容</span><span v-text="course.subjectName"></span></div>
 			</div>
 			
 			<div class="content_course course_remind">消费信息</div>
 			<div class="content_body">
 				<div class="list"><span class="list_left">上课日期</span><span>{{course.courseStartTime | dateTime}}</span></div>
-				<div class="list"><span class="list_left">时间区间</span><span>{{course.courseStartTime | courseTime}}-{{course.courseEndTime | | courseTime}}</span></div>
+				<div class="list"><span class="list_left">时间区间</span><span>{{course.courseStartTime | courseTime}}-{{course.courseEndTime | courseTime}}</span></div>
 				<div class="list"><span class="list_left">教学时间</span><span><span v-text="course.courseDuration"></span>min</span></div>
-				<div class="list"><span class="list_left">教学收入</span><span><span v-text="orderCourse.marketPrize"></span>学币</span></div>
+				<div class="list"><span class="list_left">教学收入</span><span><span v-text="orderCourse.marketPrize | '0'"></span> 学币</span></div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -88,16 +88,33 @@
 				//监听返回
 			    listenReturn();
 			    var self = plus.webview.currentWebview();
-			    var datas = self.data;
-			    var courseData = self.courseData;
-			    datas = JSON.parse(datas);
-			    courseData = JSON.parse(courseData);
+			    var datas = self.dataStr;
+			    var coursePeople = self.coursePeopleStr;
 			    
-			     vm.student = courseData.student;
-			    vm.course = datas;
-			    vm.orderCourse = datas.orderCourse;
+			    vm.student = JSON.parse(coursePeople);
+			    vm.course = JSON.parse(datas);
+//			    vm.orderCourse = datas.orderCourse;
 			})
-			
+			//时间
+			Vue.filter('courseTime',function(value){
+				if(value){
+					var value = value.split(" ");
+					var time = value[1].split(":");
+					return time[0]+':'+time[1];
+				}
+
+			})
+			//日期
+			Vue.filter('dateTime',function(value){
+				if(value){
+					var time = value.replace(/-/g,"/");
+					time = new Date(time);
+					var getMonth = time.getMonth()+1;
+					var getHour = time.getDate();
+					return getMonth +'月'+getHour+'日';
+				}
+
+			})
 			var vm = new Vue({
                 el: '#msg-content',
                 data: {

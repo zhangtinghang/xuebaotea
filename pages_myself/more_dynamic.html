@@ -49,6 +49,7 @@
 			.list_cover{
 				width: 90%;
 				max-height: 4.166666rem;
+				border-radius:10px;
 				overflow: hidden;
 			}
 			.list_cover img{
@@ -123,14 +124,14 @@
 			<div class="dynamic_list" v-for="item in teacherDetail">
 				<div class="avatar">
 					<div class="avatat_box">
-						<img :src="imgUrl+item.teacherImage" />
+						<img src="" v-lazy="imgUrl+item.teacherImage"/>
 					</div>
 				</div>
 				<div class="more_text">
 					<div class="list_name"><span v-text="item.userName"></span><img align="center" src="../images/myself/dynamic.png" /></div>
-					<div class="list_signature" v-text="item.title"></div>
+					<div class="list_signature" v-text="teacher.teacherWorld"></div>
 					<div class="list_cover">
-						<img :src="imgUrl+item.images" />
+						<img src="" v-lazy="imgUrl+item.images"/>
 					</div>
 					<div class="list_title" v-text="item.title"></div>
 					<div class="list_content mui-ellipsis-1" v-text="item.content"></div>
@@ -189,6 +190,7 @@
 	<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 	<script type="text/javascript" src="../js/login_config.js" ></script>
 	<script type="text/javascript" src="../js/vue.min.js" ></script>
+	<script type="text/javascript" src="../js/vue-lazyload.js" ></script>
 	<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
@@ -235,7 +237,12 @@
 			    	openView.nativeView('../pages_index/comment.html', 'comment', '留言');
 			    })
 			})
-			
+			Vue.use(VueLazyload, {  
+			  preLoad: 1.3,  
+			  error: '../images/status/failed_trend.png',  
+			  loading: '../images/status/failed_trend.png',  
+			  attempt: 3  
+			});
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {

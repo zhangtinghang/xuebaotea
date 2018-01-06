@@ -66,6 +66,7 @@
 			}
 			#date-list li{
 				width: calc(100%/7);
+				height: 1.0977777rem;
 				text-align: center;
 				margin: 3px 0;
 			}
@@ -129,7 +130,7 @@
 				margin-right: 0.111111rem;
 			}
 			.list_ul{
-				
+				min-height: 13.888888rem;
 			}
 			.list_ul li{
 				padding: 0.388888rem 5%;
@@ -202,7 +203,7 @@
 	</head>
 
 	<body id="bodyBox">
-		<div class="content">
+		<div class="content" id="msg-content">
 			 <div id="now">
 
     		</div>
@@ -219,7 +220,14 @@
 			</div>
 			<div id="dateListBox">
 				<ul  id="date-list">
-					
+					<li v-for="item in ahead_time" :data-type = "item"></li>
+					<!--完课-->
+					<li v-for="(item,index) in date_getMonth" v-if="now_day != item" class="date_day"  :date-day="item"><div class="circle" v-text="item"></div><div class="course_text"></div></li>
+					<!--当天有课-->
+					<li v-else class="date_day" id="nowDay" :date-day="item"><div class="circle todayCircle" v-text="item"></div><div class="course_text dayCourse"></div></li>
+
+					<!--待上课-->
+					<!--<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div class="course_text fuCourse">待上课</div></li>-->
 				</ul>
 			</div>
 		<div id="list_box" class="list_box">
@@ -232,16 +240,10 @@
 					<div class="list_title"><span class="title_time">15:30</span>语文</div>
 					<div class="list_body"><div class="body_text">王老师<span>【班课】</span></div></div>
 				</li>
-				<li>
+				<!--<li>
 					<div class="list_title"><span class="title_time">15:30</span>语文</div>
 					<div class="list_body"><div class="body_text">王老师<span>【一对一】</span></div></div>
-				</li><li>
-					<div class="list_title"><span class="title_time">15:30</span>语文</div>
-					<div class="list_body"><div class="body_text">王老师<span>【班课】</span></div></div>
-				</li><li>
-					<div class="list_title"><span class="title_time">15:30</span>语文</div>
-					<div class="list_body"><div class="body_text">王老师<span>【班课】</span></div></div>
-				</li>
+				</li>-->
 			</ul>
 		</div>
 	</div>	
@@ -254,22 +256,77 @@
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script>
-			//将单位数前加0
-			function todu(n) {
-				if(n < 10) {
-					return '0' + n;
-				} else {
-					return '' + n;
+			mui.init({
+				 gestureConfig:{
+				   swipe: true, //默认为true
+				  }
+			});
+			mui.plusReady(function() {
+				//监听返回
+				listenReturn();
+				//新建班课
+				listenNext('新建班课','new_class.html','new_class','新建班课','60px');
+				//当前日期
+				mui('#date-list').on('tap', '.date_day', function() {
+					//			var day = this.getAttribute('date-day');
+				});
+				
+				//监听滑动
+				var bodyBox = document.getElementById("bodyBox");
+				var dateList = document.getElementById("date-list");
+				var liBox = document.getElementById('nowDay');
+				var dateListBox =document.getElementById("dateListBox");
+				//计算列表高度
+				var list_box = document.getElementById("list_box");
+				var dateListBoxToTop = -dateListBox.offsetTop;//盒子距离顶部高度
+				var listBoxToTop = list_box.offsetTop;//列表距离顶部高度
+				var liBoxHeight = -liBox.offsetHeight;//每行高度
+				var liBoxToTop = -liBox.offsetTop+3;//每行距离顶部高度
+				var moveTop = -(listBoxToTop + dateListBoxToTop + liBoxHeight)+3;
+				//上滑
+				bodyBox.addEventListener('swipeup',function(){
+					dateList.style.transition="-webkit-transform 500ms ease-out";
+					dateList.style.webkitTransition="transform 500ms ease-out";
+					dateList.style.transform="-webkit-translateY("+liBoxToTop+"px)";
+            		dateList.style.webkitTransform="translateY("+liBoxToTop+"px)";       		
+            		//列表
+            		list_box.style.transition="-webkit-transform 500ms ease-out";       		
+            		list_box.style.webkitTransition="transform 500ms ease-out";
+            		list_box.style.transform="-webkit-translateY("+moveTop+"px)";
+            		list_box.style.webkitTransform="translateY("+moveTop+"px)";
+            		
+				});
+				//下滑
+				bodyBox.addEventListener('swipedown',function(){
+					dateList.style.transition="-webkit-transform 500ms ease-out";
+					dateList.style.webkitTransition="transform 500ms ease-out";
+            		dateList.style.transform="-webkit-translateY(0)";
+            		dateList.style.webkitTransform="translateY(0)";
+            		//列表
+            		list_box.style.webkitTransition="transform 500ms ease-out";
+            		list_box.style.transition="-webkit-transform 500ms ease-out";
+            		list_box.style.webkitTransform="translateY(0)";
+            		list_box.style.transform="-webkit-translateY(0)";
+				});	
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					ahead_of_time:[], //教师动态数据
+					date_getMonth:[],
+					courseData:'',
+					now_day:'',
+					messageList:[]
 				}
-			}
+			})
+			
 			//显示当前时间
 			var date = new Date();
-			showdate(date);
-			//封装获取日期列表的函数
-			function showdate(date) {
-
-				//当前年月
-				document.getElementById('now').innerHTML = todu(date.getFullYear()) + '年' + todu(date.getMonth() + 1) + '月';
+			//当前年月
+			document.getElementById('now').innerHTML = todu(date.getFullYear()) + '年' + todu(date.getMonth() + 1) + '月';
+			var ahead_time = [];
+			var date_getMonth = [];
 				//当前日
 				var now_day = date.getDate();
 				//当前周几
@@ -278,31 +335,45 @@
 				var nowDay = getCountDays();
 //				返回当月1号周几
 				var MonthWeek = getMonthOneWeek();
-				//返回月份的某一天
-				var maxdate = date.getDate();
 				//当前月第一天是周几，并在前面空上相应的li
-				var html = '';
-				for(var i = 1; i < MonthWeek + 1; i++) {
-					html += '<li></li>';
+				for(var i = 0; i < MonthWeek; i++) {
+					ahead_time.push(i);
 				}
-
+				vm.ahead_of_time = ahead_time;
 				//输出每天的li
 				for(var j = 1; j <= nowDay; j++) {
-					if(now_day == j){
-						html += '<li class="date_day" id="nowDay'+j+'" date-day="' + j + '"><div class="circle todayCircle">' + j + '</div><div class="course_text dayCourse">有课</div></li>'
-					}else if(now_day > j){
-						html += '<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div class="course_text suCourse">完课</div></li>'
-					}else if(now_day < j){
-						html += '<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div class="course_text fuCourse">待上课</div></li>'
-					}
-					
+					date_getMonth.push(j);
 				}
-				//获取当前周几
-				var str = "今天是星期" + "日一二三四五六".charAt(new Date().getDay());
-
-				//将内容写到ul中
-				document.getElementById('date-list').innerHTML = html;
-			}
+				vm.now_day = now_day;
+				vm.date_getMonth = date_getMonth;
+				console.log(now_day,date_getMonth)
+//			获取网络数据
+			var timeOfMonth = todu(date.getFullYear()) + todu(date.getMonth() + 1);
+		    var ajaxData1 = {
+					url:'restful1/course/getCoursesByMonth',
+					data: {
+						timeOfMonth:timeOfMonth
+					},
+					type:'post'
+				}
+			ajax(ajaxData1, function(data) {
+				console.log('这是课程列表===',JSON.stringify(data))		
+			},true); 
+			
+			//获取排课时间
+			var state = app.getState();
+			var ajaxData = { 
+					url:'restful1/course/getClassStatisticsByStudentId',
+					data: {},
+					type:'post'
+				}
+			
+			ajax(ajaxData, function(data) {
+				if(data.code==200){
+					vm.courseData = data.data;
+				}
+				console.log('这是课程列表2===',JSON.stringify(data))		
+			},true,true);
 
 			function getCountDays() {
 				var curDate = new Date();
@@ -320,78 +391,6 @@
 				var oneWeek = curDate.getDay();
 				return oneWeek;
 			}
-
-			mui.init({
-				 gestureConfig:{
-				   swipe: true, //默认为true
-				  }
-			});
-			mui.plusReady(function() {
-				//监听返回
-				listenReturn();
-				//新建班课
-				listenNext('新建班课','new_class.html','new_class','新建班课','60px');
-				//当前日期
-				mui('#date-list').on('tap', '.date_day', function() {
-					//			var day = this.getAttribute('date-day');
-				});
-				//内容列表
-//				mui('.list_ul').on('tap','li',function(){
-//					openView.nativeView('fill_feedback.html', 'fill_feedback', '课堂反馈');
-//				})
-				//获取网络数据
-				var timeOfMonth = todu(date.getFullYear()) + todu(date.getMonth() + 1);
-			    var ajaxData = {
-						url:'restful1/course/getCoursesByMonth',
-						data: {
-							timeOfMonth:timeOfMonth
-						},
-						type:'post'
-					}
-				ajax(ajaxData, function(data) {
-					console.log('这是课程列表===',JSON.stringify(data))		
-				},true);
-			})
-			
-				//监听滑动
-				var bodyBox = document.getElementById("bodyBox");
-				var dateList = document.getElementById("date-list");
-				var now_day = date.getDate();
-				var idFlag = 'nowDay'+now_day;
-				var liBox = document.getElementById(idFlag);
-				var dateListBox =document.getElementById("dateListBox");
-				//计算列表高度
-				var list_box = document.getElementById("list_box");
-				var dateListBoxToTop = -dateListBox.offsetTop;
-				var listBoxToTop = list_box.offsetTop;
-				var liBoxHeight = -liBox.offsetHeight;
-				var liBoxToTop = -liBox.offsetTop+3;
-				var moveTop = -(listBoxToTop + dateListBoxToTop + liBoxHeight)+1;
-				//上滑
-				bodyBox.addEventListener('swipeup',function(){
-					dateList.style.transition="-webkit-transform 500ms ease-out";
-					dateList.style.webkitTransition="transform 500ms ease-out";
-					dateList.style.transform="-webkit-translateY("+liBoxToTop+"px)";
-          			dateList.style.webkitTransform="translateY("+liBoxToTop+"px)";       		
-            		//列表
-            		list_box.style.transition="-webkit-transform 500ms ease-out";       		
-          			list_box.style.webkitTransition="transform 500ms ease-out";
-            		list_box.style.transform="-webkit-translateY("+moveTop+"px)";
-          			list_box.style.webkitTransform="translateY("+moveTop+"px)";
-            		
-				});
-				//下滑
-				bodyBox.addEventListener('swipedown',function(){
-					dateList.style.transition="-webkit-transform 500ms ease-out";
-					dateList.style.webkitTransition="transform 500ms ease-out";
-            		dateList.style.transform="-webkit-translateY(0)";
-            		dateList.style.webkitTransform="translateY(0)";
-            		//列表
-            		list_box.style.webkitTransition="transform 500ms ease-out";
-            		list_box.style.transition="-webkit-transform 500ms ease-out";
-            		list_box.style.webkitTransform="translateY(0)";
-            		list_box.style.transform="-webkit-translateY(0)";
-				});
 				
 				//修改当前周几
 				var week_list=document.getElementById("week-list");
@@ -401,6 +400,15 @@
 					if(i == week){
 						list_item[i].innerHTML = '今天';
 						list_item[i].setAttribute('class','today_week');
+					}
+				}
+				
+				//将单位数前加0
+				function todu(n) {
+					if(n < 10) {
+						return '0' + n;
+					} else {
+						return '' + n;
 					}
 				}
 		</script>

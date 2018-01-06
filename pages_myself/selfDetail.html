@@ -58,7 +58,7 @@
 		<div class="content" id="msg-content">
 			<div class="list_box">
 				<ul class="list_ul">
-					<li id="my_picture"><span>头像</span><div class="right_box"><span class="avatar_box"><img :src="teacherDetail.teacherImage?'imgUrl+teacherDetail.teacherImage':'../images/myself/head.png'" /></span></div></li>
+					<li id="my_picture"><span>头像</span><div class="right_box"><span class="avatar_box"><img src="" v-lazy="imgUrl+teacherDetail.teacherImage" /></span></div></li>
 					<li><span>姓名</span><span class="right_btn" v-text="teacherDetail.name"></span></li>
 					<li><span>性别</span><span class="right_btn" v-text="teacherDetail.gender"></span></li>
 					<li><span>电话</span><span class="right_btn" v-text="teacherDetail.mobilephone"></span></li>
@@ -85,26 +85,34 @@
 		<script type="text/javascript" src="../js/cropper.min.js" ></script>
 		<script type="text/javascript" src="../js/mui.cropper.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/vue-lazyload.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/updateSelf.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
-			     //点击提交
 			    listenReturnRight('修改');
 			    var self = plus.webview.currentWebview();
 			    var view = self.getTitleNView();
+			    //参数传递	     
+			    var teacherData = self.teacherData ||'';
+			    var fileArr = [];
+			    var dataObj = {};
+			    if(teacherData == ''||null){
+			    	plus.nativeUI.toast('请先登录！');
+			    }
+			    console.log(JSON.stringify(teacherData))
+			     //点击提交
 			    view.addEventListener("click", function(e) {
 					if(screen.width - e.clientX <= 60){
-					 	
-						//事件逻辑处理
-						mui.back();
+						dataObj.school = teacherData.teacherSchool;
+						dataObj.city = teacherData.teacherArea;
+						sendFormData(dataObj,fileArr);
 					}
 				}, false);
-				//参数传递
-			     
-			    var teacherData = self.teacherData;
+				
 			    //渲染初始信息
 			    vm.teacherDetail = teacherData;
 			    vm.imgUrl = ajaxUrl;
@@ -112,14 +120,15 @@
 			    
 			    //接收学校参数
 				window.addEventListener('school',function(event){
-					
+					var value = event.detail.value;
+					teacherData.teacherSchool = value;
+		    		vm.teacherDetail = teacherData;
 				});
-			    
 			    //接收区域参数
 				window.addEventListener('address',function(event){
-					var value = event.detail.value;
-					teacherData.data.teacherArea = value;
-		    		vm.teacherDetail.teacherArea = value;
+					var value = event.detail.value;				
+					teacherData.teacherArea = value;
+		    		vm.teacherDetail = teacherData;
 				});
 				
 			    			    
@@ -197,6 +206,12 @@
 					return '';
 				}
 			})
+			Vue.use(VueLazyload, {  
+			  preLoad: 1.3,  
+			  error: '../images/status/failed_trend.png',  
+			  loading: '../images/status/failed_trend.png',  
+			  attempt: 3  
+			});
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {

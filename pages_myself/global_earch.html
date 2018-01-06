@@ -153,7 +153,7 @@
 			    view.addEventListener("click", function(e) {
 					if(screen.width - e.clientX <= 60){				 	
 						//提交数据
-						console.log('13222',oneToOneType,distance,isSearch)
+						console.log(oneToOneType,distance,isSearch)
 						var ajaxData = {
 							url:'restful1/course/updateOneToOneCourse',
 							data: {
@@ -189,9 +189,8 @@
 						courseId = data.data.courseId;
 						organizationId = data.data.organizationId;
 						oneToOneType = data.data.oneToOneType || 0;
-						distance = data.data.distance;
-						isSearch = data.data.search;
-						
+						distance = data.data.distance ||0;
+						isSearch = data.data.search||0;
 						if(data.data.search == 1){
 							if(!doc.global_btn.classList.contains('mui-active')){
 						    	doc.global_btn.classList.add('mui-active');

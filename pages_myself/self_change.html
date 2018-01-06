@@ -37,14 +37,19 @@
 			    listenReturnRight('完成');
 			    var ws = plus.webview.currentWebview();
 				var view = ws.getTitleNView();
+				var list_box = document.getElementById("list_box");
+				var new_classPage =  plus.webview.getWebviewById('selfDetail');
 			    view.addEventListener("click", function(e) {
 				if(screen.width - e.clientX <= 60){
+						mui.fire(new_classPage,'school',{
+						    value:list_box.value
+					  });
 						//事件逻辑处理
 						mui.back();
 					}
 				}, false);
 			    var type = ws.eg;
-			    document.getElementById("list_box").value=type;
+			    list_box.value=type;
 			})
 		</script>
 	</body>
