@@ -335,19 +335,19 @@
 								<div class="list_item">
 									<ul class="list_item_ul">
 										<li>
-											<div class="list_item_num" v-text="coursesinfo.duration"></div>
+											<div class="list_item_num" v-text="coursesinfo.waitcourse"></div>
 											<div class="list_item_text">待上课/分</div>
 										</li>
 										<li>
-											<div class="list_item_num" v-text="coursesinfo.planCourse"></div>
+											<div class="list_item_num" v-text="coursesinfo.teachedcourse"></div>
 											<div class="list_item_text">已上课/分</div>
 										</li>
 										<li>
-											<div class="list_item_num" v-text="coursesinfo.teachedcourse"></div>
+											<div class="list_item_num" v-text="coursesinfo.duration"></div>
 											<div class="list_item_text">总时长/分</div>
 										</li>
-										<li id="wait_time" :data-time = "coursesinfo.waitcourse">
-											<div class="list_item_num wait_time" v-text="coursesinfo.waitcourse"></div>
+										<li id="wait_time" :data-time = "coursesinfo.planCourse">
+											<div class="list_item_num wait_time" v-text="coursesinfo.planCourse"></div>
 											<div class="list_item_text wait_time">待排课/分</div>
 										</li>
 									</ul>
@@ -390,7 +390,7 @@
 										<div class="nav_more" id="succ_more">更多</div>
 									</div>
 									<div class="succ_class">
-										<div class="class_list" v-for="item in course" v-if="item.status | status" :class="item.courseSection.length>0?'feedback_yes':'feedback_no'" :data-data="item.classId">
+										<div class="class_list" v-for="item in course" v-if="item.status | status" :class="item.courseSection.length>0?'feedback_yes':'feedback_no'" :data-courseId="item.courseSection.length>0?'':item.id" :data-data="item.classId">
 											<div class="class_list_left">
 												<div class="list_left_box">{{item.courseStartTime | courseTime}}-{{item.courseEndTime | | courseTime}}<span class="no_feedback" v-if="item.courseSection.length<=0">未反馈</span><span class="feedback" v-else="item.courseSection.length>0">已反馈</span></div>
 												<div class="left_location">{{item.organizationId | origaniztion}}</div>
@@ -430,15 +430,15 @@
 								<div class="list_item">
 									<ul class="list_item_ul">
 										<li>
-											<div class="list_item_num" v-text="tuitioninfo.alltuition"></div>
+											<div class="list_item_num" v-text="tuitioninfo.consume/100||0"></div>
 											<div class="list_item_text">已消费/学币</div>
 										</li>
 										<li>
-											<div class="list_item_num" v-text="tuitioninfo.waitconsume"></div>
+											<div class="list_item_num" v-text="tuitioninfo.waitconsume/100||0"></div>
 											<div class="list_item_text">待消费/学币</div>
 										</li>
 										<li>
-											<div class="list_item_num" v-text="tuitioninfo.consume"></div>
+											<div class="list_item_num" v-text="tuitioninfo.alltuition/100||0"></div>
 											<div class="list_item_text">总缴费/学币</div>
 										</li>
 									</ul>
@@ -460,7 +460,7 @@
 									</div>
 									<div class="tuition_list_right">
 										<div class="right_time tuition_right_time">{{item.courseEndTime | dateTime}}</div>
-										<div class="tuition_right_num">订单金额：<span v-if="item.orderCourse" v-text="item.orderCourse.shopPrize"></span><span v-else v-text="0"></span> 学币</div>
+										<div class="tuition_right_num">订单金额：<span v-if="item.orderCourse" v-text="item.orderCourse.shopPrize/100"></span><span v-else v-text="0"></span> 学币</div>
 									</div>
 								</div>
 								
@@ -505,6 +505,7 @@
 				var studentId = self.studentId;
 				var courseData = '';
 				//获取列表
+				console.log(studentId)
 				 var ajaxData = {
                     url:'restful1/teacher/getstudentinfo',
                     data: {
@@ -514,11 +515,13 @@
                 }
                 ajax(ajaxData, function(data){
                     if(data.code == 200){
+                    	console.log('1323132',JSON.stringify(data))
                     	//得到学生信息
                     	vm.student = data.data.student;
                     	vm.coursesinfo = data.data.coursesinfo;
                     	vm.tuitioninfo = data.data.tuitioninfo;
                     	vm.course = data.data.course;
+                    	console.log(JSON.stringify(vm.course))
                     	vm.imgUrl = ajaxUrl;
                     	courseData = data;
                     }              
@@ -533,17 +536,19 @@
                 //待排课跳转
 				document.getElementById("wait_time").addEventListener('tap',function(){
 					var waitTime = this.getAttribute('data-time');
-					openView.nativeView('../pages_main/course_scheduling.html','course_scheduling', '排课',{waitTime:waitTime});	
+					openView.nativeView('../pages_main/course_scheduling.html','course_scheduling', '排课',{waitTime:waitTime,studentId:studentId});	
 				});
 				//未反馈
 				mui('.succ_class').on('tap','.feedback_no',function(){
 					//无接口 应该是使用id提交课堂反馈
-					openView.nativeView('../pages_main/fill_feedback.html','fill_feedback', '课堂反馈');
+					var courseId = this.getAttribute('data-courseId');
+					openView.nativeView('../pages_main/fill_feedback.html','fill_feedback', '课堂反馈',{courseId:courseId});
 				});
 				//已反馈
 				mui('.succ_class').on('tap','.feedback_yes',function(){
 					var classId = this.getAttribute('data-data');
 					var course = courseData.data.course;
+					console.log(JSON.stringify(course))
 					var coursePeopleStr = JSON.stringify(courseData.data.student);
 					var dataStr =JSON.stringify(feedbackData(course,classId));
 					openView.nativeView('../pages_student/course_detail.html','course_detail', '课程详情',{coursePeopleStr:coursePeopleStr,dataStr:dataStr});
@@ -560,8 +565,7 @@
 					var value = value.split(" ");
 					var time = value[1].split(":");
 					return time[0]+':'+time[1];
-				}
-				
+				}	
 			})
 			//日期
 			Vue.filter('dateTime',function(value){

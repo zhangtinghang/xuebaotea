@@ -246,6 +246,12 @@
                                 
                             </div>
                         </div>
+                        <div v-if="show_not_mess_onetoone" class="not_message">
+							<div class="not_message_img">
+								<img src="../images/status/icon_jz_wxx.png" />
+							</div>
+							<div class="not_message_text">还没有消息哟~</div>
+						</div>
                     </div>
                     <div id="item2mobile" class="mui-slider-item mui-control-content">
                         <div id="scroll2" class="mui-scroll-wrapper">
@@ -271,6 +277,12 @@
                                 </div>
                             </div>
                         </div>
+                        <div v-if="show_not_mess_allClass" class="not_message">
+							<div class="not_message_img">
+								<img src="../images/status/icon_jz_wxx.png" />
+							</div>
+							<div class="not_message_text">还没有消息哟~</div>
+						</div>
                     </div>
                 </div>
             </div>
@@ -291,6 +303,7 @@
                 listenReturn();
                 //渲染
                 render();
+                var all_student = plus.webview.getWebviewById('all_student');
                 function render(){
 	                var ajaxData = {
 	                    url:'restful1/course/getCoursesStudentByTeacherId',
@@ -303,6 +316,13 @@
 	                        vm.faceMessage = data.data.face;
 	                        vm.classMessage = data.data.class;
 	                        vm.imgUrl = ajaxUrl;
+	                        vm.show_not_mess_onetoone = false;
+	                        vm.show_not_mess_allClass = false;
+	                        if(data.data.face.length==0){
+	                        	vm.show_not_mess_onetoone = true;
+	                        }else if(data.data.class.length==0){
+	                        	vm.show_not_mess_allClass = true;
+	                        }
 	                    }                               
 	                },true,true);
                 }
@@ -334,6 +354,7 @@
             
             //订单更新处理函数
             function orderStatus(status,courseId,studentId){
+            	var w=plus.nativeUI.showWaiting("处理中，请等待...");
             	 var ajaxData = {
                     url:'restful1/course/updateCoursesOrder',
                     data: {
@@ -344,9 +365,13 @@
                     type:'post'
                 }
                 ajax(ajaxData, function(data){
+                	w.close();
                     console.log(JSON.stringify(data))
                     if(data.code == 200){
                     	plus.nativeUI.toast(data.msg);
+                    	mui.fire(all_student,'showView',{
+						    id:'刷新'
+						});
                     	//更新订单装填
                     	render();
                     }else{
@@ -399,7 +424,9 @@
                 el: '#msg-content',
                 data: {
                     faceMessage:[],
-                    classMessage:[]
+                    classMessage:[],
+                    show_not_mess_allClass:false,
+                    show_not_mess_onetoone:false,
                 }           
             })
             

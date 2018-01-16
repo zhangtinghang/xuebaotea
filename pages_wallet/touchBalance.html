@@ -118,6 +118,12 @@
 						
 					</div>
 				</div>
+				<div v-if="show_not_mess_course" class="not_message">
+					<div class="not_message_img">
+						<img src="../images/status/icon_jz_wxx.png" />
+					</div>
+					<div class="not_message_text">还没有消息哟~</div>
+				</div>
 			</div>
 				<div id="item2" class="mui-control-content">
 					<div id="scroll" class="mui-scroll-wrapper">
@@ -155,6 +161,12 @@
 						
 					</div>
 				</div>
+				<div v-if="show_not_mess_charges" class="not_message">
+					<div class="not_message_img">
+						<img src="../images/status/icon_jz_wxx.png" />
+					</div>
+					<div class="not_message_text">还没有消息哟~</div>
+				</div>
 				</div>
 				<div id="item3" class="mui-control-content">
 					<div id="scroll" class="mui-scroll-wrapper">
@@ -190,6 +202,12 @@
 						
 					</div>
 				</div>
+				<div v-if="show_not_mess_withdraw" class="not_message">
+					<div class="not_message_img">
+						<img src="../images/status/icon_jz_wxx.png" />
+					</div>
+					<div class="not_message_text">还没有消息哟~</div>
+				</div>
 				</div>
 			</div>
 			
@@ -224,8 +242,21 @@
 							if(data.data){						
 								vm.ordercourse = data.data.ordercourse||[];
 								vm.orderrecharges = data.data.orderrecharges||[];
+								vm.withdraw = data.data.withdraw||[];
+								if(vm.ordercourse.length==0){
+									vm.show_not_mess_course=true;
+								}
+								if(vm.orderrecharges.length==0){
+									vm.show_not_mess_charges=true;
+								}
+								if(vm.withdraw.length==0){
+									vm.show_not_mess_withdraw=true;
+								}
+							}else{
+								vm.show_not_mess_course=true;
+								vm.show_not_mess_charges=true;
+								vm.show_not_mess_withdraw=true;	
 							}
-							vm.withdraw = data.data.withdraw||[];
 						}else{
 							plus.nativeUI.toast('请求超时！');
 						}
@@ -249,7 +280,10 @@
 				data: {
 					ordercourse:[],//课程订单
 					orderrecharges:[],//充值订单
-					withdraw:[]//提现订单
+					withdraw:[],//提现订单
+					show_not_mess_course:false,
+					show_not_mess_charges:false,
+					show_not_mess_withdraw:false,
 				}			
 			})
 		</script>

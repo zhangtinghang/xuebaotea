@@ -412,12 +412,15 @@
 			    var ws = plus.webview.currentWebview();
 				var view = ws.getTitleNView();
 				var waitTime = ws.waitTime || '0';
+				var studentId = ws.studentId;
+//				var waitTime = '200';
 				var courseflag = 0;
 				var courseArr = [];
 				var courseId = null;
 				var organizationName = null;
 				var right_address_text  = document.getElementById("right_address_text");
 				document.getElementById("waitTime").innerText = waitTime +'分钟';
+				var self = plus.webview.currentWebview();
 			    view.addEventListener("click", function(e) {
 				if(screen.width - e.clientX <= 60){
 						//事件逻辑处理
@@ -429,24 +432,26 @@
 								return plus.nativeUI.toast('请先安排课程');
 							}
 							var courseJsons = JSON.stringify(courseArr);
-							
+							var w=plus.nativeUI.showWaiting("资料上传中，请等待...",{modal:false});
 							var ajaxData = {
 								url:'restful1/course/addcourseplans',
 								data: {
 									courseId:courseId,
-									courseJsons:courseJsons
+									courseJsons:courseJsons,
+									studentId:studentId
 								},
 								type:'post'
 							}
 							ajax(ajaxData, function(data) {
 								console.log(JSON.stringify(data))
+								w.close();
 								if(data.code == 200){
 									plus.nativeUI.toast('排课成功');
-//									mui.back();
+									var self = plus.webview.currentWebview();
+									self.close();
 								}
 							},true,true);
 						}
-//						mui.back();
 					}
 				}, false);
 				//获取全局搜索信息

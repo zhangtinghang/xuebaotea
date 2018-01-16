@@ -166,8 +166,11 @@
 							type:'post'
 						}
 						ajax(ajaxData, function(data) {
+							console.log(JSON.stringify(data))
 							if(data.code == 200){
 								mui.back();
+							}else if(data.code == 201){
+								plus.nativeUI.toast(data.msg);
 							}else{
 								plus.nativeUI.toast('修改出错，请稍后再试！');
 							}

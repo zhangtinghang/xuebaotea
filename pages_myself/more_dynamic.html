@@ -148,7 +148,12 @@
 					</div>
 				</div>
 			</div>
-			
+			<div v-if="show_not_mess" class="not_message">
+				<div class="not_message_img">
+					<img src="../images/status/icon_jz_wxx.png" />
+				</div>
+				<div class="not_message_text">还没有消息哟~</div>
+			</div>
 			<!--<div class="dynamic_list">
 				<div class="avatar">
 					<div class="avatat_box">
@@ -209,7 +214,9 @@
 				});
 				
 				//请求数据
-				var ajaxData = {
+				data_dynamic();
+				function data_dynamic(){
+					var ajaxData = {
 						url:'restful1/teacher/teachernews/getteachernews',
 						data: {},
 						type:'post'
@@ -218,17 +225,31 @@
 					console.log('请求数据',JSON.stringify(data))
 						if(data.code == 401){
 							plus.nativeUI.toast('您还未登录哟！');
+							vm.show_not_mess = true;
 						}else if(data.code == 200){
 							vm.teacherDetail = data.data.news;
 							vm.imgUrl = ajaxUrl;	
 							vm.teacher = data.data.teacher;
+							if(data.data.news.length==0){
+								vm.show_not_mess = true;
+							}else{
+								vm.show_not_mess = false;
+							}
 						}else{
 							plus.nativeUI.toast('请求超时！');
+							vm.show_not_mess = true;
 						}
 				},true,true);
+				}
+				
+				//监听
+				window.addEventListener('updateView',function(event){
+					console.log('动态刷新');
+					data_dynamic();
+				})
 				//监听图片事件
 				view.addEventListener("click", function(e) {
-					if(screen.width - e.clientX <= 60) {
+					if(screen.width - e.clientX <= 60) { 
 						openView.nativeView('../pages_main/feedback.html', 'feedback', '新建动态');
 					}
 				}, false);
@@ -248,7 +269,8 @@
 				data: {
 					teacherDetail:[],//教师动态数据
 					imgUrl:'',
-					teacher:''
+					teacher:'',
+					show_not_mess:false
 				}			
 			})
 		</script>

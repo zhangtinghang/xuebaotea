@@ -220,15 +220,15 @@
 			<div class="list_item" id="list_item">
 				<ul class="list_item_ul">
 					<li>
-						<div class="list_item_num" id="rank">10</div>
+						<div class="list_item_num" id="rank">0</div>
 						<div class="list_item_text">等级</div>
 					</li>
 					<li>
-						<div class="list_item_num" id="teacher_time">200</div>
+						<div class="list_item_num" id="teacher_time">0</div>
 						<div class="list_item_text">授课时长/分</div>
 					</li>
 					<li>
-						<div class="list_item_num" id="student_num">686</div>
+						<div class="list_item_num" id="student_num">0</div>
 						<div class="list_item_text">学生数/人</div>
 					</li>
 				</ul>
@@ -258,7 +258,7 @@
 										</div>
 										<div class="left_text">
 											<div class="text_detail"><span class="gender_icon"><span v-text="item.student.name"></span><img :src="item.student.gender=='女'?'../images/student/female.png':'../images/student/male.png'" /></span></div>
-											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time"><span v-text="item.waitCourse"></span>分钟</span></span><span>总缴费 <span class="text_detail_num_money"><span v-text="item.orderCourse"></span>学币</span></span></div>
+											<div class="text_detail text_detail_num"><span>待上课时长 <span class="class_time"><span v-text="item.waitCourse"></span>分钟</span></span><span>总缴费 <span class="text_detail_num_money"><span v-text="item.orderCourse/100"></span>学币</span></span></div>
 										</div>
 									</div>
 								</div>
@@ -302,7 +302,7 @@
 											</div>
 											<div class="text_detail text_detail_num">
 												<span>待上课时长 <span class="class_time"><span v-text="item.waitCourse"></span>分钟</span></span>
-												<span>总缴费 <span class="text_detail_num_money"><span v-text="item.orderCourse"></span>学币</span></span>
+												<span>总缴费 <span class="text_detail_num_money"><span v-text="item.orderCourse/100 ||'0'"></span>学币</span></span>
 											</div>
 										</div>
 									</div>

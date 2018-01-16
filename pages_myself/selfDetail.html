@@ -5,6 +5,8 @@
 		<title>个人资料</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/cropper.min.css" />
+		<link rel="stylesheet" href="../css/mui.cropper.css" />
 		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
 		<style>
 			.list_ul{
@@ -58,10 +60,10 @@
 		<div class="content" id="msg-content">
 			<div class="list_box">
 				<ul class="list_ul">
-					<li id="my_picture"><span>头像</span><div class="right_box"><span class="avatar_box"><img src="" v-lazy="imgUrl+teacherDetail.teacherImage" /></span></div></li>
+					<a href="#cropper-sheet"><li data-type = "3"><span>头像</span><div class="right_box"><span class="avatar_box"><img  v-if="isPeople" src=" " v-lazy="avatar" /><img  v-else src=" " v-lazy="imgUrl+teacherDetail.teacherImage" /></span></div></li></a>
 					<li><span>姓名</span><span class="right_btn" v-text="teacherDetail.name"></span></li>
-					<li><span>性别</span><span class="right_btn" v-text="teacherDetail.gender"></span></li>
 					<li><span>电话</span><span class="right_btn" v-text="teacherDetail.mobilephone"></span></li>
+					<li data-type = "4"><span>性别</span><span class="right_btn"><span v-text="teacherDetail.gender"></span><img src="../images/myself/next_content.png" /></span></li>
 					<li data-type = "1"><span>学校</span><span class="right_btn"><span v-text="teacherDetail.teacherSchool"></span> <img src="../images/myself/next_content.png" /></span></li>
 					<li data-type = "2"><span>区域</span><span class="right_btn"><span>{{teacherDetail.teacherArea | teacherArea}}</span> <img src="../images/myself/next_content.png" /></span></li>
 				</ul>
@@ -89,7 +91,18 @@
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript" src="../js/updateSelf.js" ></script>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({
+				beforeback: function(){
+					//获得列表界面的webview
+					var me = plus.webview.getWebviewById('pages_student/me.html');
+					//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+					mui.fire(me,'showView',{
+						id:"刷新"
+					});
+					//返回true，继续页面关闭逻辑
+					return true;
+				}
+			});
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
@@ -108,7 +121,8 @@
 			    view.addEventListener("click", function(e) {
 					if(screen.width - e.clientX <= 60){
 						dataObj.school = teacherData.teacherSchool;
-						dataObj.city = teacherData.teacherArea;
+						dataObj.city = JSON.stringify(teacherData.teacherArea);
+						dataObj.gender = teacherData.gender;
 						sendFormData(dataObj,fileArr);
 					}
 				}, false);
@@ -121,6 +135,7 @@
 			    //接收学校参数
 				window.addEventListener('school',function(event){
 					var value = event.detail.value;
+					console.log('接收到学校参数',value)
 					teacherData.teacherSchool = value;
 		    		vm.teacherDetail = teacherData;
 				});
@@ -131,49 +146,58 @@
 		    		vm.teacherDetail = teacherData;
 				});
 				
-			    			    
+			    //接收性别参数
+				window.addEventListener('sex',function(event){
+				  	var value = event.detail.value;
+				  	teacherData.gender = value;
+		    		vm.teacherDetail.gender = value;
+				});			    
 			    //存放头像图片地址
-			    var imgfile=[];
+			    var fileArr=[];
 				//获取照片信息
-//				document.getElementById("my_picture").addEventListener('tap',function(){
-//					var btnArray = [{
-//						title: "拍照"
-//					}, {
-//						title: "从相册选择"
-//					}];
-//					plus.nativeUI.actionSheet({
-//						title: "选择照片",
-//						cancel: "取消",
-//						buttons: btnArray
-//					}, function(e) {
-//						var index = e.index;
-//						switch (index) {
-//							case 0:
-//								break;
-//							case 1:
-//								var cmr = plus.camera.getCamera();
-//								cmr.captureImage(function(path) {
-//									var lfs = "file://" + plus.io.convertLocalFileSystemURL(path);
-//									addFile(lfs);
-//								}, function(err) {});
-//							break;
-//							case 2:
-//								plus.gallery.pick(function(path) {
-//									addFile(path);
-//								}, function(err) {}, {filter:"image",system:false});
-//							break;
-//						}
-//					});
-//				})
+				function cropper_avatar(){			
+				var btnArray = [{
+					title: "拍照"
+				}, {
+					title: "从相册选择"
+				}];
+				plus.nativeUI.actionSheet({
+					title: "选择照片",
+					cancel: "取消",
+					buttons: btnArray
+				}, function(e) {
+					var index = e.index;
+					switch (index) {
+						case 0:
+							break;
+						case 1:
+							var cmr = plus.camera.getCamera();
+							cmr.captureImage(function(path) {
+								var fullPath = mui.getLocalFileURL(path);
+								handleInit(fullPath);
+							}, function(err) {});
+						break;
+						case 2:
+							plus.gallery.pick(function(path) {
+								handleInit(path);
+							}, function(err) {}, {filter:"image",multiple:false,system:false});
+						break;
+					}
+				});	
+			}
+			   	
+			function handleInit(path){
+				var name = path.substr(path.lastIndexOf('/') + 1);
+				mui('#cropper-sheet').popover('toggle');
+				mui.cropper.show(path, function(dataUrl){
+					vm.isPeople = true;
+					console.log(dataUrl)
+					vm.avatar = dataUrl;
+					fileArr.push({path:dataUrl})
+				});
+			}
+			  	
 				
-				var addFile = function(path) {
-					imgfile.push({path:path});
-					console.log(JSON.stringify(imgfile))
-					//渲染图片
-					console.log(imgfile[0].path)
-					vm.teacherDetail.teacherImage = imgfile[0].path;
-				}
-			    
 			    mui('.list_ul').on('tap','li',function(){
 			    	var type = this.getAttribute('data-type');
 			    	switch (type){
@@ -183,6 +207,12 @@
 			    		case '2':
 			    			openView.nativeView('localtion.html', 'localtionArea', '区域',{'eg':vm.teacherDetail.teacherArea,'type':type});
 			    			break;
+			    		case '3':
+				    		cropper_avatar();
+				    		break;
+				    	case '4':
+				    		openView.nativeView('sex_change.html', 'sex_change', '性别',{'eg':vm.teacherDetail.gender,'type':type});
+				    		break;
 			    		default:
 			    			break;
 			    	}
@@ -190,21 +220,15 @@
 			    
 			})
 			
-			Vue.filter('teacherArea',function(value){ 
-				if(value){
+			Vue.filter('teacherArea',function(value){
 					switch (value){
 						case 1:
 							return '成都市';
 							break;
-						case 2:
-							return '新增城市';
-							break;
 						default:
+							return '未知城市';
 							break;
 					}
-				}else{
-					return '';
-				}
 			})
 			Vue.use(VueLazyload, {  
 			  preLoad: 1.3,  
@@ -216,7 +240,8 @@
 				el: '#msg-content',
 				data: {
 					teacherDetail:{},
-					imgUrl:''
+					imgUrl:'',
+					isPeople:false
 				}			
 			})
 		</script>

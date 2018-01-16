@@ -14,6 +14,7 @@ mui.plusReady(function () {
 	var courseStudentflag = 0;//学生数
 	var courseflag = 0; //课程节数
 	var classGrade ='';
+	var Subject = '';
 	var doc = {
 		pop:document.getElementById("popover"),
 		course_description:document.getElementById("course_description"),
@@ -43,6 +44,7 @@ mui.plusReady(function () {
 			dataArr.courseStudents = courseStudents;
 			dataArr.courseNums = courseNums;
 			dataArr.className = doc.className.value;
+			dataArr.subject = Subject;
 			if(dataArr.classType==""||dataArr.classGrade==""||dataArr.courseSectionJson==""||dataArr.courseStudents==""||dataArr.courseNums==""||dataArr.className==""){
 				return plus.nativeUI.toast('请填写完整信息！');
 			}
@@ -55,7 +57,10 @@ mui.plusReady(function () {
 	 	var classdata = event.detail.classdata;
 	 	doc.showGrade.innerHTML = lookdata(classdata,classArr);
 	  	classGrade = classArr;
-		
+	  	//获取课程信息
+	  	var subjectId = event.detail.subjectId;
+	  	var subjectName = event.detail.subjectName;
+		Subject = subjectId;
 	});
 	function lookdata(classdata,classArr){			
 		for(var i = 0;i<classdata.length;i++){

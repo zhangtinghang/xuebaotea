@@ -25,10 +25,16 @@
 			});
 			document.querySelector('.cropper-ok').addEventListener('tap',function () {
 				if (!croppable) return;
-				var croppedCanvas = cropper.getCroppedCanvas(); 
-				var data = croppedCanvas.toDataURL('image/png', 0.6);
-				callback && callback(data);
-				
+				var w=plus.nativeUI.showWaiting("资料上传中，请等待...",{modal:false});
+				var croppedCanvas = cropper.getCroppedCanvas();
+				var data = croppedCanvas.toDataURL('image/png', 0.5);
+				var dataStr = JSON.stringify(data);
+				var name = dataStr.substring(dataStr.length-10,dataStr.length-4);
+				console.log('这是名字======',name)
+				$.saveImage(data,'_doc/'+name+'r.png',function(path){
+					w.close();
+					callback && callback(path); 
+				},{overwrite:true,format:"png"});				
 				if(isClose !== false){
 					$.cropper.hide();
 				}
@@ -36,7 +42,6 @@
 		},
 		hide: function(){
 			modal.classList.remove('mui-active');
-		
 			// 重置裁剪工具
 			container.src = '';
 			croppable = false;
@@ -132,13 +137,14 @@
 	 * @param {Object} options
 	 */
 	$.saveImage = function(base64Str, path, callback, options){
-		options = options || {};
+		options = options || {format:"png"};
 		var bitmap = new plus.nativeObj.Bitmap("__cropper_drawImg__");
 		bitmap.loadBase64Data(base64Str, function(){
 			bitmap.save(path, options, function(e){
 				callback && callback(e.target);
+				bitmap.clear();
 			},function(e){
-				console.log('保存图片失败：'+JSON.stringify(e));
+				console.log('保存图片失败：'+JSON.stringify(e));	
 			});
 		}, function(){
 			console.log('加载Base64图片数据失败：'+JSON.stringify(e));

@@ -1,5 +1,5 @@
 
-var sendFormData = function (dataObj,fileArr){
+var sendFormData = function (dataObj,teacherImage){
 	var uploader = null;
 	//加密
 	var state = app.getState();
@@ -18,14 +18,15 @@ var sendFormData = function (dataObj,fileArr){
 	//前端使用HmacSHA1加密必须先将hash输出到input中才能获取正常值
 	getPassword.value = hash;
 	dataObj.token=getPassword.value;
-	
-	var teacherImage = fileArr.teacherImage || [];
-	var resumefile = fileArr.resumefile || [];
+	var w=plus.nativeUI.showWaiting("资料上传中，请等待...",{modal:false});
+	var teacherImage = teacherImage || [];
 	var url =ajaxUrl+'/restful1/users/updateTeacherInfo';
 		uploader = plus.uploader.createUpload(url, {
 			method: 'POST'
 		}, function(upload, status) {
 			console.log("upload cb:"+upload.responseText);
+			w.close();
+			console.log('1333',status)
 			if(status==200){
 				var data = JSON.parse(upload.responseText);
 				if (data.code === 200) {
@@ -52,13 +53,6 @@ var sendFormData = function (dataObj,fileArr){
 			console.log("addFile:"+JSON.stringify(f.path));
 			uploader.addFile(f.path, {
 				key: "teacherImage"
-			});
-		});
-		mui.each(resumefile, function(index, element) {
-			var f = resumefile[index];
-			console.log("addFile:"+JSON.stringify(f.path));
-			uploader.addFile(f.path, {
-				key: "resumefile"
 			});
 		});
 		//开始上传任务

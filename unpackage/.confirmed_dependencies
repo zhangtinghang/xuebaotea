@@ -159,7 +159,9 @@
 			"js/config.js",
 			"images/myself/chos_way.png"
 		],
-		"refer": [],
+		"refer": [
+			"pages_student/location.html"
+		],
 		"priority": 0
 	},
 	"pages_myself/feedback.html": {
@@ -240,7 +242,8 @@
 			"pages_wallet/balance.html",
 			"pages_myself/global_earch.html",
 			"pages_myself/setting.html",
-			"pages_myself/all_class.html"
+			"pages_myself/all_class.html",
+			"login/login.html"
 		],
 		"priority": 0
 	},
@@ -375,7 +378,8 @@
 			"pages_main/course_scheduling.html",
 			"pages_student/course_record.html",
 			"pages_student/course_message.html",
-			"pages_student/course_detail.html"
+			"pages_student/course_detail.html",
+			"pages_main/fill_feedback.html"
 		],
 		"priority": 0
 	},
@@ -602,6 +606,11 @@
 	"pages_myself/in_regard_to.html": {
 		"refer": [
 			"pages_myself/service_agreement.html"
+		]
+	},
+	"pages_myself/study_class_radio.html": {
+		"refer": [
+			"pages_myself/subject_list.html"
 		]
 	}
 }

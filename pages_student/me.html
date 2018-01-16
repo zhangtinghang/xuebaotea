@@ -322,6 +322,7 @@
 		mui.plusReady(function () {
 			var ws=plus.webview.currentWebview();
 			var teacherData = null; 
+			var state = app.getState();
 			function selfDeatil(){
 				var ajaxData = {
 					url:'restful1/users/findTeacherById',
@@ -330,18 +331,22 @@
 				}
 				ajax(ajaxData, function(data) {
 						if(data.code == 401){
-							plus.nativeUI.toast('您还未登录哟！');
-							openView.incView('login/login.html', 'login', '欢迎登陆');
+							plus.nativeUI.toast('type:401 您还未登录哟！');
+							openView.incView('../login/login.html', 'login', '欢迎登陆');
 						}else if(data.code == 200){
 							console.log(JSON.stringify(data.data))
 							vm.teacherDetail = data.data;
 							vm.imgUrl = ajaxUrl;
-							teacherData=data.data;							
-						}else if(data.code==1){
-							plus.nativeUI.toast('您还未登录哟！');
-							openView.incView('login/login.html', 'login', '欢迎登陆');
+							teacherData=data.data;
+							var key = state.data.key;
+							data.data.key = key;
+							state.data = data.data;			
+					    	app.setState(state);
+						}else if(data.code==1){ 
+							plus.nativeUI.toast('type:1 您还未登录哟！');
+							openView.incView('../login/login.html', 'login', '欢迎登陆');
 						}else{
-							plus.nativeUI.toast('请求超时！');
+							plus.nativeUI.toast('type:-1 请求超时！');
 						}
 				},true,true); 
 			}
@@ -363,12 +368,12 @@
 		    mui('.function_list_ul').on('tap','.function_list_li',function(){
 		    	var type = this.getAttribute('data-type');
 		    	if(!teacherData){
-		    		return plus.nativeUI.toast('请先登录！');
+		    		plus.nativeUI.toast('请先登录！');
 		    	}
 		    	switch(type)
 		    	{
 		    		case '1':
-		    		openView.nativeView('../pages_wallet/balance.html', 'balance', '余额');
+		    		openView.nativeView('../pages_wallet/balance.html', 'balance', '余额',{teacherData:teacherData});
 		    		break;
 		    		case '2':
 		    		openView.nativeView('../pages_myself/global_earch.html', 'global_earch', '全局搜索');
@@ -390,7 +395,7 @@
 		    		break;
 		    		case '8':
 		    		//拨打电话
-		    		plus.device.dial(114,true);
+		    		plus.device.dial(028-83186163,true);
 		    		break;
 		    		case '9':
 		    		openView.nativeView('../pages_myself/all_class.html', 'all_class', '班课记录');
@@ -405,20 +410,13 @@
 				indicators: true //是否显示滚动条
 			});
 			Vue.filter('teacherArea',function(value){
-				if(value){
-					switch (value){
-						case 1:
-							return '成都市';
-							break;
-						case 2:
-							return '新增城市';
-							break;
-						default:
-							return '新增城市';
-							break;
-					}
-				}else{
-					return '新增城市';
+				switch (value){
+					case 1:			
+						return '成都市';
+						break;
+					default:
+						return '新增城市';
+						break;
 				}
 			})
 			Vue.filter('teacherRank',function(value){
@@ -480,7 +478,7 @@
 				data: {
 					teacherDetail:{},//教师动态数据
 					imgUrl:''
-				}			
+				}
 			})
 	</script>
 	</body>

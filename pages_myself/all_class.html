@@ -70,7 +70,12 @@
 				<li>授课年级：<span class="list_left_money" v-text="item.className"></span></li>
 				<li><span>报名情况：<span class="list_left_num" v-text="item.incourse"></span>/<span v-text="item.peopleLimit"></span></span><span class="list_right">进行中</span></li>
 			</div>
-			
+			<div v-if="show_not_mess" class="not_message">
+				<div class="not_message_img">
+					<img src="../images/status/icon_jz_wxx.png" />
+				</div>
+				<div class="not_message_text">还没有消息哟~</div>
+			</div>
 			<!--<div class="list_ul">
 				<li><div class="dot"></div>少儿英语班</li>
 				<li>上课时间：2017年07月01日-07月31日</li>
@@ -103,10 +108,17 @@
 					console.log('请求数据',JSON.stringify(data))
 					if(data.code == 401){
 						plus.nativeUI.toast('您还未登录哟！');
+						vm.show_not_mess = true;
 					}else if(data.code == 200){
-						vm.classCourses = data.data;					
+						vm.classCourses = data.data;
+						if(data.data.length==0){
+							vm.show_not_mess = true;
+						}else{
+							vm.show_not_mess = false;
+						}
 					}else{
 						plus.nativeUI.toast('请求超时！');
+						vm.show_not_mess = true;
 					}
 				},true,true); 
 			});
@@ -133,7 +145,8 @@
 			var vm = new Vue({
                 el: '#msg-content',
                 data: {
-                	classCourses:[]
+                	classCourses:[],
+                	show_not_mess:false
                 }
             })
 		</script>

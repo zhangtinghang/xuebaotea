@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>科目详情</title>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_list{
+				background-color: #FEFEFE;
+			}
+			.content_list_ul li{
+				padding: 0.388888rem 4%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-size: 0.416666rem;
+				color: #555555;
+			}
+			.content_list_ul li:active{
+				background-color: rgb(240,240,240);
+			}
+			.list_active{
+				background-color: rgb(240,240,240);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="content" id="msg-content">
+			<div class="content_list">
+				<ul class="content_list_ul">
+					<li v-for="item in subjectList"  :data-type="item.subjectId" :data-name="item.subjectName" v-text="item.subjectName"></li>				
+				</ul>				
+			</div>
+			<div v-if="show_not_mess" class="not_message">
+				<div class="not_message_img">
+					<img src="../images/status/icon_jz_wxx.png" />
+				</div>
+				<div class="not_message_text">还没有消息哟~</div>
+			</div>
+		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />	
+		<script type="text/javascript" src="../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script>
+			mui.init({});
+			mui.plusReady(function () {
+			    //监听返回
+			    listenReturn();
+			    var self = plus.webview.currentWebview();
+			   	var classdata = self.classdata;
+			    var className = self.changename;
+			    var classArr = self.classArr;
+			    var ajaxData = {
+						url:'restful1/subject/selectSubject',
+						data: {
+							className:className
+						},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+						vm.show_not_mess = false;
+						if(data.code == 200){
+							vm.subjectList = data.data;
+							if(data.data.length==0){
+								vm.show_not_mess = true;
+							}
+						}else{
+							plus.nativeUI.toast(data.msg);
+							vm.show_not_mess = true;
+						}
+				},true);
+				
+				//点击跳转
+				var selfDetail = null;
+				//获得列表页面
+				selfDetail = plus.webview.getWebviewById('new_class');
+				var classView = plus.webview.getWebviewById('study_class_radio');
+				mui('.content_list_ul').on('tap','li',function(){
+					var subjectId = this.getAttribute('data-type');
+					var subjectName =this.getAttribute('data-name');
+					console.log(subjectId,subjectName,classArr,classdata);
+					mui.fire(selfDetail,'classChange',{
+				    		subjectId:subjectId,
+				    		subjectName:subjectName,
+				    		classArr:classArr,
+				    		classdata:classdata
+				  	});
+				  	classView.close();
+			    	mui.back();
+				})
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					subjectList:[],
+					show_not_mess:false
+				}			
+			})
+		</script>
+	</body>
+</html>

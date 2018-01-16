@@ -5,28 +5,24 @@
 		"iPad"
 	],
 	"id": "xuebaotea",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "易学宝",/*应用名称，程序桌面图标名称*/
+	"name": "易学宝教师端",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0.0",/*应用版本名称*/
 		"code": "83"
 	},
-	"description": "",/*应用描述信息*/
+	"description": "易学宝教师端",/*应用描述信息*/
 	"icons": {
 		"72": "icon.png"
 	},
 	"launch_path": "index.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
 	"developer": {
-		"name": "",/*开发者名称*/
-		"email": "",/*开发者邮箱地址*/
-		"url": "http://www.dcloud.io"
+		"name": "",/*zhangtinghang*/
+		"email": "",/*zth1041415167@outlook.com*/
+		"url": "github.com/zhangtinghang"
 	},
 	"permissions": {
-		"Accelerometer": {
-			"description": "访问加速度感应器"
-		},
-		"Audio": {
-			"description": "访问麦克风"
-		},
+		
+		
 		"Cache": {
 			"description": "管理应用缓存"
 		},
@@ -36,9 +32,7 @@
 		"Console": {
 			"description": "跟踪调试输出日志"
 		},
-		"Contacts": {
-			"description": "访问系统联系人信息"
-		},
+		
 		"Device": {
 			"description": "访问设备信息"
 		},
@@ -61,12 +55,8 @@
 			"description": "使用Native.js能力"
 		},
 
-		"Orientation": {
-			"description": "访问方向感应器"
-		},
-		"Proximity": {
-			"description": "访问距离感应器"
-		},
+		
+		
 		"Storage": {
 			"description": "管理应用本地数据"
 		},
@@ -84,9 +74,7 @@
 			"description": "文件压缩与解压缩"
 		},
 
-		"Maps": {
-			"description": "管理地图插件"
-		},
+		
 
 		"Webview": {
 			"description": "窗口管理"
@@ -231,7 +219,7 @@
 		"splashscreen": {
 			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
 			"waiting": true,
-			"delay": "1000"
+			"delay": "1500"
 		},
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
@@ -264,33 +252,7 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": [
-					"<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
-					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
-					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
-					"<uses-permission android:name=\"android.permission.CAMERA\"/>",
-					"<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-					"<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
-					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
-					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
-					"<uses-permission android:name=\"android.permission.INTERNET\"/>",
-					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
-					"<uses-feature android:name=\"android.hardware.camera\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
-				]
+				"permissions": ["<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>","<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
 			},
 			"orientation": [
 				"portrait-primary"
@@ -351,8 +313,8 @@
 				"ios": {
 					"iphone": {
 						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
-						"retina35": "",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": ""
+						"retina35": "C:/Users/zth10/Desktop/学保tea/959/教师端启动页，登录界面头像/教师端/640-960 .png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": "C:/Users/zth10/Desktop/学保tea/959/教师端启动页，登录界面头像/教师端/640-1136.png","iphonex":"C:/Users/zth10/Desktop/学保tea/959/教师端启动页，登录界面头像/教师端/1125-2436.png","retina55":"C:/Users/zth10/Desktop/学保tea/959/教师端启动页，登录界面头像/教师端/1242-2208.png","retina47":"C:/Users/zth10/Desktop/学保tea/959/教师端启动页，登录界面头像/教师端/750-1334.png"
 					},
 					"ipad": {
 						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
@@ -368,9 +330,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": ""
+					"hdpi": "C:/Users/zth10/Desktop/学保tea/959/教师端启动页，登录界面头像/教师端/480-762.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "C:/Users/zth10/Desktop/学保tea/959/教师端启动页，登录界面头像/教师端/720-1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "C:/Users/zth10/Desktop/学保tea/959/教师端启动页，登录界面头像/教师端/1080-1882.png"
 				}
 			}
 		}
@@ -542,7 +504,10 @@
 					"js/config.js",
 					"images/myself/chos_way.png"
 				],
-				"priority": 5
+				"priority": 5,
+				"refer": [
+					"pages_student/location.html"
+				]
 			},
 			"pages_myself/feedback.html": {
 				"href": "pages_myself/feedback.html",
@@ -624,7 +589,8 @@
 					"pages_wallet/balance.html",
 					"pages_myself/global_earch.html",
 					"pages_myself/setting.html",
-					"pages_myself/all_class.html"
+					"pages_myself/all_class.html",
+					"login/login.html"
 				],
 				"priority": 0
 			},
@@ -763,7 +729,8 @@
 					"pages_main/course_scheduling.html",
 					"pages_student/course_record.html",
 					"pages_student/course_message.html",
-					"pages_student/course_detail.html"
+					"pages_student/course_detail.html",
+					"pages_main/fill_feedback.html"
 				],
 				"priority": 2
 			},
@@ -996,6 +963,13 @@
 				"resources": [],
 				"refer": [
 					"pages_myself/service_agreement.html"
+				],
+				"priority": 0
+			},
+			"pages_myself/study_class_radio.html": {
+				"resources": [],
+				"refer": [
+					"pages_myself/subject_list.html"
 				],
 				"priority": 0
 			}

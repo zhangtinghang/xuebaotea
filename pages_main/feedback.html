@@ -134,7 +134,18 @@
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript" src="../js/newDynamic.js" ></script>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({
+				beforeback: function(){ 
+					//获得列表界面的webview
+					var more_dynamic = plus.webview.getWebviewById('more_dynamic');
+					//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+					mui.fire(more_dynamic,'updateView',{
+						id:"刷新"
+					});
+					//返回true，继续页面关闭逻辑
+					return true;
+				}
+			});
 			mui.plusReady(function () {
 			    //监听返回
 				listenReturn();

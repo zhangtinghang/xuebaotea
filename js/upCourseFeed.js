@@ -1,11 +1,9 @@
 
-var sendFormData = function (dataObj,fileArr,fileObj){
-	var w=plus.nativeUI.showWaiting("资料上传中，请等待...",{modal:false});
+var sendFormData = function (dataObj,teacherImage){
 	var uploader = null;
 	//加密
 	var state = app.getState();
 	var key = state.data.key;
-	var fileObj = fileObj || {};
 	timestamp = Date.parse(new Date());
 	dataObj.timestamp = JSON.stringify(timestamp);
 	dataObj.userId = state.data.id;
@@ -21,45 +19,42 @@ var sendFormData = function (dataObj,fileArr,fileObj){
 	//前端使用HmacSHA1加密必须先将hash输出到input中才能获取正常值
 	getPassword.value = hash;
 	dataObj.token=getPassword.value;
-	dataObj.file = fileObj;
-	
-	var courseFile = fileArr.courseFile || [];
-	var url =ajaxUrl+'/restful1/course/newClassCourse';
+	var w=plus.nativeUI.showWaiting("资料上传中，请等待...",{modal:false});
+	var teacherImage = teacherImage || [];
+	var url =ajaxUrl+'/restful1/course/addCourseFeedback';
 		uploader = plus.uploader.createUpload(url, {
 			method: 'POST'
 		}, function(upload, status) {
-			w.close();
 			console.log("upload cb:"+upload.responseText);
+			w.close();
+			console.log('1333',status)
 			if(status==200){
-				var data = JSON.parse(upload.responseText);		
-				if (data.code == 200) {
-					var self = plus.webview.currentWebview();
-					self.close();
+				var data = JSON.parse(upload.responseText);
+				if (data.code === 200) {
+					console.log('提交成功！');
 					mui.back();
-					plus.nativeUI.toast('提交成功！');
-					
-				}else{
-					plus.nativeUI.toast(data.msg);
+				}else if(data.code === 1){
+					plus.nativeUI.toast('请上传所有信息！');
 				}
 			}else{
-				plus.nativeUI.toast(status);
 				console.log("upload fail");
 				console.log(status);
 				console.log(JSON.stringify(upload))
+				plus.nativeUI.toast(status);
 			}
 			
 		});
 		//添加上传数据
 		mui.each(dataObj, function(index, element) {
-				console.log("addData:"+index+","+element);
+			console.log("addData:"+JSON.stringify(element));
 				uploader.addData(index, element)
 		});
 		//添加上传文件
-		mui.each(courseFile, function(index, element) {
-			var f = courseFile[index];
+		mui.each(teacherImage, function(index, element) {
+			var f = teacherImage[index];
 			console.log("addFile:"+JSON.stringify(f.path));
 			uploader.addFile(f.path, {
-				key: "courseFile"
+				key: "file"
 			});
 		});
 		//开始上传任务

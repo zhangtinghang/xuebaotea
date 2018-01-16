@@ -107,12 +107,12 @@
 		</style>
 	</head>
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<ul id="mui-table-view" class="mui-table-view">
 				<li class="mui-table-view-cell mui-collapse mui-active">
 					<a class="mui-navigate-right" data-type = "0" href="#"><div class="title_icon classRotate"><img align="center" src="../images/main/teach_experience.png"/></div><div class="title_text">重点</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box"></textarea>
+						<textarea name="" id="feedbackImporttant" class="textarea_box"></textarea>
 					</div>
 				</li>
 				
@@ -120,7 +120,7 @@
 					<div class="line_box"></div>
 					<a class="mui-navigate-right" data-type="1" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">难点</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box"></textarea>
+						<textarea name="" id="feedbackDifficult" class="textarea_box"></textarea>
 					</div>
 				</li>
 				
@@ -128,7 +128,7 @@
 					<div class="line_box"></div>
 					<a class="mui-navigate-right" data-type="2" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">优点</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box"></textarea>
+						<textarea name="" id="feedbackScheme" class="textarea_box"></textarea>
 					</div>
 				</li>
 				
@@ -136,7 +136,7 @@
 					<div class="line_box"></div>
 					<a class="mui-navigate-right" data-type="3" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">缺点</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box"></textarea>
+						<textarea name="" id="feedbackQuestion" class="textarea_box"></textarea>
 					</div>
 				</li>
 				
@@ -144,23 +144,110 @@
 					<div class="line_box"></div>
 					<a class="mui-navigate-right" data-type="4" href="#"><div class="title_icon"><img src="../images/main/teach_experience.png"/></div><div class="title_text">作业</div></a>
 					<div class="mui-collapse-content">
-						<textarea name="" class="textarea_box"></textarea>
+						<textarea name="" id="feedbackHomework" class="textarea_box"></textarea>
 						<div class="img_box">
-							<span><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /><img src="../images/main/js_grzx_fk.png" /></span><img src="../images/main/js_grzx_fk.png" />
+							<span v-if="isPicture"><img v-for="imgItem in newsImgfile" :src="imgItem.path" /></span><img id="imgBtn" src="../images/main/js_grzx_fk.png" />
 						</div>
 					</div>
 				</li>
 			</ul>
 			
-			<button type="button" class="mui-btn mui-btn-block">发布</button>
+			<button type="button" id="send_course" class="mui-btn mui-btn-block">发布</button>
 		</div>
+		<!--取出加密值-->
+        <input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/upCourseFeed.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    var self = plus.webview.currentWebview();
+			    var courseId = self.courseId;
+			    var dataObj = {};
+			    var doc = {
+					feedbackImporttant:document.getElementById('feedbackImporttant'),
+					feedbackDifficult:document.getElementById('feedbackDifficult'),
+					feedbackScheme:document.getElementById('feedbackScheme'),
+					feedbackHomework:document.getElementById('feedbackHomework'),
+					imgBtn:document.getElementById('imgBtn'),
+					feedbackQuestion:document.getElementById('feedbackQuestion'),
+					send_course:document.getElementById('send_course')
+				}
+			    
+			    //存放图片地址
+			    var newsImgfile=[];
+			    
+			    //照片
+				doc.imgBtn.addEventListener('tap',function(){
+					var btnArray = [{
+						title: "拍照"
+					}, {
+						title: "从相册选择"
+					}];
+					plus.nativeUI.actionSheet({
+						title: "选择照片",
+						cancel: "取消",
+						buttons: btnArray
+					}, function(e) {
+						var index = e.index;
+						switch (index) {
+							case 0:
+								break;
+							case 1:
+								var cmr = plus.camera.getCamera();
+								cmr.captureImage(function(path) {
+									var lfs = "file://" + plus.io.convertLocalFileSystemURL(path);
+									honorAddFile(lfs);
+								}, function(err) {});
+							break;
+							case 2:
+								plus.gallery.pick(function(path) {				
+									for(var i in path.files){
+											lfs=path.files[i];
+									    	honorAddFile(lfs);
+								    	}
+								}, function(err) {}, {filter:"image",multiple:true,maximum:3,system:false});
+							break;
+						}
+					});
+				})
+				
+				var honorAddFile = function(path) {
+					newsImgfile.push({path:path})
+					//渲染图片
+					vm.isPicture = true;
+					vm.newsImgfile = newsImgfile;
+				}
+				//点击发布
+				doc.send_course.addEventListener('tap',function(){
+					dataObj.courseSectionId = courseId;
+					dataObj.feedbackImporttant = doc.feedbackImporttant.value;
+					dataObj.feedbackDifficult = doc.feedbackDifficult.value;
+					dataObj.feedbackQuestion = doc.feedbackQuestion.value;
+					dataObj.feedbackScheme = doc.feedbackScheme.value;
+					dataObj.feedbackHomework = doc.feedbackHomework.value;
+					if(doc.feedbackImporttant.value==''||doc.feedbackDifficult.value==''||doc.feedbackQuestion.value==''||doc.feedbackScheme.value=='' || doc.feedbackHomework.value==''){
+						return plus.nativeUI.toast('请填写完整信息');
+					}else{
+						sendFormData(dataObj,newsImgfile);
+					}
+					
+				})
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					newsImgfile:'',
+					isPicture:false
+				}			
 			})
 			//遍历li
 			var mui_table_view =document.getElementById("mui-table-view");

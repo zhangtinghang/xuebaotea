@@ -75,7 +75,7 @@
 		</header>
 		<div class="mui-content content" id="content">
 			<ul class="content_ul">
-				<li>
+				<!--<li>
 					<div class="list_avatar">
 						<img src="../images/im/list.png" />
 					</div>
@@ -92,115 +92,9 @@
 						<div class="message_title">王老师</div>
 						<div class="message_body">老师帮我看一下这个题</div>
 					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_2.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
-					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_2.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
-					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_2.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
-					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_2.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
-					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_2.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
-					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_2.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
-					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_2.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
-					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_2.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
-					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_2.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
-					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_2.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
-					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_2.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
-					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_2.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
-					</div>
-				</li>
+				</li>-->
+
+
 			</ul>
 		</div>
 		<!--沉浸式状态栏-->
@@ -219,7 +113,8 @@
 			mui.init()
 			mui.plusReady(function () {
 				document.getElementById("linkman").addEventListener('tap',function(){
-					openView.nativeView('linkman_contacts.html', 'linkman_contacts', '联系人');
+					plus.nativeUI.toast('此功能尚未开通~');
+//					openView.nativeView('linkman_contacts.html', 'linkman_contacts', '联系人');
 				})
 				
 				//监听登录刷新

@@ -108,9 +108,11 @@
 	
 	
 	feedback.send = function(content) {
+		var w=plus.nativeUI.showWaiting("处理中，请等待...\n",{modal:false});
 		feedback.uploader = plus.uploader.createUpload(url, {
 			method: 'POST'
 		}, function(upload, status) {
+			w.close();
 //			plus.nativeUI.closeWaiting()
 			console.log("upload cb:"+upload.responseText);
 			if(status==200){
