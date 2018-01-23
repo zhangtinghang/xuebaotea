@@ -164,12 +164,25 @@
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript" src="../js/upCourseFeed.js" ></script>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({
+				beforeback: function(){
+					//获得列表界面的webview
+					var me = plus.webview.getWebviewById('student_detail');
+					//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+					mui.fire(me,'showView',{
+						id:"刷新"
+					});
+					//返回true，继续页面关闭逻辑
+					return true;
+				}
+			});
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
 			    var self = plus.webview.currentWebview();
 			    var courseId = self.courseId;
+			    console.log('传递过来的courseId==',courseId)
+			    var sid = self.sid;
 			    var dataObj = {};
 			    var doc = {
 					feedbackImporttant:document.getElementById('feedbackImporttant'),

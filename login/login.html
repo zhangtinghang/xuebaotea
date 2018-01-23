@@ -125,7 +125,12 @@
 					var message = plus.webview.getWebviewById('im/msg_list.html');
 					var student = plus.webview.getWebviewById('pages_student/all_student.html');
 					var me = plus.webview.getWebviewById('pages_student/me.html');
+					var index = plus.runtime.appid;
+					var pages_index = plus.webview.getWebviewById(plus.runtime.appid);
 					//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+					mui.fire(pages_index,'showView',{
+						id:"刷新"
+					});
 					mui.fire(message,'showView',{
 						id:"刷新"
 					});
@@ -194,8 +199,10 @@
 //							        mui.back();
 									//登录环信
 								 	conn.open(options);
+								}else if(data.code==401){
+									plus.nativeUI.toast('type:-1 '+data.msg);
 								}else{
-									plus.nativeUI.toast('type:-1 登录失败!');
+									plus.nativeUI.toast('type:-1 '+data.err);
 								}
 							});
 						}

@@ -65,37 +65,43 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_show">
-				<div class="remaining_sum">王小明</div>
-				<div class="money">1200.00</div>
-				<div class="pay_msg">交易成功</div>
+				<div class="remaining_sum"></div>
+				<div class="money">课程结束</div>
+				<div class="pay_msg"></div>
 			</div>
 			<div class="pay_list">
 				<ul class="pay_list_ul">
 					<li><span>收款方式</span><span class="pay_list_right">余额</span></li>
-					<li><span>对方账户</span><span class="pay_list_right">王小明</span></li>
+					<li><span>对方账户</span><span class="pay_list_right" v-text="user.userName"></span></li>
 				</ul>
 			</div>
 			<div class="pay_list course_detail">
 				<ul class="pay_list_ul">
-					<li><span>课程类型</span><span class="pay_list_right" id="course_type"></span></li>
-					<li><span>课程科目</span><span class="pay_list_right">语文</span></li>
-					<li><span>问题类型</span><span class="pay_list_right" id="name_type"></span></li>
-					<li><span>课程时长</span><span class="pay_list_right">3000min</span></li>
+					<li><span>课程类型</span><span class="pay_list_right" v-text="course.courseTypeName"></span></li>
+					<li><span>课程科目</span><span class="pay_list_right" v-text="course.subjectName"></span></li>
+					<li><span>问题类型</span><span class="pay_list_right" v-text="course.onetoonetype==1?'一对一':'班课'"></span></li>
+					<li><span>课程时长</span><span class="pay_list_right"><span v-text="course.courseDuration"></span>min</span></li>
 				</ul>
 			</div>
 			<div class="pay_list create_time">
 				<ul class="pay_list_ul create_time_ul">
-					<li><span>创建时间</span><span class="pay_list_right">2017-09-21 20:30</span></li>
-					<li><span>订单号</span><span class="pay_list_right">201709211891485159196</span></li>
+					<li><span>创建时间</span><span class="pay_list_right" v-text="courseSection.courseStartDate"></span></li>
+					<li><span>订单号</span><span class="pay_list_right" v-text="courseSection.id+teacher.createTime+course.incourse+course.issearch+course.onetoonetype"></span></li>
 				</ul>
 			</div>
 			
 			
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
@@ -103,13 +109,48 @@
 			    listenReturn();
 			    var self = plus.webview.currentWebview();
 			    var type = self.type;
-			    if(type == '1'){
-			    	document.getElementById("course_type").innerHTML = '一对一';
-			    	document.getElementById("name_type").innerHTML = '上课走神型';
-			    }else{
-			    	document.getElementById("course_type").innerHTML = '班课';
-			    	document.getElementById("name_type").innerHTML = '基础级';
+			    var sid = self.sid;
+			    if(type){
+			    	if(type == '1'){
+				    	document.getElementById("course_type").innerHTML = '一对一';
+				    	document.getElementById("name_type").innerHTML = '上课走神型';
+				    }else{
+				    	document.getElementById("course_type").innerHTML = '班课';
+				    	document.getElementById("name_type").innerHTML = '基础级';
+				    }
+			    }				    
+			    
+			    if(sid){
+			    	var ajaxData = {
+						url:'restful1/message/getServiceMessageById',
+						data: {
+							id:sid,
+						},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log('课程结束后===',JSON.stringify(data))
+						if(data.code == 200){
+							vm.courseSection = data.data.courseSection;
+							vm.course = data.data.course;
+							vm.teacher = data.data.teacher;
+							vm.user = data.data.user;
+//							courseId = data.data.courseSection.id;
+						}else{
+							plus.nativeUI.toast(data.msg);
+						}
+				},true);
 			    }
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					courseSection:{},
+					teacher:{},
+					course:{},
+					user:{}
+				}
 			})
 		</script>
 	</body>

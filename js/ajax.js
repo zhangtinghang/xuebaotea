@@ -1,4 +1,5 @@
 var ajaxUrl = 'http://118.126.109.71:8080/webapp';
+var imgUrl = 'https://www.yixuebaochina.com:4433/image';
 var ajax = function(ajaxData,callback,encrypt,userid) {
 	//判断网络
 	if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
@@ -29,6 +30,7 @@ var ajax = function(ajaxData,callback,encrypt,userid) {
 			dataJSON.userId = state.data.id;
 		}
 		dataJSON.timestamp = Date.parse(new Date());
+		console.log('请求参数==',JSON.stringify(dataJSON))
 		//取出key相加后返回
 		var hashStr = encryptAdd(dataJSON);
 		//处理数据结束

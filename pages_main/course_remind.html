@@ -61,33 +61,104 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_course">课程信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">课程名</span><span>语文</span></div>
-				<div class="list"><span class="list_left">老师</span><span>王老师</span></div>
-				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
-				<div class="list"><span class="list_left">问题类型</span><span>上课走神型</span></div>
-				<div class="list list_last"><span class="list_left">课程进度</span><span>8/10</span></div>
+				<div class="list"><span class="list_left">课程名</span><span v-text="course.subjectName"></span></div>
+				<div class="list"><span class="list_left">老师</span><span v-text="teacher.name"></span></div>
+				<div class="list"><span class="list_left">课堂类型</span><span v-text="course.onetoonetype==1?'一对一':'班课'"></span></div>
+				<div class="list"><span class="list_left">问题类型</span><span v-text="course.courseTypeName"></span></div>
+				<div class="list list_last"><span class="list_left">课程进度</span>
+					<span v-if="course.onetoonetype==1">1/1</span>
+					<span v-else-if="course.onetoonetype==0">1/1</span>
+				</div>
 			</div>
 			
 			<div class="content_course course_remind">上课信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">上课时间</span><span>今天09:00</span></div>
-				<div class="list"><span class="list_left">安排时长</span><span>120min</span></div>
-				<div class="list"><span class="list_left">上课模式</span><span>教师上门</span></div>
-				<div class="list list_last"><span class="list_left">上课地点</span><span>青城阳光1号楼2楼东户</span></div>
+				<div class="list"><span class="list_left">上课时间</span><span>{{courseSection.courseStartDate}}</span></div>
+				<div class="list"><span class="list_left">安排时长</span><span>{{course.courseDuration}}min</span></div>
+				<div class="list"><span class="list_left">上课模式</span><span v-text="course.issearch==1?'学生上门':'教师上门'"></span></div>
+				<div class="list list_last"><span class="list_left">上课地点</span><span>{{course.organizationId | organization}}</span></div>
 			</div>
 			
-			<button type="button" class="mui-btn mui-btn-block">开始</button>
+			<button type="button" class="mui-btn mui-btn-block" :data-type="1" id="start"></button>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    var self = plus.webview.currentWebview();
+			    var sid = self.sid;
+			    var typeNew = self.typeNew;
+			    var courseId = '';
+			    var start = document.getElementById("start");
+			    start.innerHTML='开始';
+			    var ajaxData = {
+						url:'restful1/message/getServiceMessageById',
+						data: {
+							id:sid,
+						},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+						if(data.code == 200){
+							vm.courseSection = data.data.courseSection;
+							vm.course = data.data.course;
+							vm.teacher = data.data.teacher;
+							courseId = data.data.courseSection.id;
+							if(data.data.courseSection.courseSectionStatus==2){
+								start.disabled="true";
+							}else{
+								start.disabled="false";
+							}
+						}else{
+							plus.nativeUI.toast(data.msg);
+						}
+				},true);
+				start.addEventListener('tap',function(){
+					var that = this;
+					start.disabled="false";
+					var type = 1;
+					var ajaxData = {
+						url:'restful1/course/updateClassStatus',
+						data: {
+							classSection:courseId,
+							status:type
+						},
+						type:'post'
+					}
+					ajax(ajaxData, function(data) {
+						console.log(JSON.stringify(data))
+							if(data.code == 200){
+								plus.nativeUI.toast(data.msg);
+							}else{
+								plus.nativeUI.toast(data.msg);
+								start.disabled="true";
+							}
+					},true);
+				})
+			})	
+			Vue.filter('organization',function(value){
+				return originid(value);
+			})
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					courseSection:{},
+					course:{},
+					teacher:{}
+				}			
 			})
 		</script>
 	</body>

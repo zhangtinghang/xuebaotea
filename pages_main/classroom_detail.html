@@ -89,6 +89,7 @@
 				width: 100%;
 				align-items: center;
 				height: 1.222222rem;
+				z-index: 99;
 			}
 			.footer input{
 				margin: 0 !important;
@@ -112,37 +113,38 @@
 				color: #FFFFFF;
 				border-radius:5px;
 				background-color: rgb(190,190,190);
+				z-index: 99;
 			}
 		</style>
 	</head>
 
-	<body>
-		<div class="footer">
-			<input type="text" id="" value="" />
-			<div class="foot-btn">发送</div>
+	<body>				
+		<div class="footer" id="footer">
+			<input type="text" id="commit_context" value="" />
+			<div class="foot-btn" id="send_commit">发送</div>
 		</div>
-		<div class="content">
-			<div class="content_course">语文课反馈</div>
+		<div class="content" id="msg-content">
+			<div class="content_course">课堂反馈</div>
 			<div class="detail_box">
 				<div class="detail_list">
 					<div class="list_left">重点:</div>
-					<div class="list_right">本节课的重点在于对文言文的特殊语句的区分。</div>
+					<div class="list_right" v-text="feedback.feedbackImportant"></div>
 				</div>
 				<div class="detail_list">
 					<div class="list_left">难点:</div>
-					<div class="list_right">祈使句使用。</div>
+					<div class="list_right" v-text="feedback.feedbackDifficult"></div>
 				</div>
 				<div class="detail_list">
 					<div class="list_left">优点:</div>
-					<div class="list_right">学生对于祈使句理解有难度。</div>
+					<div class="list_right" v-text="feedback.feedbackScheme"></div>
 				</div>
 				<div class="detail_list">
 					<div class="list_left">缺点:</div>
-					<div class="list_right">多加练习。</div>
+					<div class="list_right" v-text="feedback.feedbackQuestion"></div>
 				</div>
 				<div class="detail_list">
 					<div class="list_left">作业:</div>
-					<div class="list_right">文言文翻译。</div>
+					<div class="list_right" v-text="feedback.feedbackHomework"></div>
 				</div>
 				<div class="detail_list">
 					<div class="list_left"></div>
@@ -152,25 +154,85 @@
 			<div class="evaluate">
 				学生评论
 			</div>
-			<div class="commit">
+			<div class="commit" v-if="feedback.comments.length!=0">
 				<ul class="commit_ul">
-					<li><div class="commit_per"><span>王小明：</span></div><div class="commit_text">老师很负责，上课讲的很好老师很负责，上课讲的很好</div></li>
-					<li><div class="commit_per"><span>我</span> 回复<span> 王小明：</span class="commit_text"></div><div>好好复习。</div></li>
+					<!--<li><div class="commit_per"><span>：</span></div><div class="commit_text">老师很负责，上课讲的很好老师很负责，上课讲的很好</div></li>-->
+					<li v-for="commItem in feedback.comments"><div class="commit_per"><span v-text="commItem.commentSourceName"></span> 回复<span> <span v-text="commItem.commentTargetName"></span>：</span class="commit_text"></div><div><span v-text="commItem.commentContent"></span></div></li>
 				</ul>
 			</div>
 		</div>
+		<!--取出加密值-->
+        <input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function (){
 				//监听返回
 			    listenReturn();
+				var self = plus.webview.currentWebview();
+				var courseDetail = self.courseDetail;
+				vm.feedback = courseDetail.feedback;
+				var send_commit = document.getElementById('send_commit');
+				var commit_context = document.getElementById('commit_context');
+				//监听评论
+				mui('#footer').on('tap','.foot-btn',function(){
+					var userOne = '';
+					var userTwo = '';
+					var courseId = courseDetail.feedback.courseId;
+					var courseSection = self.courseSection;
+					var commentSourceId = courseDetail.feedback.teacherId;
+					if(courseDetail.feedback){
+						if(courseDetail.feedback.comments.length){
+							userOne = courseDetail.feedback.comments[0].commentSourceId;
+							userTwo =courseDetail.feedback.comments[0].commentSourceId;
+						}	
+					}
+					if(commentSourceId==userOne){
+						commentTargetId = userTwo;
+					}else if(commentSourceId == userTwo){
+						commentTargetId = userOne;
+					}else{
+						return plus.nativeUI.toast('无法回复评论~');
+					}
+					
+					if(!commit_context.value){
+						return plus.nativeUI.toast('输入评论信息~');
+					}
+					//添加评论
+					var ajaxData = {
+						url:'restful1/course/addComment',
+						data: {
+							courseId:courseId,
+							courseSection:courseSection,
+							commentSourceId:commentSourceId,
+							commentTargetId:commentTargetId,
+							commentContent:commit_context.value,
+							commentRank:-1
+						},
+						type:'post'
+					}
+					ajax(ajaxData, function(data) {
+						console.log(JSON.stringify(data))
+							if(data.code == 200){
+								plus.nativeUI.toast(data.msg);
+							}else{
+								plus.nativeUI.toast(data.msg);
+							}
+					},true);
 				
-//			    document.getElementById("comment_btn").addEventListener('tap',function(){
-//			    	//传参
-//			    	openView.nativeView('comment.html', 'comment', '发表评论');
-//			    })
+				})
+				
+			})
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					feedback:{}
+				}			
 			})
 		</script>
 	</body>

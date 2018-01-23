@@ -52,7 +52,8 @@
 		],
 		"refer": [
 			"pages_myself/self_change.html",
-			"pages_myself/localtion.html"
+			"pages_myself/localtion.html",
+			"pages_myself/sex_change.html"
 		],
 		"priority": 0
 	},
@@ -107,7 +108,9 @@
 			"js/mui.min.js",
 			"js/config.js"
 		],
-		"refer": [],
+		"refer": [
+			"pages_myself/platform.html"
+		],
 		"priority": 0
 	},
 	"pages_wallet/withdraw_deposit.html": {

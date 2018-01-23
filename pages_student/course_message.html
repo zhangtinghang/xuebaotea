@@ -94,20 +94,26 @@
 			<div class="content_body">
 				<div class="list"><span class="list_left">年级</span><span v-text="student.className"></span></div>
 				<div class="list"><span class="list_left">学生</span><span v-text="student.name"></span></div>
-				<div class="list"><span class="list_left">课程类型</span><span v-text="course.courseTypeName">一对一</span></div>
-				<div class="list"><span class="list_left">问题类型</span><span v-text="student.className">上课走神型</span></div>
+				<div class="list"><span class="list_left">课程类型</span><span v-text="course.courseTypeName || '一对一'"></span></div>
+				<div class="list"><span class="list_left">问题类型</span><span v-text="student.className"></span></div>
 			</div>
 			
 			<div class="content_course course_remind">其他信息</div>
-			<ul class="content_body_ul">
+			<ul class="content_body_ul" v-if="organizationId">
+				<li class="list_li"><span class="list_left">上课日期<span class="course_message">{{course.courseStartDate | dateTime}}</span></span></li>
+				<li class="list_li"><span class="list_left">上课时间<span class="course_message message_time">{{course.courseStartDate | courseTime}}-{{course.courseEndDate | courseTime}}</span></span></li>
+				<li class="list_li"><span class="list_left">上课地点<span class="course_message">{{organizationId | origaniztion}}</span></span><!--<span class="right_icon"><img src="../images/main/edit_arrange.png" /></span>--></li>
+			</ul>
+			<ul class="content_body_ul" v-else>
 				<li class="list_li"><span class="list_left">上课日期<span class="course_message">{{course.courseStartTime | dateTime}}</span></span></li>
-				<li class="list_li"><span class="list_left">上课时间<span class="course_message message_time">{{course.courseStartTime | courseTime}}-{{course.courseEndTime | | courseTime}}</span></span></li>
+				<li class="list_li"><span class="list_left">上课时间<span class="course_message message_time">{{course.courseStartTime | courseTime}}-{{course.courseEndTime | courseTime}}</span></span></li>
 				<li class="list_li"><span class="list_left">上课地点<span class="course_message">{{course.organizationId | origaniztion}}</span></span><!--<span class="right_icon"><img src="../images/main/edit_arrange.png" /></span>--></li>
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
@@ -116,18 +122,52 @@
 			    //获取参数
 			    var self = plus.webview.currentWebview();
 			    var courseData = self.courseData;
+			    var type = self.type;
 			    var data = self.data;
 			    courseData = JSON.parse(courseData);
 			    data = JSON.parse(data);
-			    vm.student = data.student;
-			    vm.course = courseData;
+			    if(type==0){			    	
+			    	vm.student = data;
+			    	vm.course = courseData;
+			    }else if(type==1){
+			    	var organizationId = self.organizationId;
+			    	var courseTypeName = self.courseTypeName;
+			    	vm.organizationId = organizationId;
+			    	vm.student = data;
+			    	vm.course = courseData;
+			    }
+			    
 			})
-			
+			//时间
+			Vue.filter('courseTime',function(value){
+				console.log('这是',value)
+				if(value){
+					var value = value.split(" ");
+					var time = value[1].split(":");
+					return time[0]+':'+time[1];
+				}	
+			})
+			//日期
+			Vue.filter('dateTime',function(value){
+				if(value){
+					var time = value.replace(/-/g,"/");
+					time = new Date(time);
+					var getMonth = time.getMonth()+1;
+					var getHour = time.getDate();
+					return getMonth +'月'+getHour+'日';
+				}
+			})
+			//地点
+			Vue.filter('origaniztion',function(origin){
+				return originid(origin);
+			})
 			var vm = new Vue({
                 el: '#msg-content',
                 data: {
                     student:{},
-                    course:{}
+                    course:{},
+                    organizationId:'',
+                    courseTypeName:''
                 }           
            })
 		</script>

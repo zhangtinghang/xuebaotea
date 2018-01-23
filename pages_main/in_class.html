@@ -70,29 +70,104 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="nav">
 				<div class="nav_title">上课状态</div>
 				<div class="body_btn">
-					<button type="button" class="mui-btn mui-btn-block">结束</button>
+					<button type="button" class="mui-btn mui-btn-block" id="start">结束</button>
 				</div>
 			</div>
 			<div class="content_course">课程信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">年级</span><span>初一</span></div>
-				<div class="list"><span class="list_left">学生</span><span>王小明</span></div>
-				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
-				<div class="list"><span class="list_left">排课时长</span><span>120分钟</span></div>
-				<div class="list list_last"><span class="list_left">开始时间</span><span>09：20</span></div>
+				<div class="list"><span class="list_left">年级</span><span v-text="course.className"></span></div>
+				<div class="list"><span class="list_left">学生</span><span v-text="teacher.name"></span></div>
+				<div class="list"><span class="list_left">课堂类型</span><span v-text="course.onetoonetype==1?'一对一':'班课'"></span></div>
+				<div class="list"><span class="list_left">排课时长</span><span><span v-text="course.courseDuration"></span>分钟</span></div>
+				<div class="list list_last"><span class="list_left">开始时间</span><span>{{section.courseStartDate | courseTime}}</span></div>
 			</div>			
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    var self = plus.webview.currentWebview();
+			     var sid = self.sid;
+			    var courseId = '';
+			    var start = document.getElementById("start");
+			     start.disabled="false";
+			    //判断初始状态和信息
+			    var ajaxData = {
+						url:'restful1/message/getServiceMessageById',
+						data: {
+							id:sid,
+						},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+						if(data.code == 200){
+							vm.course = data.data.course;
+							vm.teacher = data.data.stuent;
+							vm.section = data.data.section;
+							courseId = data.data.section.id;
+							if(data.data.section.courseSectionStudentStatus==0){
+								start.disabled="true";
+							}else{
+								start.disabled="false";
+							}
+						}else{
+							plus.nativeUI.toast(data.msg);
+						}
+				},true);
+			    //结束课程
+			    start.addEventListener('tap',function(){
+					var that = this;
+					
+					var type = 0;
+					console.log('zheshi1',courseId)
+					var ajaxData = {
+						url:'restful1/course/updateClassStatus',
+						data: {
+							classSection:courseId,
+							status:type
+						},
+						type:'post'
+					}
+					ajax(ajaxData, function(data) {
+						console.log(JSON.stringify(data))
+							if(data.code == 200){
+								start.disabled="true";
+								plus.nativeUI.toast(data.msg);
+							}else{
+								plus.nativeUI.toast(data.msg);
+								start.disabled="false";
+							}
+					},true);
+				})
+			})
+			Vue.filter('courseTime',function(value){
+				if(value){
+					var value = value.split(" ");
+					var time = value[1].split(":");
+					return time[0]+':'+time[1];
+				}
+				
+			})
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					course:{},
+					teacher:{},
+					section:{}
+				}			
 			})
 		</script>
 	</body>

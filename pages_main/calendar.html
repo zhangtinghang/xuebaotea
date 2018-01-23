@@ -27,6 +27,7 @@
 				color: #000000;
 				font-family: 微软雅黑;
 				width: 100%;
+				position:relative;
 				z-index: 999;
 				background-color: #FEFEFE;
 				border-bottom: 1px solid #f0f0f0;
@@ -58,7 +59,7 @@
 			
 			#date-list{
 				position: relative;
-				z-index: -1;
+				z-index: 1;
 				display: flex;
 				flex-wrap: wrap;
 				padding-top: 0.277777rem;
@@ -222,9 +223,9 @@
 				<ul  id="date-list">
 					<li v-for="item in ahead_time" :data-type = "item"></li>
 					<!--完课-->
-					<li v-for="(item,index) in date_getMonth" v-if="now_day != item" class="date_day"  :date-day="item"><div class="circle" v-text="item"></div><div class="course_text"></div></li>
+					<li v-for="(item,index) in date_getMonth" v-if="now_day != item" class="date_day"  :date-day="item"><div class="circle" v-text="item"></div><div class="course_text fuCourse">{{item | TheEvent}}</div></li>
 					<!--当天有课-->
-					<li v-else class="date_day" id="nowDay" :date-day="item"><div class="circle todayCircle" v-text="item"></div><div class="course_text dayCourse"></div></li>
+					<li v-else class="date_day" id="nowDay" :date-day="item"><div class="circle todayCircle" v-text="item"></div><div class="course_text dayCourse" id="dayCourse"></div></li>
 
 					<!--待上课-->
 					<!--<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div class="course_text fuCourse">待上课</div></li>-->
@@ -232,18 +233,26 @@
 			</div>
 		<div id="list_box" class="list_box">
 			<div class="line_box"></div>
-			<div class="show_day">
-				<div class="blue_cirle"></div>今天
-			</div>
+			<div class="show_day"><div class="blue_cirle"></div><span id="toDo">
+				今天
+			</span></div>
 			<ul class="list_ul">
-				<!--<li>
-					<div class="list_title"><span class="title_time">15:30</span>语文</div>
-					<div class="list_body"><div class="body_text">王老师<span>【班课】</span></div></div>
-				</li>-->
-				<!--<li>
-					<div class="list_title"><span class="title_time">15:30</span>语文</div>
-					<div class="list_body"><div class="body_text">王老师<span>【一对一】</span></div></div>
-				</li>-->
+				<div v-for="item in messageList">
+					<li v-if="item.onetoonetype==1" v-for="courseItem in item.courseSection">
+						<div class="list_title"><span class="title_time">{{courseItem.courseStartDate | carouselTime}}</span><span v-text="item.subjectName"></span></div>
+						<div class="list_body"><div class="body_text">王老师<span>【一对一】</span></div><div class="body_right">{{courseItem.courseSectionStatus | courseStatus}}</div></div>
+					</li>
+					<li v-if="item.onetoonetype==0">
+						<div class="list_title"><span class="title_time">{{item.courseStartTime | carouselTime}}</span><span v-text="item.subjectName"></span></div>
+						<div class="list_body"><div class="body_text">王老师<span>【班课】</span></div><div class="body_right">{{item.status | courseStatus}}</div></div>
+					</li>
+				</div>
+				<!--<div>
+					<li>
+						<div class="list_title"><span class="title_time">15:30</span>语文</div>
+						<div class="list_body"><div class="body_text">王老师<span>【一对一】</span></div><div class="body_right">待上课</div></div>
+					</li>
+				</div>		-->
 			</ul>
 		</div>
 	</div>	
@@ -261,15 +270,71 @@
 				   swipe: true, //默认为true
 				  }
 			});
+			var theEventArr = [];//完课存储数组
+			var dataCache = '';
 			mui.plusReady(function() {
 				//监听返回
 				listenReturn();
 				//新建班课
 				listenNext('新建班课','new_class.html','new_class','新建班课','60px');
-				//当前日期
-				mui('#date-list').on('tap', '.date_day', function() {
-					//			var day = this.getAttribute('date-day');
-				});
+				//点击事件
+				var toDo = document.getElementById("toDo");
+				toDo.innerHTML = '今天';
+				mui('#dateListBox').on('tap', '.date_day', function() {
+						var day = this.getAttribute('date-day');
+						var nowTime = new Date();
+						var getHour = nowTime.getDate();
+						if(day == getHour){
+							toDo.innerHTML = '今天';
+						}else{
+							toDo.innerHTML = day+'号';
+						}
+						
+						var dataArr = [];//课程详情数组
+						vm.messageList = [];
+						console.log(day)
+						//根据日期查询数据并加以渲染
+						var data = dataCache;
+						
+							for(var i=0;i<=data.length;i++){
+								if(data[i]){
+									
+									if(data[i].onetoonetype==0){
+										//班课
+										var value = data[i].courseStartTime;							
+										if(value){
+											var time = value.replace(/-/g,"/");
+											time = new Date(time);
+											var getHour = time.getDate();
+											if(day == getHour){
+												var dataObj = data[i];													
+												dataArr.push(dataObj);
+											}
+										}							
+									}else if(data[i].onetoonetype==1){
+										//一对一
+										var value = data[i].courseSection;
+										if(value.length != 0){
+											for(var j=0;j<value.length;j++){
+												var valueTime = value[j].courseStartDate;
+												var time = valueTime.replace(/-/g,"/");
+												time = new Date(time);
+												var nowTime = new Date();
+												var getHour = time.getDate();
+												var nowHour = nowTime.getDate();
+												if(getHour == day){
+													var dataObj = data[i];
+													dataArr.push(dataObj);
+												}
+											}
+											
+										}
+									}
+								}
+							}
+						//渲染数据
+						vm.messageList = dataArr;
+					})
 				
 				//监听滑动
 				var bodyBox = document.getElementById("bodyBox");
@@ -308,6 +373,61 @@
             		list_box.style.webkitTransform="translateY(0)";
             		list_box.style.transform="-webkit-translateY(0)";
 				});	
+			})
+			var nowTime = new Date();
+			var nowMonth = nowTime.getMonth()+1;
+			var nowHour = nowTime.getDate();
+			var dayCourse = document.getElementById("dayCourse");
+			//渲染是否完课标识
+			Vue.filter('TheEvent',function(item){
+				//数组去重
+				var days = theEventArr.unique2();
+				for(var i=0;i<days.length;i++){
+					if(item==days[i]){
+						if(item < nowHour){
+							return '完课';
+						}else if(item > nowHour){
+							return '有课';
+						}else if(item == nowHour){
+							dayCourse.innerHTML='有课';
+						}
+					}
+				}
+			})
+			
+			Array.prototype.unique2 = function(){
+			 	this.sort(); //先排序
+				var res = [this[0]];
+			 	for(var i = 1; i < this.length; i++){
+			 		if(this[i] !== res[res.length - 1]){
+			   		res.push(this[i]);
+			 		}
+				}
+			 return res;
+			}
+			Vue.filter('courseStatus',function(item){
+				if(item){
+					switch (item){
+						case 0:
+							return '已结课';
+							break;
+						case 1:
+							return '正在上课';
+							break;
+						case 2:
+							return '待上课';
+							break;
+						default:
+							break;
+					}
+				}
+			})
+			Vue.filter('carouselTime',function(value){
+				if(value){
+					var value = value.split(" ");
+					var time = value[1].split(":");
+					return time[0]+':'+time[1];
+				}
 			})
 			
 			var vm = new Vue({
@@ -350,30 +470,63 @@
 //			获取网络数据
 			var timeOfMonth = todu(date.getFullYear()) + todu(date.getMonth() + 1);
 		    var ajaxData1 = {
-					url:'restful1/course/getCoursesByMonth',
+					url:'restful1/course/getTeacherCoursesByMonth',
 					data: {
 						timeOfMonth:timeOfMonth
 					},
 					type:'post'
 				}
 			ajax(ajaxData1, function(data) {
-				console.log('这是课程列表===',JSON.stringify(data))		
-			},true); 
-			
-			//获取排课时间
-			var state = app.getState();
-			var ajaxData = { 
-					url:'restful1/course/getClassStatisticsByStudentId',
-					data: {},
-					type:'post'
-				}
-			
-			ajax(ajaxData, function(data) {
-				if(data.code==200){
-					vm.courseData = data.data;
-				}
-				console.log('这是课程列表2===',JSON.stringify(data))		
-			},true,true);
+					dataCache = data.data;
+					var dataArr = [];//课程详情数组
+					console.log('这是课程安排表==',JSON.stringify(dataCache))
+					for(var i=0;i<data.data.length;i++){
+						if(data.data[i].onetoonetype==0){
+							//班课
+							var value = data.data[i].courseStartTime;
+							if(value){
+								var time = value.replace(/-/g,"/");
+								time = new Date(time);
+								var nowTime = new Date();
+								var getMonth = time.getMonth()+1;
+								var getHour = time.getDate();
+								var nowMonth = nowTime.getMonth()+1;
+								var nowHour = nowTime.getDate();
+								if(nowMonth == getMonth){
+									theEventArr.push(getHour);
+									if(nowHour == getHour){
+										var dataObj = data.data[i];
+										dataArr.push(dataObj);
+									}
+								}
+							}
+							
+						}else if(data.data[i].onetoonetype==1){
+							//一对一
+							var value = data.data[i].courseSection;
+							if(value.length != 0){
+								for(var j=0;j<value.length;j++){
+									var valueTime = value[j].courseStartDate;
+									var time = valueTime.replace(/-/g,"/");
+									time = new Date(time);
+									var getMonth = time.getMonth()+1;
+									var getHour = time.getDate();
+									var nowMonth = nowTime.getMonth()+1;
+									var nowHour = nowTime.getDate();
+									if(nowMonth == getMonth){
+										theEventArr.push(getHour);
+										if(nowHour == getHour){
+											var dataObj = data.data[i];
+											dataArr.push(dataObj);
+										}
+									}
+								}	
+							}
+						}
+					}
+					//渲染数据
+					vm.messageList = dataArr;
+				},true,true); 
 
 			function getCountDays() {
 				var curDate = new Date();

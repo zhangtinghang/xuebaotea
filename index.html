@@ -202,25 +202,23 @@
 			<div class="serve_nav" id="course_box">
 				<div class="nav_line"></div>
 				<span class="nav_serve">服务消息</span>
-				<div id="server_more" class="nav_more">更多</div>
+				<div id="server_more" class="nav_more" v-if="serverArr.length != 0">更多</div>
 			</div>
 			<div class="mui-scroll-wrapper" id="mui-scroll-wrapper">
 				<div class="mui-scroll" id="mui-scroll">
 					
-					<div class="class_message_box" id="class_message_box">
-						<!--<div class="class_message" data-type="1">
-							<div class="message_title">
-								<div class="title_img"><img src="images/main/in_class_icon.png" /></div>
-								<div class="title_text">上课中</div>
-								<div class="title_time">16:54</div>
-							</div>
-							<div class="message_body">
-								<div class="body_choose">【语文】</div>
-								<div class="body_detail">查看详情 <img align="center" src="images/main/look_detail_icon.png" /></div>
-							</div>
-						</div>-->
-
+					<div v-for="(item, key, index) in serverArr" class="class_message" v-if="item.type!=13 || item.type!=14" :data-type="item.type | serverType" :data-detailId="item.detailId" :data-typeNew="item.type" :data-id="item.id">
+						<div class="message_title">
+							<div class="title_img"><img src="images/main/icon_schooltime.png" /></div>
+							<div class="title_text" v-text="item.desc"></div>
+							<div class="title_time">{{item.time | dateTime}}</div>
+						</div>
+						<div class="message_body">
+							<div class="body_choose" v-text="item.message"></div>
+							<div class="body_detail">查看详情  <img src="images/main/look_detail_icon.png"/></div>
+						</div>
 					</div>
+					
 				</div>
 			</div>
 			
@@ -240,6 +238,7 @@
 		<script type="text/javascript" src="js/storage/websql.js" ></script>
 		<script type="text/javascript" src="js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="js/ajax.js" ></script>
+		<script type="text/javascript" src="js/index.js" ></script>
 		<script type="text/javascript">
 			var aniShow = {}; 
 			mui.init({
@@ -247,19 +246,7 @@
 			});
 			mui.plusReady(function () {
 			    // 创建子webview窗口 并初始化
-				util.initSubpage(aniShow);
-				
-				getPushInfo();
-				function getPushInfo(){
-				    var info = plus.push.getClientInfo();
-				    console.log( "获取客户端推送标识信息：" );
-				    console.log( "token: "+info.token );
-				    console.log( "clientid: "+info.clientid );
-				    console.log( "appid: "+info.appid );
-				    console.log( "appkey: "+info.appkey );
-				}
-				
-				
+				util.initSubpage(aniShow);				
 				var nview = plus.nativeObj.View.getViewById('tabBar'),
 					activePage = plus.webview.currentWebview(),
 					targetPage,
@@ -331,19 +318,18 @@
 					openView.incView('login/login.html', 'login', '欢迎登陆');
 				}
 				
-				
-				//监听推送消息
-				plus.push.addEventListener( "receive", function( msg ) {
-				    	console.log('监听到消息',JSON.stringify(msg))
-				    	mui.toast('这是接收的消息'+msg);
-				        if ( msg.aps ) {  // Apple APNS message
-				             mui.toast( "接收到在线APNS消息：" );
-				        } else {
-				             mui.toast( "接收到在线透传消息：" );
-				        }
-				    }, false );
-				
-				
+				//监听个推消息
+				push();
+				//更新个推
+				updateClient();
+				//获取个推消息
+				getServerMess();
+				//监听登录刷新
+				window.addEventListener('showView',function(event){
+					push();
+					updateClient();
+					getServerMess();
+				});
 				//课程订单
 				document.getElementById("course").addEventListener('tap',function(){
 					openView.nativeView('pages_main/single_class.html', 'single_class', '课程订单','','none');
@@ -357,31 +343,123 @@
 					openView.nativeView('pages_main/server_list.html', 'server_list', '服务消息','','none');
 				});
 				//具体服务
-				mui('#class_message_box').on('tap','.class_message',function(){
+				mui('#mui-scroll').on('tap','.class_message',function(){
 					var type = this.getAttribute('data-type');
+					var sid = this.getAttribute('data-id');
+					var detailId = this.getAttribute('data-detailId');
 					switch(type)
-			    	{
-			    		case '1':
-			    		openView.nativeView('pages_main/in_class.html', 'in_class', '上课中');
-			    		break;
-			    		case '2':
-			    		openView.nativeView('pages_wallet/Withdrawal_success.html','Withdrawal_success', '提现成功');
-			    		break;
-			    		case '3':
-			    		openView.nativeView('pages_main/fill_feedback.html', 'fill_feedback', '课堂反馈');
-			    		break;
-			    		case '4':
-			    		openView.nativeView('pages_main/course_remind.html', 'course_remind', '上课提醒');
-			    		break;
-			    		default:
-						  //异常处理
+						{
+						case '1':
+							openView.nativeView('pages_main/in_class.html', 'in_class', '上课中',{sid:sid});
+							break;
+						case '2':
+							openView.nativeView('pages_main/pay_success.html', 'pay_success', '充值成功',{sid:sid});
+							break;
+						case '3':
+							chooseCourse(sid,detailId);							
+							break;
+						case '4':
+							openView.nativeView('pages_main/Withdrawal_success.html', 'Withdrawal_success', '提现成功',{sid:sid});
+							break;
+						case '5':
+							openView.nativeView('pages_main/course_remind.html', 'course_remind', '上课提醒',{sid:sid});
+							break;
+						case '6':
+							plus.nativeUI.toast('此功能尚未开通~');
+//							openView.nativeView('course_arrangement.html', 'course_arrangement', '课程安排',{sid:sid});
+							break;
+						case '7':
+							openView.nativeView('pages_main/indent_succ.html', 'indent_succ', '订单信息',{sid:sid});
+						break;
+						case '8':
+							openView.nativeView('pages_myself/indent_detail.html', 'indent_detail', '订单详情',{sid:sid});
+						break;
+						default:		
+						}
+				})
+				
+				function chooseCourse(sid,detailId){
+					//推送的课堂反馈，需先查到课程id
+				    if(sid){
+				    	var ajaxData = {
+							url:'restful1/message/getServiceMessageById',
+							data: {
+								id:sid,
+							},
+							type:'post'
+						}
+						ajax(ajaxData, function(data) {
+							console.log(JSON.stringify(data))
+								if(data.code == 200){
+									//判断是否填写课堂反馈，如果反馈，查看信息，若未反馈，填写反馈
+									if(data.data.feedback){
+										var courseDetail = data.data;
+										openView.nativeView('pages_main/classroom_detail.html', 'classroom_detail', '课堂反馈',{courseDetail:courseDetail,courseSection:detailId});
+									}else{
+										openView.nativeView('pages_main/fill_feedback.html', 'fill_feedback', '课堂反馈',{sid:sid,courseId:detailId});
+									}							
+								}else{
+									if(data.code){
+										plus.nativeUI.toast(data.msg);
+									}else{
+										plus.nativeUI.toast(data.err);
+									}
+								}
+						},true);
+				    }
+					
+				}
+			})
+				Vue.filter('serverType',function(value){
+					switch (value){
+						case 11:
+							return 1;
+							break;
+						case 12:
+							return 5;
+							break;
+						case 13:
+							return 6;
+							break;
+						case 14:
+							return 6;
+							break;
+						case 15:
+							return 8;
+							break;
+						case 21:
+							return 2;
+							break;
+						case 22:
+							return 2;
+							break;
+						case 3:
+							return 3;
+							break;
+						case 41:
+							return 4;
+							break;
+						case 42:
+							return 4;
+							break;
+						case 51:
+							return 7;
+							break;
+						case 52:
+							return 7;
+							break;
+						default:
+							break;
 					}
 				})
-			})
+				Vue.filter('dateTime',function(value){
+					var value = value.replace(/-/g,"/");
+					return dateUtils.format(value)
+				})
 				var vm = new Vue({
 					el: '#msg-content',
 					data: {
-						teacherMessage:{}//教师动态数据
+						serverArr:{}
 					}			
 				})
 			

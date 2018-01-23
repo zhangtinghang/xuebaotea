@@ -198,7 +198,7 @@
 				<i class="header_box_i"></i>
 				<div class="avatar_box">
 					<div class="header_avatar">
-						<img src="" v-lazy='imgUrl+teacherDetail.teacherImage'/>
+						<img src="../images/status/not_login_head.png" v-if="teacherDetail" onload="load(this,vm.teacherDetail.teacherImage)" />
 					</div> 
 					<div class="header_name">
 						<span v-text="teacherDetail.name || '未登录'"></span>
@@ -313,7 +313,8 @@
 	<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 	<script type="text/javascript" src="../js/login_config.js" ></script>
 	<script type="text/javascript" src="../js/vue.min.js" ></script>
-	<script type="text/javascript" src="../js/vue-lazyload.js" ></script>
+	<script type="text/javascript" src="../js/imgload.js" ></script>
+	<script type="text/javascript" src="../js/md5.min.js" ></script>
 	<script type="text/javascript" src="../js/ajax.js" ></script>
 	<script>
 		mui.init({
@@ -334,14 +335,10 @@
 							plus.nativeUI.toast('type:401 您还未登录哟！');
 							openView.incView('../login/login.html', 'login', '欢迎登陆');
 						}else if(data.code == 200){
-							console.log(JSON.stringify(data.data))
+							console.log('很皮===',JSON.stringify(data.data))
 							vm.teacherDetail = data.data;
 							vm.imgUrl = ajaxUrl;
 							teacherData=data.data;
-							var key = state.data.key;
-							data.data.key = key;
-							state.data = data.data;			
-					    	app.setState(state);
 						}else if(data.code==1){ 
 							plus.nativeUI.toast('type:1 您还未登录哟！');
 							openView.incView('../login/login.html', 'login', '欢迎登陆');
@@ -467,12 +464,6 @@
 					}
 				}
 			})
-			Vue.use(VueLazyload, {
-			  preLoad: 1.3,  
-			  error: '../images/status/failed_trend.png',  
-			  loading: '../images/status/failed_trend.png',  
-			  attempt: 3  
-			});
 			var vm = new Vue({
 				el: '#header_box',
 				data: {

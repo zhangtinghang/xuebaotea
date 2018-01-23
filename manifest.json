@@ -394,7 +394,8 @@
 				],
 				"refer": [
 					"pages_myself/self_change.html",
-					"pages_myself/localtion.html"
+					"pages_myself/localtion.html",
+					"pages_myself/sex_change.html"
 				],
 				"priority": 1
 			},
@@ -451,7 +452,10 @@
 					"js/mui.min.js",
 					"js/config.js"
 				],
-				"priority": 3
+				"priority": 3,
+				"refer": [
+					"pages_myself/platform.html"
+				]
 			},
 			"pages_wallet/withdraw_deposit.html": {
 				"href": "pages_wallet/withdraw_deposit.html",

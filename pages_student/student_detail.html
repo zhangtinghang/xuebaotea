@@ -312,7 +312,7 @@
 		<div class="content" id="msg-content">
 			<div id="slider" class="mui-slider">
 				<div class="slider_header">
-					<div class="header_avatar"><img src="" v-lazy="imgUrl+student.studentImage"/></div>
+					<div class="header_avatar"><img src="../images/status/not_login_head.png" v-if="student" onload="load(this,vm.student.studentImage)" /></div>
 					<div class="header_body">
 						<div class="body_title"><span class="title_text"><span v-text="student.name"></span><img :src="student.gender=='男'?'../images/student/male.png':'../images/student/female.png'" /></span><span class="title_icon" :data-phone="student.mobilephone" id="callPhone"><img src="../images/student/call_student.png" /></span></div>
 						<div class="body_content"><span v-text="student.className"></span></div>
@@ -358,18 +358,34 @@
 										<div class="nav_title">待上课</div>
 									</div>
 									<div class="wait_class">
-										
-										<div class="class_list" v-for="(index, item) in course" v-if="item.status==0" @tap="wait_class(item,vm.student)">
-											<div class="class_list_left">
-												<div>{{item.courseStartTime | courseTime}}-{{item.courseEndTime |courseTime}}</div>
-												<div class="left_location">{{item.organizationId | origaniztion}}</div>
+										<div v-for="(item,index) in course">
+											<div v-if="item.onetoonetype==0">
+												<div class="class_list"  @tap="wait_class(item,vm.student,item.onetoonetype)">
+													<div class="class_list_left">
+														<div>{{item.courseStartTime | courseTime}}-{{item.courseEndTime |courseTime}}</div>
+														<div class="left_location">{{item.organizationId | origaniztion}}</div>
+													</div>
+													<div class="class_list_right">
+														<div class="right_time">{{item.courseStartTime | dateTime}}</div>
+														<div class="right_come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></div>
+													</div>
+												</div>
 											</div>
-											<div class="class_list_right">
-												<div class="right_time">{{item.courseStartTime | dateTime}}</div>
-												<div class="right_come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></div>
+											<div v-else-if="item.onetoonetype==1">
+												<div class="class_list" v-for="courseItem in item.courseSection" v-if="courseItem.courseSectionStatus==2" @tap="wait_class(courseItem,vm.student,item.onetoonetype,item.organizationId,item.courseTypeName)">
+													<div class="class_list_left">
+														<div>{{courseItem.courseStartDate | courseTime}}-{{courseItem.courseEndDate | courseTime}}</div>
+														<div class="left_location">{{item.organizationId | origaniztion}}</div>
+													</div>
+													<div class="class_list_right">
+														<div class="right_time">{{courseItem.courseStartDate | dateTime}}</div>
+														<div class="right_come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></div>
+													</div>
+												</div>
 											</div>
 										</div>
-										
+									</div>
+								</div>															
 										<!--<div class="class_list">
 											<div class="class_list_left">
 												<div>14:30-16:30</div>
@@ -381,7 +397,6 @@
 											</div>
 										</div>-->
 
-									</div>
 									
 
 									<div class="box_head">
@@ -390,17 +405,32 @@
 										<div class="nav_more" id="succ_more">更多</div>
 									</div>
 									<div class="succ_class">
-										<div class="class_list" v-for="item in course" v-if="item.status | status" :class="item.courseSection.length>0?'feedback_yes':'feedback_no'" :data-courseId="item.courseSection.length>0?'':item.id" :data-data="item.classId">
-											<div class="class_list_left">
-												<div class="list_left_box">{{item.courseStartTime | courseTime}}-{{item.courseEndTime | | courseTime}}<span class="no_feedback" v-if="item.courseSection.length<=0">未反馈</span><span class="feedback" v-else="item.courseSection.length>0">已反馈</span></div>
-												<div class="left_location">{{item.organizationId | origaniztion}}</div>
+										<div v-for="(item, index) in course">
+											<div v-if="item.onetoonetype==0">
+												<div class="class_list" :class="item.courseSection.length>0?'feedback_yes':'feedback_no'" :data-courseId="item.courseSection.length>0?'':item.id" :data-data="item.classId">
+													<div class="class_list_left">
+														<div class="list_left_box">{{item.courseStartTime | courseTime}}-{{item.courseEndTime | | courseTime}}<span class="no_feedback" v-if="item.courseSection.length<=0">未反馈</span><span class="feedback" v-else="item.courseSection.length>0">已反馈</span></div>
+														<div class="left_location">{{item.organizationId | origaniztion}}</div>
+													</div>
+													<div class="class_list_right">
+														<div class="right_time">{{item.courseStartTime | dateTime}}</div>
+														<div class="right_come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></div>
+													</div>
+												</div>
 											</div>
-											<div class="class_list_right">
-												<div class="right_time">{{item.courseStartTime | dateTime}}</div>
-												<div class="right_come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></div>
+											<div v-if="item.onetoonetype==1">
+												<div class="class_list" v-for="courseItem in item.courseSection" :class="courseItem.courseFeedback?'feedback_yes':'feedback_no'" :data-courseId="courseItem.courseFeedback?'':courseItem.id" :data-data="item.classId">
+													<div class="class_list_left">
+														<div class="list_left_box">{{courseItem.courseStartDate | courseTime}}-{{courseItem.courseEndDate | courseTime}}<span class="no_feedback" v-if="!courseItem.courseFeedback">未反馈</span><span class="feedback" v-else>已反馈</span></div>
+														<div class="left_location">{{item.organizationId | origaniztion}}</div>
+													</div>
+													<div class="class_list_right">
+														<div class="right_time">{{courseItem.courseStartDate | dateTime}}</div>
+														<div class="right_come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></div>
+													</div>
+												</div>
 											</div>
 										</div>
-										
 										<!--<div class="class_list feedback_yes">
 											<div class="class_list_left">
 												<div class="list_left_box">14:30-16:30<span class="feedback">已反馈</span></div>
@@ -430,15 +460,15 @@
 								<div class="list_item">
 									<ul class="list_item_ul">
 										<li>
-											<div class="list_item_num" v-text="tuitioninfo.consume/100||0"></div>
+											<div class="list_item_num" v-text="(tuitioninfo.consume/100).toFixed(2)||0"></div>
 											<div class="list_item_text">已消费/学币</div>
 										</li>
 										<li>
-											<div class="list_item_num" v-text="tuitioninfo.waitconsume/100||0"></div>
+											<div class="list_item_num" v-text="(tuitioninfo.waitconsume/100).toFixed(2)||0"></div>
 											<div class="list_item_text">待消费/学币</div>
 										</li>
 										<li>
-											<div class="list_item_num" v-text="tuitioninfo.alltuition/100||0"></div>
+											<div class="list_item_num" v-text="(tuitioninfo.alltuition/100).toFixed(2)||0"></div>
 											<div class="list_item_text">总缴费/学币</div>
 										</li>
 									</ul>
@@ -494,7 +524,8 @@
 		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
-		<script type="text/javascript" src="../js/vue-lazyload.js" ></script>
+		<script type="text/javascript" src="../js/md5.min.js" ></script>
+		<script type="text/javascript" src="../js/imgload.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
@@ -505,27 +536,31 @@
 				var studentId = self.studentId;
 				var courseData = '';
 				//获取列表
-				console.log(studentId)
-				 var ajaxData = {
-                    url:'restful1/teacher/getstudentinfo',
-                    data: {
-                    	studentId:studentId
-                    },
-                    type:'post'
-                }
-                ajax(ajaxData, function(data){
-                    if(data.code == 200){
-                    	console.log('1323132',JSON.stringify(data))
-                    	//得到学生信息
-                    	vm.student = data.data.student;
-                    	vm.coursesinfo = data.data.coursesinfo;
-                    	vm.tuitioninfo = data.data.tuitioninfo;
-                    	vm.course = data.data.course;
-                    	console.log(JSON.stringify(vm.course))
-                    	vm.imgUrl = ajaxUrl;
-                    	courseData = data;
-                    }              
-                },true,true);
+				getStudentDetail();
+				window.addEventListener('showView',function(){
+					getStudentDetail();
+				})
+				 function getStudentDetail(){
+				 	var ajaxData = {
+	                    url:'restful1/teacher/getstudentinfo',
+	                    data: {
+	                    	studentId:studentId
+	                    },
+	                    type:'post'
+	                }
+	                ajax(ajaxData, function(data){
+	                    if(data.code == 200){
+	                    	//得到学生信息
+	                    	vm.student = data.data.student;
+	                    	vm.coursesinfo = data.data.coursesinfo;
+	                    	vm.tuitioninfo = data.data.tuitioninfo;
+	                    	vm.courseArr = data.data.course;
+	                    	vm.imgUrl = ajaxUrl;
+	                    	courseData = data;
+	                    }              
+	                },true,true);
+				 }
+                //评论刷新
                 
                 //拨打电话
                 document.getElementById("callPhone").addEventListener('tap',function(){
@@ -559,6 +594,7 @@
 //					openView.nativeView('course_record.html','course_record.html', '课程记录','','none');	
 				})
 			})
+			
 			//时间
 			Vue.filter('courseTime',function(value){
 				if(value){
@@ -591,29 +627,33 @@
 					}
 				}
 			}
-			Vue.use(VueLazyload, {  
-			    preLoad: 1.3,  
-			    error: '../images/status/failed_trend.png',  
-			    loading: '../images/status/failed_trend.png',  
-			    attempt: 3  
-			});
+			//待上课
+			function wait_class(course,data,type,organizationId,courseTypeName) {
+				var courseData = JSON.stringify(course);
+				var data = JSON.stringify(data);
+				openView.nativeView('course_message.html','course_message', '课程详情',{courseData:courseData,data:data,type:type,organizationId:organizationId,courseTypeName:courseTypeName});	
+			}
 			var vm = new Vue({
                 el: '#msg-content',
                 data: {
                     student:{},
                     coursesinfo:{},
                     tuitioninfo:{},
-                    course:[],
+                    courseArr:[],
                     imgUrl:''
-                }           
-           })	
-           //DIV局部滚动
+                },
+                computed: {
+					course: function () {
+						return this.courseArr.reverse();
+					}
+				}
+           })
+			//DIV局部滚动
 			mui('.mui-scroll-wrapper').scroll({
-				indicators: true //是否显示滚动条
+				indicators: false //是否显示滚动条
 			});
 //			var html2 = '<div class="list_item"><ul class="list_item_ul"><li><div class="list_item_num">100</div><div class="list_item_text">已消费/学币</div></li><li><div class="list_item_num">700</div><div class="list_item_text">待消费/学币</div></li><li><div class="list_item_num">686</div><div class="list_item_text">总缴费/学币</div></li></ul></div><div class="box_head"><div class="circle_icon"></div><div class="nav_title">报课记录</div></div><div class="class_list"><div class="class_list_left"><div class="list_left_box">语文<span class="rank">基础级</span></div><div class="left_location">报课时长：30小时</div></div><div class="tuition_list_right"><div class="right_time tuition_right_time">10月27号</div><div class="tuition_right_num">订单金额：<span>50000.0学币</span></div></div></div>';
 //			var item2 = document.getElementById('item2mobile');
-
 			document.getElementById('slider').addEventListener('slide', function(e) {
 				if(e.detail.slideNumber === 0) {
 					sliderProgressBar.style.marginLeft = '10%';
@@ -626,13 +666,8 @@
 					//					}
 				}
 			});
+
 			
-				//待上课
-				function wait_class(course,data) {
-					var courseData = JSON.stringify(course);
-					var data = JSON.stringify(data);
-					openView.nativeView('course_message.html','course_message', '课程详情',{courseData:courseData,data:data});	
-				}
 		</script>
 	</body>
 
