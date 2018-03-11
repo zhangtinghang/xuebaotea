@@ -223,7 +223,7 @@
 				<ul  id="date-list">
 					<li v-for="item in ahead_time" :data-type = "item"></li>
 					<!--完课-->
-					<li v-for="(item,index) in date_getMonth" v-if="now_day != item" class="date_day"  :date-day="item"><div class="circle" v-text="item"></div><div class="course_text fuCourse">{{item | TheEvent}}</div></li>
+					<li v-for="(item,index) in date_getMonth" v-if="now_day != item" class="date_day"  :date-day="item"><div class="circle" v-text="item"></div><div class="course_text fuCourse" v-cloak>{{item | TheEvent}}</div></li>
 					<!--当天有课-->
 					<li v-else class="date_day" id="nowDay" :date-day="item"><div class="circle todayCircle" v-text="item"></div><div class="course_text dayCourse" id="dayCourse"></div></li>
 
@@ -239,12 +239,12 @@
 			<ul class="list_ul">
 				<div v-for="item in messageList">
 					<li v-if="item.onetoonetype==1" v-for="courseItem in item.courseSection">
-						<div class="list_title"><span class="title_time">{{courseItem.courseStartDate | carouselTime}}</span><span v-text="item.subjectName"></span></div>
-						<div class="list_body"><div class="body_text">王老师<span>【一对一】</span></div><div class="body_right">{{courseItem.courseSectionStatus | courseStatus}}</div></div>
+						<div class="list_title"><span class="title_time" v-cloak>{{courseItem.courseStartDate | carouselTime}}</span><span v-text="item.subjectName"></span></div>
+						<div class="list_body"><div class="body_text">王老师<span>【一对一】</span></div><div class="body_right" v-cloak>{{courseItem.courseSectionStatus | courseStatus}}</div></div>
 					</li>
 					<li v-if="item.onetoonetype==0">
-						<div class="list_title"><span class="title_time">{{item.courseStartTime | carouselTime}}</span><span v-text="item.subjectName"></span></div>
-						<div class="list_body"><div class="body_text">王老师<span>【班课】</span></div><div class="body_right">{{item.status | courseStatus}}</div></div>
+						<div class="list_title"><span class="title_time" v-cloak>{{item.courseStartTime | carouselTime}}</span><span v-text="item.subjectName"></span></div>
+						<div class="list_body"><div class="body_text">王老师<span>【班课】</span></div><div class="body_right" v-cloak>{{item.status | courseStatus}}</div></div>
 					</li>
 				</div>
 				<!--<div>

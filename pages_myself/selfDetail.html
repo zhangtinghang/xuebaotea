@@ -40,6 +40,7 @@
 			.avatar_box img{
 				width: 100%;
 				height: 100%;
+				border-radius:90px;
 			}
 			
 			.right_btn{
@@ -60,12 +61,12 @@
 		<div class="content" id="msg-content">
 			<div class="list_box">
 				<ul class="list_ul">
-					<a href="#cropper-sheet"><li data-type = "3"><span>头像</span><div class="right_box"><span class="avatar_box"><img  v-if="isPeople" src=" " v-lazy="avatar" /><img  v-else src=" " v-lazy="imgUrl+teacherDetail.teacherImage" /></span></div></li></a>
+					<a href="#cropper-sheet"><li data-type = "3"><span>头像</span><div class="right_box"><span class="avatar_box"><img class="img_contain"  v-if="isPeople" :src="avatar" /><img class="img_contain"  v-else src="../images/status/not_login_head.png" v-if="teacherDetail.teacherImage" onload="load(this,vm.teacherDetail.teacherImage)" /></span></div></li></a>
 					<li><span>姓名</span><span class="right_btn" v-text="teacherDetail.name"></span></li>
 					<li><span>电话</span><span class="right_btn" v-text="teacherDetail.mobilephone"></span></li>
 					<li data-type = "4"><span>性别</span><span class="right_btn"><span v-text="teacherDetail.gender"></span><img src="../images/myself/next_content.png" /></span></li>
 					<li data-type = "1"><span>学校</span><span class="right_btn"><span v-text="teacherDetail.teacherSchool"></span> <img src="../images/myself/next_content.png" /></span></li>
-					<li data-type = "2"><span>区域</span><span class="right_btn"><span>{{teacherDetail.teacherArea | teacherArea}}</span> <img src="../images/myself/next_content.png" /></span></li>
+					<li data-type = "2"><span>区域</span><span class="right_btn"><span v-cloak>{{teacherDetail.teacherArea | teacherArea}}</span> <img src="../images/myself/next_content.png" /></span></li>
 				</ul>
 			</div>
 		</div>
@@ -87,7 +88,8 @@
 		<script type="text/javascript" src="../js/cropper.min.js" ></script>
 		<script type="text/javascript" src="../js/mui.cropper.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
-		<script type="text/javascript" src="../js/vue-lazyload.js" ></script>
+		<script type="text/javascript" src="../js/md5.min.js" ></script>
+		<script type="text/javascript" src="../js/imgload.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript" src="../js/updateSelf.js" ></script>
 		<script type="text/javascript">
@@ -230,12 +232,6 @@
 							break;
 					}
 			})
-			Vue.use(VueLazyload, {  
-			  preLoad: 1.3,  
-			  error: '../images/status/failed_trend.png',  
-			  loading: '../images/status/failed_trend.png',  
-			  attempt: 3  
-			});
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {

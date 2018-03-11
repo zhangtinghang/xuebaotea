@@ -138,7 +138,7 @@
 					<div class="list_content mui-ellipsis-1" v-text="item.content"></div>
 					<div class="show_more">全文</div>
 					<div class="list_footer">
-						<div class="footer_time">{{item.newscreateTime | timeData}}</div>
+						<div class="footer_time" v-cloak>{{item.newscreateTime | timeData}}</div>
 						<div class="footer_comm"><img align="center" src="../images/myself/chat_num.png" /> <span v-text="item.comments.length"></span></div>
 					</div>
 					

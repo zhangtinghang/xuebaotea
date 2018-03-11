@@ -198,7 +198,7 @@
 				<i class="header_box_i"></i>
 				<div class="avatar_box">
 					<div class="header_avatar">
-						<img src="../images/status/not_login_head.png" v-if="teacherDetail" onload="load(this,vm.teacherDetail.teacherImage)" />
+						<img src="../images/status/not_login_head.png" class="img_contain" v-if="teacherDetail.teacherImage" onload="load(this,vm.teacherDetail.teacherImage)" />
 					</div> 
 					<div class="header_name">
 						<span v-text="teacherDetail.name || '未登录'"></span>
@@ -208,7 +208,7 @@
 						<span v-text="teacherDetail.teacherWorld||'精勤博学，学以致用'"></span>
 					</div>
 					<div class="header_age" id="teacher_detail">
-						<span>{{teacherDetail.teacherArea | teacherArea}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span v-text="teacherDetail.teacherSchool||'学校'"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span><span>{{teacherDetail.teacherRank | teacherRank}}</span>星教师</span>
+						<span v-cloak>{{teacherDetail.teacherArea | teacherArea}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span v-text="teacherDetail.teacherSchool||'学校'"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span><span v-cloak>{{teacherDetail.teacherRank | teacherRank}}</span>星教师</span>
 					</div>
 				</div>
 			</div>
@@ -359,7 +359,7 @@
 			
 		    //教师详情页
 		document.getElementById("teacher_detail").addEventListener('tap',function(){ 
-			openView.usuView('teacher_detail.html', 'teacher_detail');
+//			openView.usuView('teacher_detail.html', 'teacher_detail');
 		})
 		    //课堂反馈
 		    mui('.function_list_ul').on('tap','.function_list_li',function(){

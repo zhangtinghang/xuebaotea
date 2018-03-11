@@ -27,6 +27,7 @@ function teaDynamicCover(obj,arrImg){
 
 //查看班课学生列表
 function classStuArr(obj,arrImg){
+	console.log('传递进来')
 	if(arrImg.length !=0){
 		var imgUrl = arrImg[classStuArr].studentImage;
 		classStuArr++; 
@@ -34,7 +35,7 @@ function classStuArr(obj,arrImg){
 	}
 }
 
-//学生列表头像
+//学生列表头像 
 function teaStudentAvatar(obj,arrImg){
 	if(arrImg.length !=0){
 		var imgUrl = arrImg[StudentAvatar].student.studentImage;
@@ -64,6 +65,7 @@ function teaAllStuAvatar(obj,arrImg){
  * <img src='默认图片' data-src='网络地址' onload='load(this)'/>
  */
 function load(obj,url) {
+	console.log('wasai1====',url)
 	if (obj.getAttribute('data-loaded')) return;
 	var image_url = imgUrl + url;
 	
@@ -75,7 +77,7 @@ function load(obj,url) {
 	
 	//temp用于判断图片文件是否存在
 	var temp = new Image();
-	temp.src = sd_path;
+	temp.src = sd_path; 
 	temp.onload = function() {
 		// 1存在, 则直接显示
 		console.log('已存在,直接显示==' + hb_path);

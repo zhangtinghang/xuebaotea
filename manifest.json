@@ -335,7 +335,7 @@
 					"xxhdpi": "C:/Users/zth10/Desktop/学保tea/959/教师端启动页，登录界面头像/教师端/1080-1882.png"
 				}
 			}
-		}
+		},"ads":{"rp":false,"splash":false,"push":false,"spot":false},"adid":""
 	},
 	"dependencies": {
 		"pages": {

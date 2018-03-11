@@ -197,17 +197,17 @@
                                         <div class="one_left">
                                             <div class="left_avatar">
                                                 <img src="" v-lazy="imgUrl+item1.studentImage"/>
-                                            </div>
+                                            </div> 
                                             <div class="left_text">
                                                 <div class="text_detail"><span>学生姓名：</span><span v-text="item1.studentName"></span></div>
                                                 <div class="text_detail"><span>学生年级：</span><span v-text="item1.className"></span></div>
                                                 <div class="text_detail"><span>报课时长：</span><span v-text="item.courseDuration || '未知'"></span> 分钟</div>
                                                 <div class="text_detail"><span>问题类型：</span><span v-text="item.courseTypeName || '未知'"></span></div>
-                                                <div class="text_detail"><span>上课方式：</span><span>{{item.organizationId | organization}}</span></div>
+                                                <div class="text_detail"><span>上课方式：</span><span v-cloak>{{item.organizationId | organization}}</span></div>
                                             </div>
                                         </div>
                                         <div class="one_right">
-                                            <div class="right_time">{{item.courseStartTime | orderTime}}</div>
+                                            <div class="right_time" v-cloak>{{item.courseStartTime | orderTime}}</div>
                                             <div class="right_img" :data-call="item1.mobilephone">
                                                 <img src="../images/main/oder_phone.png" />
                                             </div>
@@ -270,7 +270,7 @@
                                 </div>-->
                                 <div class="list_ul" v-for="item2 in classMessage">
                                     <li v-text="item2.contentId"></li>
-                                    <li>上课时间：<span>{{item2.courseStartTime | startDate}}</span>-<span>{{item2.courseEndTime | endDate}}</span></li>
+                                    <li>上课时间：<span v-cloak>{{item2.courseStartTime | startDate}}</span>-<span v-cloak>{{item2.courseEndTime | endDate}}</span></li>
                                     <li>上课时长：<span v-text="item2.courseDuration"></span>分钟</li>
                                     <li><span>报名情况：<span class="list_left_num" v-text="item2.incourse"></span>/<span v-text="item2.peopleLimit"></span></span></li>
                                     <li class="more_detail" @tap="open_detail(item2)">查看已报课学生</li>

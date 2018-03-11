@@ -148,7 +148,7 @@
 				</div>
 				<div class="detail_list">
 					<div class="list_left"></div>
-					<div class="list_right"><img src="../images/wallet/icon_wx.png"></div>
+					<div class="list_right"><img v-if="feedback.feedbackImages" class="img_cover" src="../images/status/failed_trend.png" onload="load(this,vm.feedback.feedbackImages)"></div>
 				</div>
 			</div>
 			<div class="evaluate">
@@ -168,6 +168,8 @@
 		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/md5.min.js" ></script>
+		<script type="text/javascript" src="../js/imgload.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();

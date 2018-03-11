@@ -394,7 +394,7 @@
 		</div>
 		
 		<ul class="course_ul" id="course_ul">			
-			<li v-for="(ListItem, index) in arrangement" class="course_li"><span v-text="index+1"></span><span>{{ListItem.courseStartDate | dateData}}</span><span class="course_time">{{ListItem.courseStartDate | timeData}}-{{ListItem.courseEndDate | timeData}}</span><span class="course_place"><span></span><span class="del_img_btn" :data-index = "index"><img src="../images/main/delete.png"/></span></span></li>
+			<li v-for="(ListItem, index) in arrangement" class="course_li"><span v-text="index+1"></span><span v-cloak>{{ListItem.courseStartDate | dateData}}</span><span class="course_time" v-cloak>{{ListItem.courseStartDate | timeData}}-{{ListItem.courseEndDate | timeData}}</span><span class="course_place"><span></span><span class="del_img_btn" :data-index = "index"><img src="../images/main/delete.png"/></span></span></li>
 			<li><span class="fast_add" id="fast_add">快速排课<img src="../images/main/fast_add.png" /></span></li>
 		</ul>
 		</div>

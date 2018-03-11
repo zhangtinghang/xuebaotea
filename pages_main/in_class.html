@@ -83,7 +83,7 @@
 				<div class="list"><span class="list_left">学生</span><span v-text="teacher.name"></span></div>
 				<div class="list"><span class="list_left">课堂类型</span><span v-text="course.onetoonetype==1?'一对一':'班课'"></span></div>
 				<div class="list"><span class="list_left">排课时长</span><span><span v-text="course.courseDuration"></span>分钟</span></div>
-				<div class="list list_last"><span class="list_left">开始时间</span><span>{{section.courseStartDate | courseTime}}</span></div>
+				<div class="list list_last"><span class="list_left">开始时间</span><span v-cloak>{{section.courseStartDate | courseTime}}</span></div>
 			</div>			
 		</div>
 		<!--取出加密值-->
@@ -113,15 +113,16 @@
 						type:'post'
 				}
 				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
 						if(data.code == 200){
 							vm.course = data.data.course;
 							vm.teacher = data.data.stuent;
 							vm.section = data.data.section;
 							courseId = data.data.section.id;
-							if(data.data.section.courseSectionStudentStatus==0){
-								start.disabled="true";
+							if(data.data.section.courseSectionStatus==1){
+								start.disabled=false;
 							}else{
-								start.disabled="false";
+								start.disabled=true;
 							}
 						}else{
 							plus.nativeUI.toast(data.msg);

@@ -136,6 +136,7 @@
 			.header_avatar img {
 				width: 100%;
 				height: 100%;
+				border-radius: 90px;
 			}
 			
 			.header_body {
@@ -312,7 +313,7 @@
 		<div class="content" id="msg-content">
 			<div id="slider" class="mui-slider">
 				<div class="slider_header">
-					<div class="header_avatar"><img src="../images/status/not_login_head.png" v-if="student" onload="load(this,vm.student.studentImage)" /></div>
+					<div class="header_avatar"><img src="../images/status/not_login_head.png" class="img_contain" v-if="student.studentImage" onload="load(this,vm.student.studentImage)" /></div>
 					<div class="header_body">
 						<div class="body_title"><span class="title_text"><span v-text="student.name"></span><img :src="student.gender=='男'?'../images/student/male.png':'../images/student/female.png'" /></span><span class="title_icon" :data-phone="student.mobilephone" id="callPhone"><img src="../images/student/call_student.png" /></span></div>
 						<div class="body_content"><span v-text="student.className"></span></div>
@@ -362,11 +363,11 @@
 											<div v-if="item.onetoonetype==0">
 												<div class="class_list"  @tap="wait_class(item,vm.student,item.onetoonetype)">
 													<div class="class_list_left">
-														<div>{{item.courseStartTime | courseTime}}-{{item.courseEndTime |courseTime}}</div>
-														<div class="left_location">{{item.organizationId | origaniztion}}</div>
+														<div v-cloak>{{item.courseStartTime | courseTime}}-{{item.courseEndTime |courseTime}}</div>
+														<div class="left_location" v-cloak>{{item.organizationId | origaniztion}}</div>
 													</div>
 													<div class="class_list_right">
-														<div class="right_time">{{item.courseStartTime | dateTime}}</div>
+														<div class="right_time" v-cloak>{{item.courseStartTime | dateTime}}</div>
 														<div class="right_come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></div>
 													</div>
 												</div>
@@ -374,11 +375,11 @@
 											<div v-else-if="item.onetoonetype==1">
 												<div class="class_list" v-for="courseItem in item.courseSection" v-if="courseItem.courseSectionStatus==2" @tap="wait_class(courseItem,vm.student,item.onetoonetype,item.organizationId,item.courseTypeName)">
 													<div class="class_list_left">
-														<div>{{courseItem.courseStartDate | courseTime}}-{{courseItem.courseEndDate | courseTime}}</div>
-														<div class="left_location">{{item.organizationId | origaniztion}}</div>
+														<div v-cloak>{{courseItem.courseStartDate | courseTime}}-{{courseItem.courseEndDate | courseTime}}</div>
+														<div class="left_location" v-cloak>{{item.organizationId | origaniztion}}</div>
 													</div>
 													<div class="class_list_right">
-														<div class="right_time">{{courseItem.courseStartDate | dateTime}}</div>
+														<div class="right_time" v-cloak>{{courseItem.courseStartDate | dateTime}}</div>
 														<div class="right_come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></div>
 													</div>
 												</div>
@@ -409,11 +410,11 @@
 											<div v-if="item.onetoonetype==0">
 												<div class="class_list" :class="item.courseSection.length>0?'feedback_yes':'feedback_no'" :data-courseId="item.courseSection.length>0?'':item.id" :data-data="item.classId">
 													<div class="class_list_left">
-														<div class="list_left_box">{{item.courseStartTime | courseTime}}-{{item.courseEndTime | | courseTime}}<span class="no_feedback" v-if="item.courseSection.length<=0">未反馈</span><span class="feedback" v-else="item.courseSection.length>0">已反馈</span></div>
-														<div class="left_location">{{item.organizationId | origaniztion}}</div>
+														<div class="list_left_box" v-cloak>{{item.courseStartTime | courseTime}}-{{item.courseEndTime | | courseTime}}<span class="no_feedback" v-if="item.courseSection.length<=0">未反馈</span><span class="feedback" v-else="item.courseSection.length>0">已反馈</span></div>
+														<div class="left_location" v-cloak>{{item.organizationId | origaniztion}}</div>
 													</div>
 													<div class="class_list_right">
-														<div class="right_time">{{item.courseStartTime | dateTime}}</div>
+														<div class="right_time" v-cloak>{{item.courseStartTime | dateTime}}</div>
 														<div class="right_come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></div>
 													</div>
 												</div>
@@ -421,11 +422,11 @@
 											<div v-if="item.onetoonetype==1">
 												<div class="class_list" v-for="courseItem in item.courseSection" :class="courseItem.courseFeedback?'feedback_yes':'feedback_no'" :data-courseId="courseItem.courseFeedback?'':courseItem.id" :data-data="item.classId">
 													<div class="class_list_left">
-														<div class="list_left_box">{{courseItem.courseStartDate | courseTime}}-{{courseItem.courseEndDate | courseTime}}<span class="no_feedback" v-if="!courseItem.courseFeedback">未反馈</span><span class="feedback" v-else>已反馈</span></div>
-														<div class="left_location">{{item.organizationId | origaniztion}}</div>
+														<div class="list_left_box" v-cloak>{{courseItem.courseStartDate | courseTime}}-{{courseItem.courseEndDate | courseTime}}<span class="no_feedback" v-if="!courseItem.courseFeedback">未反馈</span><span class="feedback" v-else>已反馈</span></div>
+														<div class="left_location" v-cloak>{{item.organizationId | origaniztion}}</div>
 													</div>
 													<div class="class_list_right">
-														<div class="right_time">{{courseItem.courseStartDate | dateTime}}</div>
+														<div class="right_time" v-cloak>{{courseItem.courseStartDate | dateTime}}</div>
 														<div class="right_come_icon"><img src="../images/main/js_grzl_youjiantou.png" /></div>
 													</div>
 												</div>
@@ -453,7 +454,6 @@
 
 							</div>
 						</div>
-					</div>
 					<div id="item2mobile" class="mui-slider-item mui-control-content">
 						<div id="scroll2" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
@@ -489,7 +489,7 @@
 										<div class="left_location">报课时长：<span v-text="item.courseDuration"></span>分钟</div>
 									</div>
 									<div class="tuition_list_right">
-										<div class="right_time tuition_right_time">{{item.courseEndTime | dateTime}}</div>
+										<div class="right_time tuition_right_time" v-cloak>{{item.courseEndTime | dateTime}}</div>
 										<div class="tuition_right_num">订单金额：<span v-if="item.orderCourse" v-text="item.orderCourse.shopPrize/100"></span><span v-else v-text="0"></span> 学币</div>
 									</div>
 								</div>
@@ -513,7 +513,11 @@
 								</div>-->
 							</div>
 						</div>
-					</div>
+					</div>	
+						
+				</div>
+					
+					
 				</div>
 			</div>
 		</div>
@@ -593,6 +597,7 @@
 					plus.nativeUI.toast('此功能尚未开通！');
 //					openView.nativeView('course_record.html','course_record.html', '课程记录','','none');	
 				})
+				
 			})
 			
 			//时间
@@ -648,26 +653,19 @@
 					}
 				}
            })
+
 			//DIV局部滚动
 			mui('.mui-scroll-wrapper').scroll({
 				indicators: false //是否显示滚动条
 			});
-//			var html2 = '<div class="list_item"><ul class="list_item_ul"><li><div class="list_item_num">100</div><div class="list_item_text">已消费/学币</div></li><li><div class="list_item_num">700</div><div class="list_item_text">待消费/学币</div></li><li><div class="list_item_num">686</div><div class="list_item_text">总缴费/学币</div></li></ul></div><div class="box_head"><div class="circle_icon"></div><div class="nav_title">报课记录</div></div><div class="class_list"><div class="class_list_left"><div class="list_left_box">语文<span class="rank">基础级</span></div><div class="left_location">报课时长：30小时</div></div><div class="tuition_list_right"><div class="right_time tuition_right_time">10月27号</div><div class="tuition_right_num">订单金额：<span>50000.0学币</span></div></div></div>';
-//			var item2 = document.getElementById('item2mobile');
-			document.getElementById('slider').addEventListener('slide', function(e) {
-				if(e.detail.slideNumber === 0) {
-					sliderProgressBar.style.marginLeft = '10%';
-				} else if(e.detail.slideNumber === 1) {
-					sliderProgressBar.style.marginLeft = '60%';
-					//					if (item2.querySelector('.mui-loading')) {
-					//						setTimeout(function() {
-					//							item2.querySelector('.mui-scroll').innerHTML = html2;
-					//						}, 500);
-					//					}
-				}
-			});
-
-			
+			var slider = document.getElementById('slider');
+			slider.addEventListener('slide', function(e) {
+					if(e.detail.slideNumber === 0) {
+						sliderProgressBar.style.marginLeft = '10%';
+					} else if(e.detail.slideNumber === 1) {
+						sliderProgressBar.style.marginLeft = '60%';
+					}
+				});
 		</script>
 	</body>
 

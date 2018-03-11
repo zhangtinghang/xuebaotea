@@ -76,10 +76,10 @@
 			
 			<div class="content_course course_remind">上课信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">上课时间</span><span>{{courseSection.courseStartDate}}</span></div>
-				<div class="list"><span class="list_left">安排时长</span><span>{{course.courseDuration}}min</span></div>
+				<div class="list"><span class="list_left">上课时间</span><span v-cloak>{{courseSection.courseStartDate}}</span></div>
+				<div class="list"><span class="list_left">安排时长</span><span v-cloak>{{course.courseDuration}}min</span></div>
 				<div class="list"><span class="list_left">上课模式</span><span v-text="course.issearch==1?'学生上门':'教师上门'"></span></div>
-				<div class="list list_last"><span class="list_left">上课地点</span><span>{{course.organizationId | organization}}</span></div>
+				<div class="list list_last"><span class="list_left">上课地点</span><span v-cloak>{{course.organizationId | organization}}</span></div>
 			</div>
 			
 			<button type="button" class="mui-btn mui-btn-block" :data-type="1" id="start"></button>
@@ -117,10 +117,10 @@
 							vm.course = data.data.course;
 							vm.teacher = data.data.teacher;
 							courseId = data.data.courseSection.id;
-							if(data.data.courseSection.courseSectionStatus==2){
-								start.disabled="true";
+							if(data.data.courseSection.courseSectionStatus==1){
+								start.disabled = false;
 							}else{
-								start.disabled="false";
+								start.disabled = true;
 							}
 						}else{
 							plus.nativeUI.toast(data.msg);
@@ -128,7 +128,7 @@
 				},true);
 				start.addEventListener('tap',function(){
 					var that = this;
-					start.disabled="false";
+					start.disabled=false;
 					var type = 1;
 					var ajaxData = {
 						url:'restful1/course/updateClassStatus',
@@ -144,7 +144,7 @@
 								plus.nativeUI.toast(data.msg);
 							}else{
 								plus.nativeUI.toast(data.msg);
-								start.disabled="true";
+								start.disabled=true;
 							}
 					},true);
 				})

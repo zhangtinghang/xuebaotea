@@ -254,7 +254,7 @@
 								<div class="box_head">
 									<div class="one_left">
 										<div class="left_avatar">
-											<img src="../images/status/not_login_head.png" v-if="item.student" onload="teaStudentAvatar(this,vm.stuList)" />
+											<img src="../images/status/not_login_head.png" class="img_contain" v-if="item.student" onload="teaStudentAvatar(this,vm.stuList)" />
 										</div>
 										<div class="left_text">
 											<div class="text_detail"><span class="gender_icon"><span v-text="item.student.name"></span><img :src="item.student.gender=='女'?'../images/student/female.png':'../images/student/male.png'" /></span></div>
@@ -292,7 +292,7 @@
 								<div class="box_head">
 									<div class="one_left">
 										<div class="left_avatar">
-											<img v-if="item.student" src="../images/status/not_login_head.png" onload="teaAllStuAvatar(this,vm.stuList)" />
+											<img v-if="item.student" class="img_contain" src="../images/status/not_login_head.png" onload="teaAllStuAvatar(this,vm.stuList)" />
 										</div>
 										<div class="left_text">
 											<div class="text_detail">

@@ -209,9 +209,9 @@
 					
 					<div v-for="(item, key, index) in serverArr" class="class_message" v-if="item.type!=13 || item.type!=14" :data-type="item.type | serverType" :data-detailId="item.detailId" :data-typeNew="item.type" :data-id="item.id">
 						<div class="message_title">
-							<div class="title_img"><img src="images/main/icon_schooltime.png" /></div>
+							<div class="title_img"><img :src="item.type | itemImg" /></div>
 							<div class="title_text" v-text="item.desc"></div>
-							<div class="title_time">{{item.time | dateTime}}</div>
+							<div class="title_time" v-cloak>{{item.time | dateTime}}</div>
 						</div>
 						<div class="message_body">
 							<div class="body_choose" v-text="item.message"></div>
@@ -374,6 +374,9 @@
 						case '8':
 							openView.nativeView('pages_myself/indent_detail.html', 'indent_detail', '订单详情',{sid:sid});
 						break;
+						case '9':
+							plus.nativeUI.toast('此功能尚未开通~');
+						break;
 						default:		
 						}
 				})
@@ -411,46 +414,11 @@
 				}
 			})
 				Vue.filter('serverType',function(value){
-					switch (value){
-						case 11:
-							return 1;
-							break;
-						case 12:
-							return 5;
-							break;
-						case 13:
-							return 6;
-							break;
-						case 14:
-							return 6;
-							break;
-						case 15:
-							return 8;
-							break;
-						case 21:
-							return 2;
-							break;
-						case 22:
-							return 2;
-							break;
-						case 3:
-							return 3;
-							break;
-						case 41:
-							return 4;
-							break;
-						case 42:
-							return 4;
-							break;
-						case 51:
-							return 7;
-							break;
-						case 52:
-							return 7;
-							break;
-						default:
-							break;
-					}
+					return serverType(value);
+				})
+				//服务消息图片
+				Vue.filter('itemImg',function(value){
+					return serverImg(value);
 				})
 				Vue.filter('dateTime',function(value){
 					var value = value.replace(/-/g,"/");

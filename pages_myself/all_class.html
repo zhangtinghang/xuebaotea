@@ -65,7 +65,7 @@
 		<div class="content" id="msg-content">
 			<div class="list_ul" v-for="item in classCourses">
 				<li><div class="dot"></div><span v-text="item.contentId"></span></li>
-				<li>上课时间：<span>{{item.courseStartTime | startDate}}</span>-<span>{{item.courseEndTime | endDate}}</span></li>
+				<li>上课时间：<span v-cloak>{{item.courseStartTime | startDate}}</span>-<span v-cloak>{{item.courseEndTime | endDate}}</span></li>
 				<li>上课时长：<span v-text="item.courseDuration"></span>分钟</li>
 				<li>授课年级：<span class="list_left_money" v-text="item.className"></span></li>
 				<li><span>报名情况：<span class="list_left_num" v-text="item.incourse"></span>/<span v-text="item.peopleLimit"></span></span><span class="list_right">进行中</span></li>

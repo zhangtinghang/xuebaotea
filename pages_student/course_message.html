@@ -8,6 +8,8 @@
 		<title>课程详情</title>
 		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
 		<style>
 			.content_course{
 				padding:0 5%;
@@ -56,9 +58,7 @@
 				height: 1.277777rem;
 				border-bottom: 2px solid rgb(240,240,240);
 			}
-			.list_li:active{
-				background-color: rgb(230,230,230);
-			}
+
 			.list_li span{
 				font-size: 0.388888rem;
 				color: #888888;
@@ -72,18 +72,97 @@
 			.right_icon{
 				display: block;
 			}
+			.right_icon img:active{
+				opacity: .5;
+			}
 			.right_icon img{
 				width: 0.472222rem;
 				height: 0.472222rem;
 			}
 			.course_message{
 				color: #0DAD95 !important;
-				margin-left: 15%;
+				margin-left: 15%;	
 			}
 			.message_time{
 				border: 2px solid #0DAD95;
 				padding: 0 0.138888rem;
 				border-radius:18px;
+			}
+			
+			.mui-btn-send{
+				width: 80%;
+				margin: 0 auto;
+				border-radius:42px;
+				background-color: #0DAD95;
+				color: #FEFEFE;
+				font-size: 0.5rem;
+				height: 1.166666rem !important;
+				line-height: 0.5;
+				border: none;
+			}
+			.body_btn{
+				padding: 1.194444rem 0;
+			}
+			/*picker*/
+			.mui-btn-picker {
+				font-size: 16px;
+				padding: 8px;
+				margin: 3px;
+				border: none;
+			}
+			h5.mui-content-padded {
+				margin-left: 3px;
+				margin-top: 20px !important;
+			}
+			h5.mui-content-padded:first-child {
+				margin-top: 12px !important;
+			}
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+			.mui-poppicker{
+				background-color: #FFFFFF;
+			}
+			.mui-poppicker-body{
+				background-color: #FFFFFF;
+				border-top: none;
+			}
+			.mui-picker{
+				background-color: #FFFFFF;
+			}
+			.mui-pciker-rule-ft{
+				width: 70%;
+				margin-left: 15%;
+				border-top: 2px solid #bebebe;
+				border-bottom: 2px solid #bebebe;
+				height: 1.583333rem;
+			}
+			.mui-pciker-list li{
+				color: #88888;
+				font-size: 0.444444rem;
+			}
+			.mui-pciker-list{
+				height: 1.583333rem;
+				line-height:1.583333rem;
+			}
+			.mui-poppicker{
+				box-shadow:none;
+			}
+			.mui-poppicker-header{
+				padding: 0.208888rem 0.138888rem;
+			}
+			.mui-poppicker-btn-cancel{
+				font-size: 0.444444rem !important;
+			}
+			.mui-poppicker-btn-ok{
+				background-color: #FFFFFF;
+				color: #0DAD95;
+				font-size: 0.444444rem !important;
+			}
+			.mui-poppicker-btn-ok:active{
+				background-color: #0DAD95 !important;	
 			}
 		</style>
 	</head>
@@ -98,21 +177,33 @@
 				<div class="list"><span class="list_left">问题类型</span><span v-text="student.className"></span></div>
 			</div>
 			
-			<div class="content_course course_remind">其他信息</div>
+			<div class="content_course course_remind">时间信息</div>
 			<ul class="content_body_ul" v-if="organizationId">
-				<li class="list_li"><span class="list_left">上课日期<span class="course_message">{{course.courseStartDate | dateTime}}</span></span></li>
-				<li class="list_li"><span class="list_left">上课时间<span class="course_message message_time">{{course.courseStartDate | courseTime}}-{{course.courseEndDate | courseTime}}</span></span></li>
-				<li class="list_li"><span class="list_left">上课地点<span class="course_message">{{organizationId | origaniztion}}</span></span><!--<span class="right_icon"><img src="../images/main/edit_arrange.png" /></span>--></li>
+				<li class="list_li"><span class="list_left">上课日期<span class="course_message course_message_after" v-cloak>{{course.courseStartDate | dateTime}}</span></span><span class="right_icon" data-type="1"><img src="../images/main/edit_arrange.png" /></span></li>
+				<li class="list_li"><span class="list_left">上课时间<span class="course_message message_time" v-cloak>{{course.courseStartDate | courseTime}}-{{course.courseEndDate | courseTime}}</span></span><span class="right_icon" data-type="2"><img src="../images/main/edit_arrange.png" /></span></li>
+				<li class="list_li"><span class="list_left">上课地点<span class="course_message" v-cloak>{{organizationId | origaniztion}}</span></span><span class="right_icon" data-type="3"><img src="../images/main/edit_arrange.png" /></span></li>
 			</ul>
 			<ul class="content_body_ul" v-else>
-				<li class="list_li"><span class="list_left">上课日期<span class="course_message">{{course.courseStartTime | dateTime}}</span></span></li>
-				<li class="list_li"><span class="list_left">上课时间<span class="course_message message_time">{{course.courseStartTime | courseTime}}-{{course.courseEndTime | courseTime}}</span></span></li>
-				<li class="list_li"><span class="list_left">上课地点<span class="course_message">{{course.organizationId | origaniztion}}</span></span><!--<span class="right_icon"><img src="../images/main/edit_arrange.png" /></span>--></li>
+				<li class="list_li"><span class="list_left">上课日期<span class="course_message" v-cloak>{{course.courseStartTime | dateTime}}</span></span><span class="right_icon" data-type="1"><img src="../images/main/edit_arrange.png" /></span></li>
+				<li class="list_li"><span class="list_left">上课时间<span class="course_message message_time" v-cloak>{{course.courseStartTime | courseTime}}-{{course.courseEndTime | courseTime}}</span></span><span class="right_icon" data-type="2"><img src="../images/main/edit_arrange.png" /></span></li>
+				<li class="list_li"><span class="list_left">上课地点<span class="course_message" v-cloak>{{course.organizationId | origaniztion}}</span></span><span class="right_icon" data-type="3"><img src="../images/main/edit_arrange.png" /></span></li>
 			</ul>
+			<div class="body_btn">
+				<button type="button" class="mui-btn mui-btn-send mui-btn-block" id="send_btn">推送家长端</button>
+			</div>
 		</div>
+		<!--取出加密值-->
+        <input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/city.data-3.js" ></script>
+		<script type="text/javascript" src="../js/timeData.js" ></script>
+		<script type="text/javascript" src="../js/mui.picker.js"></script>
+		<script type="text/javascript" src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../js/upCourseData.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
@@ -122,6 +213,7 @@
 			    //获取参数
 			    var self = plus.webview.currentWebview();
 			    var courseData = self.courseData;
+			    console.log(courseData)
 			    var type = self.type;
 			    var data = self.data;
 			    courseData = JSON.parse(courseData);
@@ -136,11 +228,69 @@
 			    	vm.student = data;
 			    	vm.course = courseData;
 			    }
-			    
+			    //修改时间信息
+			    mui('.content_body_ul').on('tap','.right_icon',function(){
+			    	var type = this.getAttribute('data-type');
+			    	if(vm.course.courseStartTime){
+			    		var courseStartDate = vm.course.courseStartTime;
+			    		var courseEndDate = vm.course.courseEndTime;
+			    	}else{
+			    		var courseStartDate = vm.course.courseStartDate;
+			    		var courseEndDate = vm.course.courseEndDate;
+			    	}
+			    	
+			    	switch (type){
+			    		case '1':
+			    			//打开日期选择器
+			    			openDate(courseStartDate,courseEndDate);	
+			    			break;
+			    		case '2':
+			    			openTime(courseStartDate,courseEndDate);
+			    			//打开时间选择器
+			    			break;
+			    		case '3':
+			    			//跳转地点选择
+			    			plus.nativeUI.toast('暂不支持地点修改~');
+			    			break;
+			    		default:
+			    			break;
+			    	}
+			    })
+			    var send_btn = document.getElementById("send_btn");
+			    send_btn.addEventListener('tap',function(){
+			    	if(vm.course.courseStartTime){
+			    		var courseStartDate = vm.course.courseStartTime;
+			    		var courseEndDate = vm.course.courseEndTime;
+			    	}else{
+			    		var courseStartDate = vm.course.courseStartDate;
+			    		var courseEndDate = vm.course.courseEndDate;
+			    	}
+			    	//发送服务器端修改
+			    	var ajaxData = {
+	                    url:'restful1/course/teacherAddCourseAdjust',
+	                    data: {
+	                    	section:'145',
+	                    	courseId:'78',
+	                    	courseStudent:"74f7e149-532b-4ade-971e-ef1667d7df84",
+	                    	startDate:courseStartDate,
+	                    	endDate:courseEndDate
+	                    },
+	                    type:'post'
+	                }
+	                ajax(ajaxData, function(data){
+	                	console.log('这是推送到家长端的消息',JSON.stringify(data))
+	                    if(data.code == 200){
+	                    	//得到学生信息
+	                    	plus.nativeUI.toast(data.msg);
+	                    	mui.back();
+	                    }else{
+	                    	plus.nativeUI.toast(data.msg);
+	                    }
+	                },true,true);
+			    })
 			})
 			//时间
 			Vue.filter('courseTime',function(value){
-				console.log('这是',value)
 				if(value){
 					var value = value.split(" ");
 					var time = value[1].split(":");
